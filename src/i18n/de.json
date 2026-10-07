@@ -54,7 +54,10 @@
     }
   },
   "circle": {
-    "name": "Bentzel Club"
+    "name": "Bentzel Club",
+    "nameWithArticle": "Der Bentzel Club",
+    "interest": "Interesse am Bentzel Club",
+    "interestSubject": "Interesse am Bentzel Club"
   },
   "nav": {
     "menu": "Menü",
@@ -375,5 +378,50 @@
     "cta": "Den detaillierten Trainerleitfaden stellen wir Ihnen gern persönlich vor.",
     "ctaButton": "Persönlichen Termin vereinbaren",
     "ctaSubject": "Termin The Art of Becoming"
+  },
+  "network": {
+    "headline": "Begegnungen, die über Smalltalk hinausgehen",
+    "text": "Kunst entfaltet ihre besondere Kraft nicht nur im Atelier oder vor einem einzelnen Werk. Sie entsteht auch im Austausch. Sturmfeder Projects entwickelt deshalb ein Netzwerk für Menschen, die sich für Kunst, Kultur, gesellschaftliche Entwicklungen, Kreativität und neue Perspektiven interessieren. Das Netzwerk bringt Menschen aus unterschiedlichen Bereichen zusammen: Unternehmerinnen und Unternehmer, Führungskräfte, Kreative, Kulturschaffende, Kunstinteressierte und Persönlichkeiten, die neugierig geblieben sind. Nicht Status oder klassische Netzwerkmechanismen bestimmen die Begegnung. Ausgangspunkt ist ein gemeinsames Interesse an Ideen, Kultur und Austausch.",
+    "connectingLabel": "Kunst als verbindendes Element",
+    "connecting": [
+      "Vorträge über Kunst und Kunstgeschichte",
+      "Gespräche mit Künstlern und Persönlichkeiten aus Wirtschaft und Kultur",
+      "Ausstellungsbesuche",
+      "Atelierbegegnungen",
+      "kleinere Vernissagen",
+      "Impulse zu Kreativität, Resilienz, Leadership und gesellschaftlichem Wandel"
+    ],
+    "invitation": "Auch Menschen ohne kunsthistorische Vorkenntnisse sollen sich eingeladen fühlen, genauer hinzusehen, Fragen zu stellen und eigene Positionen zu entwickeln.",
+    "triad": "Kunst. Denken. Begegnung.",
+    "triadText": "Ausstellungen eröffnen neue Sichtweisen. Vorträge schaffen Wissen und Widerspruch. Gespräche verbinden Perspektiven.",
+    "upcoming": "Kommende Veranstaltungen",
+    "noUpcoming": "Aktuell sind keine Veranstaltungen veröffentlicht.",
+    "archive": "Rückblick",
+    "archiveEmpty": "Noch keine vergangenen Veranstaltungen.",
+    "seatsFree": "{{count}} freie Plätze",
+    "seatsFull": "Warteliste",
+    "register": "Anmelden",
+    "registerSubject": "Anmeldung: {{title}}",
+    "clock": "{{time}} Uhr",
+    "readRecap": "Rückblick ansehen",
+    "circleTeaser": "Der exklusivere Rahmen des Netzwerks",
+    "circleLink": "Mehr erfahren"
+  },
+  "event": {
+    "date": "Datum",
+    "time": "Uhrzeit",
+    "location": "Ort",
+    "back": "Zur Übersicht",
+    "registration": "Anmeldung",
+    "closed": "Die Anmeldung ist geschlossen.",
+    "past": "Diese Veranstaltung hat bereits stattgefunden.",
+    "recap": "Rückblick",
+    "photos": "Fotos",
+    "photoAlt": "Platzhalter für ein Veranstaltungsfoto",
+    "coverAlt": "Platzhalter für das Veranstaltungsbild",
+    "notFound": "Diese Veranstaltung wurde nicht gefunden."
+  },
+  "circlePage": {
+    "text": "{{name}} bildet den exklusiveren Rahmen dieses Netzwerks. Er bringt Menschen zusammen, die kulturelle Qualität, persönliche Begegnung und geistige Offenheit schätzen. Denkbar sind ausgewählte Veranstaltungen an besonderen Orten, private Ausstellungsbesuche, Künstlergespräche, Salons, Vorträge und gemeinsame Reisen oder Exkursionen. In einer Zeit permanenter digitaler Kommunikation werden echte Begegnungen wieder wertvoll. Kunst ermöglicht Gespräche, die nicht mit der Frage beginnen, was jemand beruflich macht, sondern damit, was jemand sieht, denkt oder empfindet."
   }
 }

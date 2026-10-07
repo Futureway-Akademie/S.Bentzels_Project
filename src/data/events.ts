@@ -1,7 +1,7 @@
 import { placeholderImage } from './placeholder'
-import type { Course, EventItem } from './types'
+import type { Course, EventItem, EventPhoto } from './types'
 
-const address = 'Schloss Jägersburg, Fürstenweg 1, 91330 Bammersdorf'
+const address = 'Fürstenweg 1, 91330 Bammersdorf'
 
 export const events: EventItem[] = [
   {
@@ -60,6 +60,24 @@ export const events: EventItem[] = [
     sortOrder: 3,
     isPublished: true,
   },
+  {
+    id: 'event-4',
+    slug: 'atelierbesuch-fruehling-2026',
+    titleDe: 'Atelierbesuch im Frühling',
+    titleEn: '',
+    descriptionDe: 'Rückblick folgt.',
+    descriptionEn: '',
+    startsAt: '2026-04-18T17:00:00+02:00',
+    endsAt: '2026-04-18T20:00:00+02:00',
+    locationName: 'Schloss Jägersburg',
+    locationAddress: address,
+    imageUrl: placeholderImage(1600, 1067),
+    capacity: 25,
+    registrationOpen: false,
+    recapTextDe: null,
+    sortOrder: 4,
+    isPublished: true,
+  },
 ]
 
 export const courses: Course[] = [
@@ -94,3 +112,26 @@ export const courses: Course[] = [
     isPublished: true,
   },
 ]
+
+// Platzhalter für Rückblick-Fotos (Maße für platzsparendes Laden ohne Layoutsprünge).
+const photoSizes: [number, number][] = [
+  [1600, 1067],
+  [1067, 1600],
+  [1600, 1067],
+]
+
+export const eventPhotos: EventPhoto[] = photoSizes.map(([w, h], i) => ({
+  id: `event-photo-${i + 1}`,
+  eventId: 'event-3',
+  imageUrl: placeholderImage(w, h),
+  imageWidth: w,
+  imageHeight: h,
+  sortOrder: i + 1,
+}))
+
+// Platzhalter für die Zahl angemeldeter Personen je Veranstaltung (inkl. Begleitung).
+// Ab Phase 3 wird sie aus den Anmeldungen berechnet.
+export const registeredGuests: Record<string, number> = {
+  'event-1': 21,
+  'event-2': 4,
+}

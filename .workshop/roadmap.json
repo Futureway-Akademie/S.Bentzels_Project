@@ -319,7 +319,7 @@
           "description": "Netzwerkseite, Veranstaltungsliste mit Archiv, Detailseite sowie die exklusivere Club-Seite mit langsamerer Einblendung.",
           "order": 11,
           "weight": 3,
-          "status": "ready",
+          "status": "completed",
           "dependsOn": [
             "task-3",
             "task-4",
@@ -330,13 +330,18 @@
             "Club-Seite vorhanden, Name und URL zentral änderbar",
             "Anmeldung und Interessenformular als Platzhalter-Button (Formular später)"
           ],
-          "startedAt": null,
-          "completedAt": null,
+          "startedAt": "2026-10-07T13:58:09Z",
+          "completedAt": "2026-10-07T14:00:13Z",
           "verification": {
-            "status": "not_run",
-            "summary": null,
-            "commands": [],
-            "checkedAt": null
+            "status": "passed",
+            "summary": "Typprüfung, Lint (ohne Warnungen) und Build fehlerfrei. Im Browser bei 1280 px und 360 px geprüft. /netzwerk: Label, Headline, Text, sechs Punkte „Kunst als verbindendes Element“ mit Einladungssatz, Dreiklang „Kunst. Denken. Begegnung.“ mit Folgetext, zwei kommende Veranstaltungen (Datum groß, Titel, Ort, freie Plätze, Anmelden) und Rückblick mit zwei vergangenen Veranstaltungen, Link zum exklusiven Kreis. /netzwerk/:slug: kommende Veranstaltung mit Datum, Uhrzeit, Ort, Adresse und Anmelde-Button, vergangene mit Rückblick und Fotos (3 Platzhalter), vergangene ohne Fotos ohne leeren Bereich, unbekannte Adresse zeigt „nicht gefunden“. Club-Seite: Text des Masterprompts, Button, drei langsam eingeblendete Blöcke (1,1 s). Beim Test fiel eine Doppelung im Ort („Schloss Jägersburg, Schloss Jägersburg“) auf, in den Platzhalterdaten behoben. Der Name des Kreises ist nirgends im Code festgeschrieben: eine Probeumbenennung in de.json änderte Überschrift, Fließtext, Button und mobiles Menü, danach wieder auf den Arbeitstitel zurückgesetzt. Der URL-Pfad bleibt in src/config/routes.ts. Keine externen Requests, kein horizontales Scrollen bei 360 px. Nicht geprüft: Anmelden und Interessenformular sind noch E-Mail-Links (task-24, task-23), Kapazitätsregel „Noch X Plätze frei erst unter 10“ folgt in task-24, Einblend-Animation nicht beobachtet, Tablet-Breite nicht geprüft (task-13). Veranstaltungen, Anmeldezahlen und Fotos sind Platzhalter.",
+            "commands": [
+              "node_modules/.bin/tsc -b --noEmit",
+              "node_modules/.bin/oxlint",
+              "node_modules/.bin/tsc -b && node_modules/.bin/vite build",
+              "Browser-Prüfung bei 1280 px und 360 px"
+            ],
+            "checkedAt": "2026-10-07T14:00:13Z"
           }
         },
         {

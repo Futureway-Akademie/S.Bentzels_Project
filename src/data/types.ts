@@ -83,6 +83,8 @@ export type EventPhoto = {
   id: string
   eventId: string
   imageUrl: string
+  imageWidth: number
+  imageHeight: number
   sortOrder: number
 }
 

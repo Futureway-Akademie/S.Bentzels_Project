@@ -14,11 +14,10 @@ Keine.
 
 ## Zuletzt abgeschlossen
 
-task-10: The Art of Becoming. Fortschritt 29.2 % (10 von 36 Tasks).
+task-11: Netzwerk, Veranstaltungsdetail und Club-Seite. Fortschritt 31.86 % (11 von 36 Tasks).
 
 ## Bereite nächste Aufgaben
 
-- task-11: Netzwerk, Veranstaltungsdetail und Club-Seite (Arbeitstitel „Bentzel Club“, endgültiger Name offen)
 - task-12: Journal, Kontakt und Rechtsseiten
 
 Nichts.
@@ -38,4 +37,4 @@ Nichts.
 
 ## Empfohlener nächster Schritt
 
-task-11 (Netzwerk, Veranstaltungsdetail und Club-Seite) auswählen.
+task-12 (Journal, Kontakt und Rechtsseiten) auswählen.

@@ -67,3 +67,11 @@ Details folgen mit der Umsetzung.
 - Die Überraschungsinterventionen der Module sind bewusst nicht genauer beschrieben als im Masterprompt.
 - Die Ein-Satz-Erklärungen zum wissenschaftlichen Fundament sind Entwürfe und müssen fachlich geprüft werden. Porträtfotos und die Kurzbio von Antonie Höldrich sind Platzhalter.
 - Der Termin-Button ist vorerst ein E-Mail-Link (Formular in task-23).
+
+## Netzwerk, Veranstaltungen und exklusiver Kreis (task-11)
+
+- `src/pages/Network.tsx` (`/netzwerk`): Text, „Kunst als verbindendes Element“, Dreiklang, kommende Veranstaltungen (`EventRow`: Datum groß, Titel, Ort, freie Plätze, Button „Anmelden“) und Rückblick vergangener Veranstaltungen, abgeleitet aus `events` anhand des Enddatums.
+- `src/pages/EventDetail.tsx` (`/netzwerk/:slug`): Datum, Uhrzeit, Ort mit Adresse, Beschreibung, Bild, Anmeldung (nur bei offener, noch nicht vergangener Veranstaltung), bei vergangenen Rückblicktext und Fotos. Der Anmelden-Button ist vorerst ein E-Mail-Link (Formular, Kapazität und Warteliste in task-24).
+- `src/pages/Circle.tsx` (`routes.circle`): exklusivere Inszenierung mit mehr Weißraum und langsamerer Einblendung.
+- Name des Kreises (Arbeitstitel „Bentzel Club“): Anzeigetexte stehen nur in `de.json` unter `circle.*` (name, nameWithArticle, interest, interestSubject), der URL-Pfad nur in `src/config/routes.ts`. Für eine Umbenennung genügen diese zwei Dateien.
+- Angemeldete Personen (`registeredGuests`), Eventfotos und die Veranstaltungen sind Platzhalter. Die Regel „Noch X Plätze frei erst ab weniger als 10“ folgt in task-24.
