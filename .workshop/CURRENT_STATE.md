@@ -10,15 +10,14 @@ Phase 1: Fundament und öffentliche Seiten
 
 ## Aktive Aufgabe
 
-Keine.
+Keine. Vom Nutzer gewünschte Reihenfolge: task-8, task-9, task-10.
 
 ## Zuletzt abgeschlossen
 
-task-6: Startseite. Fortschritt 18.27 % (6 von 33 Tasks).
+task-7: Künstlerseite. Fortschritt 21.15 % (7 von 33 Tasks).
 
 ## Bereite nächste Aufgaben
 
-- task-7: Künstlerseite
 - task-8: Galerie und Werkdetail
 - task-9: Seminare, Kunstkurse und Vorträge
 - task-10: The Art of Becoming
@@ -40,4 +39,4 @@ Nichts.
 
 ## Empfohlener nächster Schritt
 
-task-7 (Künstlerseite) auswählen.
+task-8 (Galerie und Werkdetail) auswählen.

@@ -121,5 +121,41 @@
     "clock": "{{time}} Uhr",
     "journal": "Journal",
     "readPost": "Beitrag lesen"
+  },
+  "artist": {
+    "statement": "Ich male nicht, um Antworten zu geben. Ich schaffe Bilder, die Fragen öffnen – über uns selbst, unsere Wahrnehmung und darüber, wie wir die Welt gestalten wollen.",
+    "portrait": "Porträt",
+    "portraitAlt": "Platzhalter für das Atelierporträt",
+    "intro1": "Die Arbeiten von Stephan Graf Bentzel-Sturmfeder entstehen aus dem Spannungsfeld zwischen Intuition und Konstruktion, Freiheit und Form, Abstraktion und Gegenständlichkeit. Seine Malerei ist unmittelbar, kraftvoll und zugleich von großer Sensibilität geprägt. Farbe wird nicht ausschließlich gesetzt – sie fließt, überlagert sich, wird gebrochen, aufgelöst oder durch markante Linien neu gefasst.",
+    "intro2": "So entstehen Bildräume von großer Dynamik: poetisch und energiegeladen, bisweilen fragil, dann wieder kompromisslos. Angedeutete Körper, Porträts und abstrakte Strukturen verbinden sich zu einer Bildsprache, die sich einer schnellen Interpretation entzieht. Die Werke verlangen keine eindeutige Lesart. Sie laden den Betrachter vielmehr dazu ein, eine eigene Beziehung zum Bild zu entwickeln.",
+    "intro3": "Seine Kunst folgt keiner dekorativen Absicht. Sie sucht Reibung, Resonanz und emotionale Tiefe.",
+    "process": "Der kreative Prozess",
+    "processImageAlt": "Platzhalter für ein Prozessfoto",
+    "steps": [
+      {
+        "title": "Setzen",
+        "text": "Mit intuitiver Bestimmtheit führt er den Pinsel über die Leinwand. Der erste Strich ist eine Entscheidung."
+      },
+      {
+        "title": "Fließen",
+        "text": "Verdünnte Farbe läuft frei über den Bildträger, manchmal wird sie gestoppt, manchmal sich selbst überlassen."
+      },
+      {
+        "title": "Auflösen",
+        "text": "Entstandenes wird wieder aufgelöst. Konstruktion und Zerstörung sind keine Gegensätze, sondern bedingen einander."
+      },
+      {
+        "title": "Fassen",
+        "text": "Harte, dunkle Linien fassen die pastellig lasierten Farbfelder neu. Aus Spannung entsteht Harmonie."
+      }
+    ],
+    "bridge": "Was im Atelier geschieht, ist auch die Grundlage meiner Arbeit mit Führungskräften.",
+    "bridgeLink": "The Art of Becoming",
+    "vita": "Vita",
+    "vitaIntro": "Geboren 1973 in Bamberg. Seit über drei Jahrzehnten intensive Beschäftigung mit Malerei, Kunstgeschichte und dem schöpferischen Prozess. Ausstellungen u. a. in Berlin, München, Stuttgart, Wien und London.",
+    "voices": "Stimmen",
+    "quote": "Er ist sich in Werk und Leben der Untrennbarkeit von Tragik und Heldentum bewusst. Sein Denken und Wirken sind stets radikal wie seine Persönlichkeit.",
+    "quoteSource": "T. Krause, 2017",
+    "statementLabel": "Statement"
   }
 }

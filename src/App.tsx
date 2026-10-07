@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { Route, Routes } from 'react-router-dom'
 import { routes } from './config/routes'
 import Layout from './layout/Layout'
+import Artist from './pages/Artist'
 import DesignSystem from './pages/DesignSystem'
 import Home from './pages/Home'
 import PagePlaceholder from './pages/PagePlaceholder'
@@ -15,7 +16,7 @@ export default function App() {
     <Routes>
       <Route element={<Layout />}>
         <Route path={routes.home} element={<Home />} />
-        <Route path={routes.artist} element={page('artist')} />
+        <Route path={routes.artist} element={<Artist />} />
         <Route path={routes.gallery} element={page('gallery')} />
         <Route path={routes.artwork} element={page('artwork')} />
         <Route path={routes.seminars} element={page('seminars')} />

@@ -32,3 +32,7 @@
 {"timestamp": "2026-10-07T13:32:37Z", "type": "task_started", "summary": "Startseite gestartet.", "taskId": "task-6"}
 {"timestamp": "2026-10-07T13:33:19Z", "type": "verification_passed", "summary": "Typprüfung, Lint, Build und Browser-Prüfung für task-6 bestanden.", "taskId": "task-6"}
 {"timestamp": "2026-10-07T13:33:19Z", "type": "task_completed", "summary": "Startseite abgeschlossen.", "taskId": "task-6"}
+{"timestamp": "2026-10-07T13:35:33Z", "type": "task_started", "summary": "Künstlerseite gestartet. Reihenfolge laut Nutzer: task-7, 8, 9, 10.", "taskId": "task-7"}
+{"timestamp": "2026-10-07T13:36:46Z", "type": "verification_passed", "summary": "Typprüfung, Lint, Build und Browser-Prüfung für task-7 bestanden.", "taskId": "task-7"}
+{"timestamp": "2026-10-07T13:36:46Z", "type": "task_completed", "summary": "Künstlerseite abgeschlossen.", "taskId": "task-7"}
+{"timestamp": "2026-10-07T13:36:46Z", "type": "decision_recorded", "summary": "Korrektur: Die Vita-Platzhalterdaten enthalten 44 Einträge (31 Ausstellungen), nicht 38 wie bei task-4 angegeben."}

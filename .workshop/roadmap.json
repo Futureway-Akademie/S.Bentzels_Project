@@ -118,7 +118,7 @@
           "completedAt": "2026-10-07T13:22:07Z",
           "verification": {
             "status": "passed",
-            "summary": "Typprüfung, Lint und Build fehlerfrei. Daten enthalten alle 8 Beispielwerke aus dem Masterprompt mit Maßen, Preisen und Zyklen, Graue SVG-Platzhalter mit Originalproportionen (20 px pro cm), 3 Veranstaltungen, 2 Kurse, 2 Beiträge und 38 Vita-Einträge. Typen entsprechen dem geplanten Datenmodell. Die Daten werden noch von keiner Seite angezeigt, es gab daher keine Prüfung im Browser. Termine, Texte und Veranstaltungen sind erfundene Platzhalter.",
+            "summary": "Typprüfung, Lint und Build fehlerfrei. Daten enthalten alle 8 Beispielwerke aus dem Masterprompt mit Maßen, Preisen und Zyklen, Graue SVG-Platzhalter mit Originalproportionen (20 px pro cm), 3 Veranstaltungen, 2 Kurse, 2 Beiträge und 44 Vita-Einträge (Korrektur: ursprünglich irrtümlich mit 38 angegeben). Typen entsprechen dem geplanten Datenmodell. Die Daten werden noch von keiner Seite angezeigt, es gab daher keine Prüfung im Browser. Termine, Texte und Veranstaltungen sind erfundene Platzhalter.",
             "commands": [
               "node_modules/.bin/tsc -b --noEmit",
               "node_modules/.bin/oxlint",
@@ -194,7 +194,7 @@
           "description": "Statement, Porträt mit Einleitungstext, Prozess in vier Phasen, Vita-Zeitleiste, Stimmen.",
           "order": 7,
           "weight": 3,
-          "status": "ready",
+          "status": "completed",
           "dependsOn": [
             "task-3",
             "task-5"
@@ -204,13 +204,18 @@
             "Vita als Zeitleiste mit vier Kategorien",
             "Link zu The Art of Becoming vorhanden"
           ],
-          "startedAt": null,
-          "completedAt": null,
+          "startedAt": "2026-10-07T13:35:33Z",
+          "completedAt": "2026-10-07T13:36:46Z",
           "verification": {
-            "status": "not_run",
-            "summary": null,
-            "commands": [],
-            "checkedAt": null
+            "status": "passed",
+            "summary": "Typprüfung, Lint (ohne Warnungen) und Build fehlerfrei. Im Browser bei 1280 px und 360 px geprüft: Abschnitte 01 Statement, 02 Porträt, 03 Der kreative Prozess, 04 Vita, 05 Stimmen. Porträt und vier Prozessfotos als Platzhalter in korrekten Proportionen, vier Phasen Setzen, Fließen, Auflösen, Fassen mit den Texten des Masterprompts, Überleitung mit Link zu The Art of Becoming, Vita mit Ausbildung (3), Ausstellungen (31), Messen (3), Kuratorische Projekte (7) nach Jahr absteigend, Zitat von T. Krause 2017. Keine externen Requests, kein horizontales Scrollen bei 360 px. Beim Test fiel ein Fehler auf (Abschnittslabel zeigte den Zitattext) und wurde behoben. Außerdem wurde die Anzahl der Vita-Einträge aus task-4 von 38 auf 44 korrigiert (31 Ausstellungen, ursprünglich falsch gezählt). Nicht per Screenshot geprüft, da der Browser-Bereich zeitweise nicht angezeigt wurde; Prüfung per Messung. Tablet-Breite nicht geprüft (task-13).",
+            "commands": [
+              "node_modules/.bin/tsc -b --noEmit",
+              "node_modules/.bin/oxlint",
+              "node_modules/.bin/tsc -b && node_modules/.bin/vite build",
+              "Browser-Prüfung bei 1280 px und 360 px"
+            ],
+            "checkedAt": "2026-10-07T13:36:46Z"
           }
         },
         {
