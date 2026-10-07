@@ -100,7 +100,7 @@
           "description": "Typisierte Platzhalterdaten in src/data/ für Werke, Termine, Journal und Vita.",
           "order": 4,
           "weight": 2,
-          "status": "ready",
+          "status": "completed",
           "dependsOn": [
             "task-1"
           ],
@@ -109,13 +109,17 @@
             "Typen sind für spätere Supabase-Anbindung geeignet",
             "Graue Bildplatzhalter in passenden Proportionen"
           ],
-          "startedAt": null,
-          "completedAt": null,
+          "startedAt": "2026-10-07T13:18:33Z",
+          "completedAt": "2026-10-07T13:22:07Z",
           "verification": {
-            "status": "not_run",
-            "summary": null,
-            "commands": [],
-            "checkedAt": null
+            "status": "passed",
+            "summary": "Typprüfung, Lint und Build fehlerfrei. Daten enthalten alle 8 Beispielwerke aus dem Masterprompt mit Maßen, Preisen und Zyklen, Graue SVG-Platzhalter mit Originalproportionen (20 px pro cm), 3 Veranstaltungen, 2 Kurse, 2 Beiträge und 38 Vita-Einträge. Typen entsprechen dem geplanten Datenmodell. Die Daten werden noch von keiner Seite angezeigt, es gab daher keine Prüfung im Browser. Termine, Texte und Veranstaltungen sind erfundene Platzhalter.",
+            "commands": [
+              "node_modules/.bin/tsc -b --noEmit",
+              "node_modules/.bin/oxlint",
+              "node_modules/.bin/tsc -b && node_modules/.bin/vite build"
+            ],
+            "checkedAt": "2026-10-07T13:22:07Z"
           }
         },
         {

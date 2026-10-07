@@ -14,12 +14,11 @@ Keine.
 
 ## Zuletzt abgeschlossen
 
-task-2: Design-System. Fortschritt 6.73 % (2 von 33 Tasks).
+task-4: Platzhalterdaten. Fortschritt 8.65 % (3 von 33 Tasks).
 
 ## Bereite nächste Aufgaben
 
 - task-3: Wiederverwendbare Komponenten
-- task-4: Platzhalterdaten
 - task-5: Header, Footer und Routing
 
 ## Blockiert
@@ -39,4 +38,4 @@ Nichts.
 
 ## Empfohlener nächster Schritt
 
-task-4 (Platzhalterdaten) oder task-3 (Komponenten) auswählen.
+task-5 (Header, Footer und Routing) oder task-3 (Komponenten) auswählen.

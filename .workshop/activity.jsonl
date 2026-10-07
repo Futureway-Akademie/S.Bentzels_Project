@@ -13,3 +13,6 @@
 {"timestamp": "2026-10-07T12:25:02Z", "type": "task_ready", "summary": "Task task-3 ist startbereit.", "taskId": "task-3"}
 {"timestamp": "2026-10-07T12:25:02Z", "type": "task_ready", "summary": "Task task-5 ist startbereit.", "taskId": "task-5"}
 {"timestamp": "2026-10-07T12:25:02Z", "type": "decision_recorded", "summary": "Dashboards (Werke, Journal, Veranstaltungen) bleiben in Phase 2. task-4 bereitet die Datenstruktur dafür vor. Supabase-Projekt existiert bereits."}
+{"timestamp": "2026-10-07T13:18:33Z", "type": "task_started", "summary": "Platzhalterdaten gestartet: Typen entsprechen dem geplanten Datenmodell.", "taskId": "task-4"}
+{"timestamp": "2026-10-07T13:22:07Z", "type": "verification_passed", "summary": "Typprüfung, Lint und Build für task-4 bestanden.", "taskId": "task-4"}
+{"timestamp": "2026-10-07T13:22:07Z", "type": "task_completed", "summary": "Platzhalterdaten abgeschlossen.", "taskId": "task-4"}
