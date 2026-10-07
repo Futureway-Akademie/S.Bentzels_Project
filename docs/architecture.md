@@ -21,3 +21,11 @@ Details folgen mit der Umsetzung.
 - `src/data/artworks.ts` (8 Werke), `events.ts` (3 Veranstaltungen, 2 Kurse), `posts.ts` (2 Beiträge), `vita.ts` (38 Einträge), `placeholder.ts` (graue SVG-Platzhalter in Originalproportionen).
 - Beitrags- und Beschreibungstexte, Termine und Orte der Veranstaltungen und Kurse sowie alle Bilder sind Platzhalter und werden in Phase 2 durch Supabase-Daten ersetzt.
 - Die Dashboards für Werke, Journal und Veranstaltungen folgen in Phase 2 (task-17 bis 19).
+
+## Komponenten (task-3)
+
+- `SectionLabel`: nummerierter Abschnitt („01 — WERKE“)
+- `ArtworkCard`: Werk mit Bild in Originalproportionen, Titel, Jahr, Maßen und Statuslabel, verlinkt auf `/galerie/:slug`
+- `Timeline`: Jahr links, Eintrag rechts, aus `VitaEntry[]`
+- `Lightbox`: Vollbild per Portal mit Zoom, Pfeiltasten, Esc, Zählung, Fokus auf „Schließen“ und Fokus-Rückgabe, Seiten-Scroll gesperrt
+- Alle Komponenten sind auf `/design-system` zu sehen. Wischgesten für die Lightbox folgen in task-31.

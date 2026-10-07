@@ -16,3 +16,6 @@
 {"timestamp": "2026-10-07T13:18:33Z", "type": "task_started", "summary": "Platzhalterdaten gestartet: Typen entsprechen dem geplanten Datenmodell.", "taskId": "task-4"}
 {"timestamp": "2026-10-07T13:22:07Z", "type": "verification_passed", "summary": "Typprüfung, Lint und Build für task-4 bestanden.", "taskId": "task-4"}
 {"timestamp": "2026-10-07T13:22:07Z", "type": "task_completed", "summary": "Platzhalterdaten abgeschlossen.", "taskId": "task-4"}
+{"timestamp": "2026-10-07T13:26:35Z", "type": "task_started", "summary": "Wiederverwendbare Komponenten gestartet: SectionLabel, ArtworkCard, Timeline, Lightbox.", "taskId": "task-3"}
+{"timestamp": "2026-10-07T13:27:38Z", "type": "verification_passed", "summary": "Typprüfung, Lint, Build und Browser-Prüfung für task-3 bestanden.", "taskId": "task-3"}
+{"timestamp": "2026-10-07T13:27:38Z", "type": "task_completed", "summary": "Wiederverwendbare Komponenten abgeschlossen.", "taskId": "task-3"}

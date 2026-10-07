@@ -75,7 +75,7 @@
           "description": "Abschnittslabel, Werkkarte, Zeitleiste, Lightbox.",
           "order": 3,
           "weight": 4,
-          "status": "ready",
+          "status": "completed",
           "dependsOn": [
             "task-2"
           ],
@@ -85,13 +85,18 @@
             "Lightbox mit Zoom und Pfeiltasten",
             "Fokuszustände und Alt-Texte vorhanden"
           ],
-          "startedAt": null,
-          "completedAt": null,
+          "startedAt": "2026-10-07T13:26:35Z",
+          "completedAt": "2026-10-07T13:27:38Z",
           "verification": {
-            "status": "not_run",
-            "summary": null,
-            "commands": [],
-            "checkedAt": null
+            "status": "passed",
+            "summary": "Typprüfung, Lint und Build fehlerfrei. Im Browser auf /design-system geprüft: Werkkarten behalten bei 1280 px die Originalproportionen (object-fit contain), Titel, Jahr, Maße korrekt, Abschnittslabel „01 — Ausgewählte Werke“, Zeitleiste mit 6 Einträgen, keine externen Requests. Lightbox: öffnet mit Fokus auf „Schließen“, Pfeiltasten wechseln (Umlauf von 1 auf 8), Zoom auf 200 %, Esc schließt, Seiten-Scroll wird gesperrt und danach wieder freigegeben, Fokus kehrt zum Auslöser zurück. Bei 360 px kein horizontales Scrollen, Bild passt in den Bildschirm. Nicht visuell per Screenshot bestätigt: ein Screenshot der geöffneten Lightbox bei 360 px zeigte die Seite statt des Dialogs, die Maße wurden stattdessen per Skript gemessen. Wischgesten sind nicht umgesetzt (task-31). Statuslabel „reserviert“/„verkauft“ nicht mit Beispieldaten geprüft, da alle Platzhalterwerke verfügbar sind.",
+            "commands": [
+              "node_modules/.bin/tsc -b --noEmit",
+              "node_modules/.bin/oxlint",
+              "node_modules/.bin/tsc -b && node_modules/.bin/vite build",
+              "Browser-Prüfung auf /design-system bei 1280 px und 360 px"
+            ],
+            "checkedAt": "2026-10-07T13:27:38Z"
           }
         },
         {

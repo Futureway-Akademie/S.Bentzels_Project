@@ -14,11 +14,10 @@ Keine.
 
 ## Zuletzt abgeschlossen
 
-task-4: Platzhalterdaten. Fortschritt 8.65 % (3 von 33 Tasks).
+task-3: Wiederverwendbare Komponenten. Fortschritt 12.5 % (4 von 33 Tasks).
 
 ## Bereite nächste Aufgaben
 
-- task-3: Wiederverwendbare Komponenten
 - task-5: Header, Footer und Routing
 
 ## Blockiert
@@ -38,4 +37,4 @@ Nichts.
 
 ## Empfohlener nächster Schritt
 
-task-5 (Header, Footer und Routing) oder task-3 (Komponenten) auswählen.
+task-5 (Header, Footer und Routing) auswählen, danach die Seiten.
