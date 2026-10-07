@@ -1,0 +1,28 @@
+{
+  "brand": {
+    "name": "Stephan Graf Bentzel-Sturmfeder"
+  },
+  "setup": {
+    "label": "Projekt-Setup",
+    "text": "Das Fundament steht. Die Seiten folgen."
+  },
+  "designSystem": {
+    "label": "Design-System",
+    "title": "Typografie, Farbe, Raster",
+    "intro": "Diese Seite zeigt alle Grundbausteine der Website. Sie dient der Abnahme und wird vor dem Launch entfernt.",
+    "colors": "01 — Farben",
+    "type": "02 — Typografie",
+    "grid": "03 — Raster",
+    "buttons": "04 — Buttons",
+    "motion": "05 — Bewegung",
+    "h1": "Überschrift eins",
+    "h2": "Überschrift zwei",
+    "h3": "Überschrift drei",
+    "body": "Fließtext in Jost, 17 bis 18 Pixel mit einer Zeilenhöhe von 1,7. Die Zeilenlänge bleibt auf etwa 65 Zeichen begrenzt, damit der Text ruhig lesbar bleibt und die Kunst im Vordergrund steht.",
+    "labelSample": "Label und Navigation",
+    "button": "Anfragen",
+    "buttonLink": "Alle Werke entdecken",
+    "revealHint": "Dieser Block blendet beim Scrollen ein.",
+    "noAccent": "Keine Akzentfarbe. Die Farbe liefern die Kunstwerke."
+  }
+}

@@ -1,0 +1,15 @@
+{"timestamp": "2026-10-07T12:05:59Z", "type": "project_initialized", "summary": "Projekt „Website Stephan Graf Bentzel-Sturmfeder“ initialisiert."}
+{"timestamp": "2026-10-07T12:05:59Z", "type": "roadmap_created", "summary": "Roadmap Version 1 mit 4 Phasen und 33 Tasks erstellt."}
+{"timestamp": "2026-10-07T12:05:59Z", "type": "decision_recorded", "summary": "Der Name des exklusiven Netzwerk-Kreises ist offen. Arbeitstitel „Bentzel Club“, Kandidaten: „Stephan Bentzel“, „Stephan Graf Bentzel The Art Circle“, „Stephan Bentzel Sovereign Art Circle“. Name und URL werden zentral konfigurierbar umgesetzt."}
+{"timestamp": "2026-10-07T12:05:59Z", "type": "task_ready", "summary": "Task task-1 ist startbereit.", "taskId": "task-1"}
+{"timestamp": "2026-10-07T12:15:56Z", "type": "task_started", "summary": "Projekt-Setup gestartet: npm, Vite, React, TypeScript, Tailwind, React Router, ESLint, Prettier, Quellcode im Repository-Root.", "taskId": "task-1"}
+{"timestamp": "2026-10-07T12:17:42Z", "type": "verification_passed", "summary": "Typprüfung, Lint, Build und Browser-Prüfung für task-1 bestanden.", "taskId": "task-1"}
+{"timestamp": "2026-10-07T12:17:42Z", "type": "task_completed", "summary": "Projekt-Setup abgeschlossen.", "taskId": "task-1"}
+{"timestamp": "2026-10-07T12:17:42Z", "type": "task_ready", "summary": "Task task-2 ist startbereit.", "taskId": "task-2"}
+{"timestamp": "2026-10-07T12:17:42Z", "type": "task_ready", "summary": "Task task-4 ist startbereit.", "taskId": "task-4"}
+{"timestamp": "2026-10-07T12:23:48Z", "type": "task_started", "summary": "Design-System gestartet. Dashboards bleiben in Phase 2 (Option A für task-4).", "taskId": "task-2"}
+{"timestamp": "2026-10-07T12:25:02Z", "type": "verification_passed", "summary": "Typprüfung, Lint, Build und Browser-Prüfung für task-2 bestanden.", "taskId": "task-2"}
+{"timestamp": "2026-10-07T12:25:02Z", "type": "task_completed", "summary": "Design-System abgeschlossen.", "taskId": "task-2"}
+{"timestamp": "2026-10-07T12:25:02Z", "type": "task_ready", "summary": "Task task-3 ist startbereit.", "taskId": "task-3"}
+{"timestamp": "2026-10-07T12:25:02Z", "type": "task_ready", "summary": "Task task-5 ist startbereit.", "taskId": "task-5"}
+{"timestamp": "2026-10-07T12:25:02Z", "type": "decision_recorded", "summary": "Dashboards (Werke, Journal, Veranstaltungen) bleiben in Phase 2. task-4 bereitet die Datenstruktur dafür vor. Supabase-Projekt existiert bereits."}

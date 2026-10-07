@@ -1,12 +1,11 @@
 {
   "schemaVersion": 1,
-  "projectId": null,
-  "name": null,
-  "status": "not_initialized",
+  "projectId": "website-stephan-graf-bentzel-sturmfeder",
+  "name": "Website Stephan Graf Bentzel-Sturmfeder",
+  "status": "active",
   "workshopType": null,
-  "owner": null,
-  "description": null,
-  "createdAt": null,
-  "updatedAt": null
+  "owner": "Stephan Bentzel",
+  "description": "Website des Künstlers mit den Bereichen Künstler und Galerie, Seminare und Vorträge, Netzwerk mit Veranstaltungen und Journal, inklusive Dashboard zur Inhaltspflege.",
+  "createdAt": "2026-10-07T12:05:59Z",
+  "updatedAt": "2026-10-07T12:05:59Z"
 }
-

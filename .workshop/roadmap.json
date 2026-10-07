@@ -1,7 +1,876 @@
 {
   "schemaVersion": 1,
-  "roadmapVersion": 0,
-  "status": "not_initialized",
-  "phases": []
+  "roadmapVersion": 1,
+  "status": "active",
+  "phases": [
+    {
+      "id": "phase-1",
+      "title": "Fundament und öffentliche Seiten",
+      "description": "Design-System, Navigation und alle öffentlichen Seiten mit den echten Texten, noch mit Platzhalterdaten, ohne Backend und Login.",
+      "order": 1,
+      "weight": 39,
+      "status": "in_progress",
+      "tasks": [
+        {
+          "id": "task-1",
+          "title": "Projekt-Setup",
+          "description": "Vite, React, TypeScript, Tailwind, Jost lokal über @fontsource/jost, react-i18next mit de.json.",
+          "order": 1,
+          "weight": 3,
+          "status": "completed",
+          "dependsOn": [],
+          "definitionOfDone": [
+            "Projekt startet lokal und baut fehlerfrei",
+            "Jost wird lokal eingebunden, keine externen Schriften",
+            "Texte kommen aus de.json",
+            "Dokumentierte Befehle für Start, Build, Lint und Typprüfung"
+          ],
+          "startedAt": "2026-10-07T12:15:56Z",
+          "completedAt": "2026-10-07T12:17:42Z",
+          "verification": {
+            "status": "passed",
+            "summary": "Typprüfung, Lint und Produktions-Build fehlerfrei. Dev-Server im Browser geprüft: Seite rendert Text aus de.json, Jost 400 lädt lokal, keine externen Requests, 0 px Radius. npm-Skripte laufen im Ordner mit Doppelpunkten im Pfad nicht (PATH); Programme wurden direkt aufgerufen und der Hinweis steht in der README.",
+            "commands": [
+              "node_modules/.bin/tsc -b --noEmit",
+              "node_modules/.bin/oxlint",
+              "node_modules/.bin/tsc -b && node_modules/.bin/vite build",
+              "Browser-Prüfung auf http://localhost:5173"
+            ],
+            "checkedAt": "2026-10-07T12:17:42Z"
+          }
+        },
+        {
+          "id": "task-2",
+          "title": "Design-System",
+          "description": "Farb-Tokens, Typografie, 12-Spalten-Raster, Buttons, Scroll-Einblendung mit reduzierter Bewegung.",
+          "order": 2,
+          "weight": 4,
+          "status": "completed",
+          "dependsOn": [
+            "task-1"
+          ],
+          "definitionOfDone": [
+            "Tokens --background, --foreground, --muted, --line vorhanden",
+            "Keine Rundungen, Schatten oder Verläufe",
+            "H1 per clamp() 48–112 px, Fließtext 17–18 px",
+            "prefers-reduced-motion wird respektiert"
+          ],
+          "startedAt": "2026-10-07T12:23:48Z",
+          "completedAt": "2026-10-07T12:25:02Z",
+          "verification": {
+            "status": "passed",
+            "summary": "Typprüfung, Lint und Build fehlerfrei. Im Browser geprüft: H1 83 px (Desktop) und 50 px (360 px) per clamp(), Fließtext 18 px mit Zeilenhöhe 1,7, Labels 12 px Versalien mit 0,2em, Hintergrund #F7F6F2, Button mit 0 px Radius, 1-px-Rahmen und ohne Schatten, keine externen Requests, kein horizontales Scrollen bei 360 px. Scroll-Einblendung wird beim Sichtbarwerden ausgelöst. Hover-Inversion nur per CSS vorhanden, nicht per Mausinteraktion getestet. Die prefers-reduced-motion-Regel ist im Stylesheet vorhanden, aber nicht mit aktivierter Systemeinstellung getestet.",
+            "commands": [
+              "node_modules/.bin/tsc -b --noEmit",
+              "node_modules/.bin/oxlint",
+              "node_modules/.bin/tsc -b && node_modules/.bin/vite build",
+              "Browser-Prüfung auf /design-system bei Desktop und 360 px"
+            ],
+            "checkedAt": "2026-10-07T12:25:02Z"
+          }
+        },
+        {
+          "id": "task-3",
+          "title": "Wiederverwendbare Komponenten",
+          "description": "Abschnittslabel, Werkkarte, Zeitleiste, Lightbox.",
+          "order": 3,
+          "weight": 4,
+          "status": "ready",
+          "dependsOn": [
+            "task-2"
+          ],
+          "definitionOfDone": [
+            "Komponenten sind typisiert und wiederverwendbar",
+            "Werke werden nie beschnitten (Originalproportionen)",
+            "Lightbox mit Zoom und Pfeiltasten",
+            "Fokuszustände und Alt-Texte vorhanden"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
+          }
+        },
+        {
+          "id": "task-4",
+          "title": "Platzhalterdaten",
+          "description": "Typisierte Platzhalterdaten in src/data/ für Werke, Termine, Journal und Vita.",
+          "order": 4,
+          "weight": 2,
+          "status": "ready",
+          "dependsOn": [
+            "task-1"
+          ],
+          "definitionOfDone": [
+            "Alle Beispielwerke aus dem Masterprompt sind enthalten",
+            "Typen sind für spätere Supabase-Anbindung geeignet",
+            "Graue Bildplatzhalter in passenden Proportionen"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
+          }
+        },
+        {
+          "id": "task-5",
+          "title": "Header, Footer und Routing",
+          "description": "Zweizeiliges Logo, Navigation mit Dropdowns, Vollbild-Menü mobil, Footer mit Adresse und Rechtslinks, alle Routen.",
+          "order": 5,
+          "weight": 3,
+          "status": "ready",
+          "dependsOn": [
+            "task-2"
+          ],
+          "definitionOfDone": [
+            "Alle Routen aus dem Masterprompt erreichbar",
+            "Mobil Vollbild-Menü, Desktop schlanke Leiste",
+            "Footer mit Adresse, E-Mail, Telefon, Impressum und Datenschutz",
+            "Name und Bereichsbezeichnung des Netzwerk-Kreises stehen an zentraler Stelle (Arbeitstitel „Bentzel Club“)"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
+          }
+        },
+        {
+          "id": "task-6",
+          "title": "Startseite",
+          "description": "Hero, Statement, ausgewählte Werke, Teaser Art of Becoming, nächste Begegnung, Journal.",
+          "order": 6,
+          "weight": 3,
+          "status": "planned",
+          "dependsOn": [
+            "task-3",
+            "task-4",
+            "task-5"
+          ],
+          "definitionOfDone": [
+            "Alle sechs Abschnitte mit den Texten aus dem Masterprompt",
+            "Masonry-Raster der Highlight-Werke",
+            "Responsiv ab 360 px"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
+          }
+        },
+        {
+          "id": "task-7",
+          "title": "Künstlerseite",
+          "description": "Statement, Porträt mit Einleitungstext, Prozess in vier Phasen, Vita-Zeitleiste, Stimmen.",
+          "order": 7,
+          "weight": 3,
+          "status": "planned",
+          "dependsOn": [
+            "task-3",
+            "task-5"
+          ],
+          "definitionOfDone": [
+            "Alle fünf Abschnitte mit den Texten aus dem Masterprompt",
+            "Vita als Zeitleiste mit vier Kategorien",
+            "Link zu The Art of Becoming vorhanden"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
+          }
+        },
+        {
+          "id": "task-8",
+          "title": "Galerie und Werkdetail",
+          "description": "Galerie mit Filtern und Masonry, Mehrteiler in voller Breite, Werkdetail mit Lightbox und Navigation.",
+          "order": 8,
+          "weight": 4,
+          "status": "planned",
+          "dependsOn": [
+            "task-3",
+            "task-4",
+            "task-5"
+          ],
+          "definitionOfDone": [
+            "Filter funktionieren",
+            "Werkdetail mit allen Feldern und Preis als „inkl. MwSt.“",
+            "Button „Werk anfragen“ vorhanden (Formular später)",
+            "Vorheriges und nächstes Werk navigierbar"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
+          }
+        },
+        {
+          "id": "task-9",
+          "title": "Seminare, Kunstkurse und Vorträge",
+          "description": "Übersicht mit drei Kacheln, Kunstkurse-Seite, Vorträge-Seite.",
+          "order": 9,
+          "weight": 3,
+          "status": "planned",
+          "dependsOn": [
+            "task-3",
+            "task-5"
+          ],
+          "definitionOfDone": [
+            "Drei Seiten mit den Texten aus dem Masterprompt",
+            "Label „Ein Format von Sturmfeder Projects“",
+            "Buttons vorhanden (Formulare später)"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
+          }
+        },
+        {
+          "id": "task-10",
+          "title": "The Art of Becoming",
+          "description": "Seminarseite mit Hero, Vierzeiler-Sequenz, vier Modulen, Erlebnisliste, Fundament-Akkordeon, Faktenleiste, Leitung, CTA.",
+          "order": 10,
+          "weight": 4,
+          "status": "planned",
+          "dependsOn": [
+            "task-3",
+            "task-5"
+          ],
+          "definitionOfDone": [
+            "Alle Abschnitte mit den Texten aus dem Masterprompt",
+            "Überraschungsinterventionen der Module nicht detaillierter beschrieben als vorgegeben",
+            "Akkordeon per Tastatur bedienbar"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
+          }
+        },
+        {
+          "id": "task-11",
+          "title": "Netzwerk, Veranstaltungsdetail und Club-Seite (Arbeitstitel „Bentzel Club“, endgültiger Name offen)",
+          "description": "Netzwerkseite, Veranstaltungsliste mit Archiv, Detailseite sowie die exklusivere Club-Seite mit langsamerer Einblendung.",
+          "order": 11,
+          "weight": 3,
+          "status": "planned",
+          "dependsOn": [
+            "task-3",
+            "task-4",
+            "task-5"
+          ],
+          "definitionOfDone": [
+            "Netzwerkseite und Veranstaltungsdetail mit den Texten aus dem Masterprompt",
+            "Club-Seite vorhanden, Name und URL zentral änderbar",
+            "Anmeldung und Interessenformular als Platzhalter-Button (Formular später)"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
+          }
+        },
+        {
+          "id": "task-12",
+          "title": "Journal, Kontakt und Rechtsseiten",
+          "description": "Journal-Liste und Detail, Kontaktseite, Impressum und Datenschutz mit Platzhalter „Inhalt folgt“.",
+          "order": 12,
+          "weight": 2,
+          "status": "planned",
+          "dependsOn": [
+            "task-3",
+            "task-4",
+            "task-5"
+          ],
+          "definitionOfDone": [
+            "Journal-Liste und Detail mit Platzhalterdaten",
+            "Kontaktseite mit Adresse, E-Mail und Telefon",
+            "Impressum und Datenschutz erreichbar"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
+          }
+        },
+        {
+          "id": "task-13",
+          "title": "Mobile-Prüfung",
+          "description": "Alle Seiten bei 360, 768, 1280 und 1920 px prüfen und Darstellungsfehler beheben.",
+          "order": 13,
+          "weight": 1,
+          "status": "planned",
+          "dependsOn": [
+            "task-6",
+            "task-7",
+            "task-8",
+            "task-9",
+            "task-10",
+            "task-11",
+            "task-12"
+          ],
+          "definitionOfDone": [
+            "Alle Seiten bei vier Breiten geprüft",
+            "Kein horizontales Scrollen, keine abgeschnittenen Werke",
+            "Build, Lint und Typprüfung fehlerfrei"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "phase-2",
+      "title": "Datenbank und Dashboard",
+      "description": "Supabase-Anbindung, geschützter Admin-Bereich und Umstellung der öffentlichen Seiten auf echte Daten.",
+      "order": 2,
+      "weight": 25,
+      "status": "planned",
+      "tasks": [
+        {
+          "id": "task-14",
+          "title": "Supabase, Schema, Sicherheit und Login",
+          "description": "Supabase in der Region EU Central, Tabellen, Row Level Security, is_admin() und Admin-Login.",
+          "order": 1,
+          "weight": 5,
+          "status": "planned",
+          "dependsOn": [
+            "task-13"
+          ],
+          "definitionOfDone": [
+            "Alle neun Tabellen laut Masterprompt angelegt",
+            "Row Level Security auf allen Tabellen",
+            "Öffentlich nur Lesen veröffentlichter Daten, Eingänge nur INSERT",
+            "Login nur über /admin/login, keine öffentliche Registrierung"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
+          }
+        },
+        {
+          "id": "task-15",
+          "title": "Storage und Bild-Upload",
+          "description": "Buckets, Verkleinerung auf 2400 px, WebP, 800-px-Vorschau, Bildmaße speichern.",
+          "order": 2,
+          "weight": 4,
+          "status": "planned",
+          "dependsOn": [
+            "task-14"
+          ],
+          "definitionOfDone": [
+            "Buckets mit korrekten Rechten",
+            "Upload erzeugt WebP und Vorschau und speichert Maße",
+            "Beim Löschen eines Werks werden Bilddateien entfernt"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
+          }
+        },
+        {
+          "id": "task-16",
+          "title": "Dashboard-Grundgerüst und Übersicht",
+          "description": "Geschützter Bereich mit Seitenleiste und Übersichtsseite.",
+          "order": 3,
+          "weight": 2,
+          "status": "planned",
+          "dependsOn": [
+            "task-14"
+          ],
+          "definitionOfDone": [
+            "Zugriff nur für Admins",
+            "Übersicht zeigt neue Eingänge, nächste Veranstaltung und verfügbare Werke",
+            "Bedienbar auf Tablet und Smartphone"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
+          }
+        },
+        {
+          "id": "task-17",
+          "title": "Dashboard-Modul Werke",
+          "description": "Rasteransicht, Mehrfach-Upload, Formular, Bildtausch, Sortierung, Schnellschalter, Duplizieren.",
+          "order": 4,
+          "weight": 5,
+          "status": "planned",
+          "dependsOn": [
+            "task-15",
+            "task-16"
+          ],
+          "definitionOfDone": [
+            "Alle Funktionen laut Masterprompt",
+            "Bestätigungsdialog vor Löschen",
+            "Toast nach dem Speichern, validierte Formulare"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
+          }
+        },
+        {
+          "id": "task-18",
+          "title": "Dashboard-Module Journal und Vita",
+          "description": "Journal mit Rich-Text-Editor, Entwurf und Vorschau, Vita-Verwaltung nach Kategorie.",
+          "order": 5,
+          "weight": 4,
+          "status": "planned",
+          "dependsOn": [
+            "task-15",
+            "task-16"
+          ],
+          "definitionOfDone": [
+            "Rich Text mit Überschriften, Fett, Kursiv, Links, Bildern, Zitaten",
+            "Entwurf und veröffentlicht trennbar",
+            "Vita inline bearbeitbar"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
+          }
+        },
+        {
+          "id": "task-19",
+          "title": "Dashboard-Module Veranstaltungen und Kunstkurse",
+          "description": "Veranstaltungen mit Gästeliste, CSV-Export und Rückblick, Kunstkurs-Termine.",
+          "order": 6,
+          "weight": 3,
+          "status": "planned",
+          "dependsOn": [
+            "task-15",
+            "task-16"
+          ],
+          "definitionOfDone": [
+            "Anmeldung öffnen und schließen",
+            "Gästeliste mit CSV-Export",
+            "Rückblicktext und Fotos pflegbar"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
+          }
+        },
+        {
+          "id": "task-20",
+          "title": "Umstellung auf Supabase und Seed-Daten",
+          "description": "Alle Platzhalterdaten durch Supabase-Abfragen ersetzen und Seed-Daten einspielen.",
+          "order": 7,
+          "weight": 2,
+          "status": "planned",
+          "dependsOn": [
+            "task-17",
+            "task-18",
+            "task-19"
+          ],
+          "definitionOfDone": [
+            "Keine Platzhalterdaten mehr im Frontend",
+            "Beispielwerke und Vita-Einträge in der Datenbank",
+            "Öffentliches Design unverändert"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "phase-3",
+      "title": "Formulare und E-Mails",
+      "description": "Alle Formulare mit Speicherung, E-Mail-Versand über Resend und Veranstaltungsanmeldung mit Warteliste.",
+      "order": 3,
+      "weight": 20,
+      "status": "planned",
+      "tasks": [
+        {
+          "id": "task-21",
+          "title": "Formular-Grundlagen",
+          "description": "Gestaltung mit Unterlinien, Validierung mit zod, Datenschutz-Checkbox, Spamschutz.",
+          "order": 1,
+          "weight": 3,
+          "status": "planned",
+          "dependsOn": [
+            "task-20"
+          ],
+          "definitionOfDone": [
+            "Honeypot, Mindestausfüllzeit von 3 Sekunden und Rate-Limit",
+            "Browser- und serverseitige Validierung",
+            "Bestätigung anstelle des Formulars"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
+          }
+        },
+        {
+          "id": "task-22",
+          "title": "Edge Function für Anfragen und E-Mails",
+          "description": "Speicherung in inquiries, Benachrichtigung an den Künstler, Bestätigung an den Absender über Resend.",
+          "order": 2,
+          "weight": 4,
+          "status": "planned",
+          "dependsOn": [
+            "task-21"
+          ],
+          "definitionOfDone": [
+            "API-Schlüssel nur als Secret",
+            "Eingang wird gespeichert und löst beide E-Mails aus",
+            "E-Mail-Design schlicht und typografisch"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
+          }
+        },
+        {
+          "id": "task-23",
+          "title": "Anfrageformulare",
+          "description": "Werk, Art of Becoming, Vortrag, Kunstkurs, Interesse am Netzwerk-Kreis und Kontakt.",
+          "order": 3,
+          "weight": 4,
+          "status": "planned",
+          "dependsOn": [
+            "task-22"
+          ],
+          "definitionOfDone": [
+            "Alle sechs Formulare mit den Feldern laut Masterprompt",
+            "Werkanfrage als Seitenpanel mit Werk-Daten",
+            "Betreffzeilen laut Masterprompt"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
+          }
+        },
+        {
+          "id": "task-24",
+          "title": "Veranstaltungsanmeldung",
+          "description": "Anmeldung mit serverseitiger Kapazitätsprüfung, Warteliste, Platzanzeige und .ics-Anhang.",
+          "order": 4,
+          "weight": 4,
+          "status": "planned",
+          "dependsOn": [
+            "task-22"
+          ],
+          "definitionOfDone": [
+            "Kapazität zählt Begleitpersonen",
+            "Warteliste greift automatisch",
+            "Kein Formular bei geschlossener oder vergangener Veranstaltung"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
+          }
+        },
+        {
+          "id": "task-25",
+          "title": "Stornierung und Nachrücken",
+          "description": "Persönlicher Stornierungslink mit signiertem Token, automatisches Nachrücken von der Warteliste.",
+          "order": 5,
+          "weight": 3,
+          "status": "planned",
+          "dependsOn": [
+            "task-24"
+          ],
+          "definitionOfDone": [
+            "Stornierung setzt Status und benachrichtigt den Künstler",
+            "Erste Person der Warteliste rückt nach und wird informiert"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
+          }
+        },
+        {
+          "id": "task-26",
+          "title": "Dashboard: Eingänge und Gästeliste",
+          "description": "Eingänge mit Filter und Detail, CSV-Export, mailto-Antwort, Zähler in der Seitenleiste.",
+          "order": 6,
+          "weight": 2,
+          "status": "planned",
+          "dependsOn": [
+            "task-23",
+            "task-24"
+          ],
+          "definitionOfDone": [
+            "Filter nach Typ und Status",
+            "CSV-Export",
+            "Button „Per E-Mail antworten“ öffnet das Mailprogramm"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "phase-4",
+      "title": "SEO, Recht und Launch",
+      "description": "Suchmaschinenoptimierung, rechtliche Grundlagen, Performance, Feinschliff und Veröffentlichung.",
+      "order": 4,
+      "weight": 20,
+      "status": "planned",
+      "tasks": [
+        {
+          "id": "task-27",
+          "title": "SEO",
+          "description": "Titel, Meta-Beschreibungen, Open Graph, JSON-LD, automatische Alt-Texte mit Feld alt_text_de.",
+          "order": 1,
+          "weight": 4,
+          "status": "planned",
+          "dependsOn": [
+            "task-20"
+          ],
+          "definitionOfDone": [
+            "Jede Seite mit eigenem Titel und Beschreibung",
+            "JSON-LD für Person, Werke, Events, Organisation und Beiträge",
+            "Alt-Texte im Dashboard überschreibbar"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
+          }
+        },
+        {
+          "id": "task-28",
+          "title": "Sitemap, robots.txt und 404-Seite",
+          "description": "Dynamische Sitemap, robots.txt ohne /admin, kanonische URLs, gestaltete 404-Seite.",
+          "order": 2,
+          "weight": 2,
+          "status": "planned",
+          "dependsOn": [
+            "task-27"
+          ],
+          "definitionOfDone": [
+            "Sitemap enthält alle öffentlichen Seiten, Werke, Beiträge und Events",
+            "/admin ist ausgeschlossen",
+            "404-Seite verlinkt zur Galerie"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
+          }
+        },
+        {
+          "id": "task-29",
+          "title": "Rechtstexte und Preishinweise",
+          "description": "Dashboard-Modul Rechtstexte, Hinweise „inkl. MwSt.“ und „Erwerb nach persönlicher Absprache“.",
+          "order": 3,
+          "weight": 3,
+          "status": "planned",
+          "dependsOn": [
+            "task-20"
+          ],
+          "definitionOfDone": [
+            "Impressum und Datenschutz im Dashboard pflegbar",
+            "Preise überall als Endpreis mit „inkl. MwSt.“",
+            "Keine Tracking-Tools und keine externen Schriften"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
+          }
+        },
+        {
+          "id": "task-30",
+          "title": "Performance",
+          "description": "Lazy Loading, srcset mit 800, 1600 und 2400 px, Platzreservierung, Hero-Priorität.",
+          "order": 4,
+          "weight": 4,
+          "status": "planned",
+          "dependsOn": [
+            "task-20"
+          ],
+          "definitionOfDone": [
+            "Keine Layoutsprünge",
+            "Lighthouse über 90 in vier Kategorien, auch mobil"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
+          }
+        },
+        {
+          "id": "task-31",
+          "title": "Feinschliff",
+          "description": "Favicon, Wischgesten, Seitenübergang, einheitliche Namensschreibweise.",
+          "order": 5,
+          "weight": 3,
+          "status": "planned",
+          "dependsOn": [
+            "task-20"
+          ],
+          "definitionOfDone": [
+            "Favicon „SB“ in Jost",
+            "Lightbox mit Esc, Pfeilen und Wischgesten",
+            "Name überall einheitlich geschrieben"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
+          }
+        },
+        {
+          "id": "task-32",
+          "title": "Abschlussprüfung",
+          "description": "Prüfung bei 360, 768, 1280 und 1920 px sowie Liste aller verbleibenden Platzhalter.",
+          "order": 6,
+          "weight": 2,
+          "status": "planned",
+          "dependsOn": [
+            "task-26",
+            "task-28",
+            "task-29",
+            "task-30",
+            "task-31"
+          ],
+          "definitionOfDone": [
+            "Alle Seiten bei vier Breiten geprüft",
+            "Liste der Platzhalterbilder und -texte erstellt"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
+          }
+        },
+        {
+          "id": "task-33",
+          "title": "Domain und Launch",
+          "description": "Domain bentzel-sturmfeder.de anbinden und Seite veröffentlichen.",
+          "order": 7,
+          "weight": 2,
+          "status": "planned",
+          "dependsOn": [
+            "task-32"
+          ],
+          "definitionOfDone": [
+            "Seite unter der Domain erreichbar",
+            "Resend-Domain verifiziert und Formulare im Livebetrieb getestet"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
+          }
+        }
+      ]
+    }
+  ]
 }
-

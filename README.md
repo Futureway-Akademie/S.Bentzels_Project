@@ -27,3 +27,20 @@ Dieses Master-Template wird später in konkrete Workshop-Repositories abgeleitet
 Wenn ein frisch erzeugtes Teilnehmerrepository noch nicht initialisiert ist und der Nutzer beispielsweise `starte` eingibt, lautet die erwartete Agent-Antwort: `Was möchtest du entwickeln?`
 
 Danach wartet der Agent auf die Projektidee.
+
+## Entwicklung (Website Stephan Graf Bentzel-Sturmfeder)
+
+Stack: Vite, React, TypeScript (strict), Tailwind, React Router, react-i18next, Jost lokal über `@fontsource/jost`. Alle UI-Texte stehen in `src/i18n/de.json`.
+
+```bash
+npm install          # Abhängigkeiten installieren
+npm run dev          # Dev-Server
+npm run build        # Typprüfung und Produktions-Build
+npm run lint         # Linting (oxlint)
+npm run typecheck    # TypeScript-Prüfung
+npm run format       # Prettier auf src/
+```
+
+Hinweis: Enthält der Ordnerpfad Doppelpunkte (z. B. `Kunst 2024:25:26`), finden `npm run`-Skripte ihre Programme nicht, weil `:` den PATH trennt. Dann die Programme direkt aufrufen, z. B. `node_modules/.bin/tsc -b`, `node_modules/.bin/oxlint`, `node node_modules/vite/bin/vite.js`. Besser: das Projekt in einen Ordner ohne Doppelpunkte verschieben.
+
+Struktur: `src/components`, `src/pages`, `src/data` (Platzhalterdaten bis Phase 2), `src/i18n`, `src/styles`.
