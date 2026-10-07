@@ -9,14 +9,17 @@ import Gallery from './pages/Gallery'
 import DesignSystem from './pages/DesignSystem'
 import Home from './pages/Home'
 import Circle from './pages/Circle'
+import Contact from './pages/Contact'
 import Courses from './pages/Courses'
+import Journal from './pages/Journal'
+import JournalPost from './pages/JournalPost'
+import LegalPage from './pages/LegalPage'
 import Network from './pages/Network'
 import PagePlaceholder from './pages/PagePlaceholder'
 import Seminars from './pages/Seminars'
 import Talks from './pages/Talks'
 
 export default function App() {
-  const page = (key: string) => <PagePlaceholder titleKey={`pages.${key}`} />
   return (
     <Routes>
       <Route element={<Layout />}>
@@ -31,11 +34,17 @@ export default function App() {
         <Route path={routes.network} element={<Network />} />
         <Route path={routes.circle} element={<Circle />} />
         <Route path={routes.event} element={<EventDetail />} />
-        <Route path={routes.journal} element={page('journal')} />
-        <Route path={routes.post} element={page('post')} />
-        <Route path={routes.contact} element={page('contact')} />
-        <Route path={routes.imprint} element={page('imprint')} />
-        <Route path={routes.privacy} element={page('privacy')} />
+        <Route path={routes.journal} element={<Journal />} />
+        <Route path={routes.post} element={<JournalPost />} />
+        <Route path={routes.contact} element={<Contact />} />
+        <Route
+          path={routes.imprint}
+          element={<LegalPage titleKey="pages.imprint" />}
+        />
+        <Route
+          path={routes.privacy}
+          element={<LegalPage titleKey="pages.privacy" />}
+        />
         <Route path={routes.designSystem} element={<DesignSystem />} />
         <Route
           path="*"

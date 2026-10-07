@@ -44,3 +44,21 @@ Der Galerie-Prompt fordert eine museale Online-Galerie für etwa 60 Werke mit op
 ### Begründung
 
 Der Galerie-Prompt ergänzt den Masterprompt und hat für die Galerie Vorrang. Datenbank- und Admin-Funktionen gehören in Phase 2 bis 4.
+
+## 2026-10-07 – Presse-Prompt und Roadmap Version 3
+
+### Kontext
+
+Der Prompt „Presse/Artikel“ fordert ein digitales Pressearchiv und einen Bereich „Interessante Artikel“ mit Datei-zuerst-Anlage (JPEG, PNG, PDF, externe Links) und einfacher Pflege im Dashboard. Der Prompt war nach Abschnitt 3 (Daten eines Pressartikels, Kategorien) abgeschnitten.
+
+### Entscheidung
+
+- Presse und „Interessante Artikel“ bilden einen eigenen Bereich neben dem Journal (Beiträge des Künstlers bleiben getrennt).
+- Navigation: eigener Menüpunkt „Presse“ mit „Pressearchiv“ und „Interessante Artikel“ (Pfade unter `/presse`).
+- Alle Angaben außer der Datei bzw. dem Link sind optional, fehlende Angaben erzeugen keine leeren Bereiche.
+- Neue Tasks: task-37 (öffentlicher Bereich, Phase 1), task-38 (Dashboard Presse), task-39 (Dashboard Interessante Artikel). task-13, task-14, task-15 und task-20 angepasst.
+- Hinweis: Gescannte Fremdartikel sind urheberrechtlich geschützt, die Rechte sind vor der Veröffentlichung zu klären.
+
+### Begründung
+
+Der Bereich ergänzt Galerie und Journal. Datenbank- und Dashboard-Arbeit gehört zu Phase 2.

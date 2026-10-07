@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "roadmapVersion": 2,
+  "roadmapVersion": 3,
   "status": "active",
   "phases": [
     {
@@ -8,7 +8,7 @@
       "title": "Fundament und öffentliche Seiten",
       "description": "Design-System, Navigation und alle öffentlichen Seiten mit den echten Texten, noch mit Platzhalterdaten, ohne Backend und Login.",
       "order": 1,
-      "weight": 39,
+      "weight": 43,
       "status": "in_progress",
       "tasks": [
         {
@@ -350,7 +350,7 @@
           "description": "Journal-Liste und Detail, Kontaktseite, Impressum und Datenschutz mit Platzhalter „Inhalt folgt“.",
           "order": 12,
           "weight": 2,
-          "status": "ready",
+          "status": "completed",
           "dependsOn": [
             "task-3",
             "task-4",
@@ -360,6 +360,41 @@
             "Journal-Liste und Detail mit Platzhalterdaten",
             "Kontaktseite mit Adresse, E-Mail und Telefon",
             "Impressum und Datenschutz erreichbar"
+          ],
+          "startedAt": "2026-10-07T14:02:50Z",
+          "completedAt": "2026-10-07T14:05:32Z",
+          "verification": {
+            "status": "passed",
+            "summary": "Typprüfung, Lint (ohne Warnungen) und Build fehlerfrei. Im Browser bei 1280 px und 360 px geprüft. Journal: Liste mit zwei Beiträgen (Titelbild, Datum, Titel, Anreißer, Link), Beitragsseite mit 19 px Schrift, Zeilenhöhe 1,75, Textspalte maximal 65 Zeichen, Titelbild, Anreißer und Bild im Text; unbekannter Beitrag zeigt „nicht gefunden“. Kontakt: Adresse, E-Mail- und Telefonlink, Formular mit Unterlinien-Feldern (0 px Radius), Validierung zeigt bei leeren Feldern drei Fehlermeldungen und bei ungültiger E-Mail eine. Impressum und Datenschutz mit „Inhalt folgt“, im Footer erreichbar. Keine externen Requests, kein horizontales Scrollen bei 360 px. Nicht geprüft: das Absenden mit gültigen Daten (öffnet das E-Mail-Programm; nicht ausgelöst, um keinen externen Aufruf zu starten), die Tablet-Breite (task-13). Das Formular ist eine Übergangslösung (task-22/23), die Beitragstexte sind Platzhalter. Zum Journal gab es keinen eigenen Prompt, der später gesendete Prompt betraf Presse und Artikel (task-37 bis 39).",
+            "commands": [
+              "node_modules/.bin/tsc -b --noEmit",
+              "node_modules/.bin/oxlint",
+              "node_modules/.bin/tsc -b && node_modules/.bin/vite build",
+              "Browser-Prüfung bei 1280 px und 360 px"
+            ],
+            "checkedAt": "2026-10-07T14:05:32Z"
+          }
+        },
+        {
+          "id": "task-37",
+          "title": "Presse und interessante Artikel (öffentlich)",
+          "description": "Eigener Menüpunkt „Presse“ mit Pressearchiv und interessanten Artikeln. Einträge entstehen datei-zuerst (JPEG, PNG, PDF) oder als externer Link, alle weiteren Angaben sind optional. Vorerst mit Platzhalterdaten.",
+          "order": 13,
+          "weight": 4,
+          "status": "ready",
+          "dependsOn": [
+            "task-3",
+            "task-5"
+          ],
+          "definitionOfDone": [
+            "Navigationspunkt „Presse“ mit Untermenüs „Pressearchiv“ und „Interessante Artikel“ (Pfade unter /presse), auch im mobilen Menü",
+            "Pressearchiv mit Filtern nach Kategorie und Jahr, die nur vorhandene Angaben anbieten",
+            "Eintrag mit nur einer Datei erzeugt keine leeren Bereiche oder Platzhaltertexte",
+            "Bilder öffnen in der Lightbox, PDFs und externe Links öffnen sicher (neuer Tab, rel noopener)",
+            "Hervorgehobene Einträge werden betont dargestellt",
+            "Interessante Artikel getrennt vom Pressearchiv dargestellt",
+            "Datenstruktur mit optionalen Feldern (Titel, Medium, Autor, Datum, Kategorie, Kurz- und Langbeschreibung, Link, Status, Sortierung, Hervorhebung) und Kategorien Pressebericht, Interview, Porträt, Ausstellung, Kunst",
+            "Bei 360 px ohne horizontales Scrollen"
           ],
           "startedAt": null,
           "completedAt": null,
@@ -373,8 +408,8 @@
         {
           "id": "task-13",
           "title": "Mobile-Prüfung",
-          "description": "Alle Seiten bei 360, 768, 1280 und 1920 px prüfen und Darstellungsfehler beheben.",
-          "order": 13,
+          "description": "Alle Seiten bei 360, 768, 1280 und 1920 px prüfen und Darstellungsfehler beheben, einschließlich des Presse-Bereichs.",
+          "order": 14,
           "weight": 1,
           "status": "planned",
           "dependsOn": [
@@ -384,7 +419,8 @@
             "task-9",
             "task-10",
             "task-11",
-            "task-12"
+            "task-12",
+            "task-37"
           ],
           "definitionOfDone": [
             "Alle Seiten bei vier Breiten geprüft",
@@ -407,13 +443,13 @@
       "title": "Datenbank und Dashboard",
       "description": "Supabase-Anbindung, geschützter Admin-Bereich und Umstellung der öffentlichen Seiten auf echte Daten.",
       "order": 2,
-      "weight": 28,
+      "weight": 35,
       "status": "planned",
       "tasks": [
         {
           "id": "task-14",
           "title": "Supabase, Schema, Sicherheit und Login",
-          "description": "Supabase in der Region EU Central, Tabellen, Row Level Security, is_admin() und Admin-Login. Werkdaten sind bis auf das Bild optional, inklusive Künstler, Untergrund als Freitext, Kategorie/Serie, Detailbildern, Archivstatus, Bildausschnitt für Vorschaubilder, einer Einstellungstabelle für globale Sichtbarkeitsschalter und Zählern für Werkstatistik.",
+          "description": "Supabase in der Region EU Central, Tabellen, Row Level Security, is_admin() und Admin-Login. Werkdaten sind bis auf das Bild optional, inklusive Künstler, Untergrund als Freitext, Kategorie/Serie, Detailbildern, Archivstatus, Bildausschnitt für Vorschaubilder, einer Einstellungstabelle für globale Sichtbarkeitsschalter und Zählern für Werkstatistik. Zusätzlich Tabellen für Presseeinträge (alle Angaben außer Datei oder Link optional, Kategorien) und für Links zu interessanten Artikeln.",
           "order": 1,
           "weight": 5,
           "status": "planned",
@@ -426,7 +462,8 @@
             "Tabelle für globale Einstellungen (Sichtbarkeitsschalter) und Tabelle für Werkstatistik ohne Personenbezug vorhanden",
             "Row Level Security auf allen Tabellen",
             "Öffentlich nur Lesen veröffentlichter Daten, Eingänge nur INSERT",
-            "Login nur über /admin/login, keine öffentliche Registrierung"
+            "Login nur über /admin/login, keine öffentliche Registrierung",
+            "Tabellen für Presseeinträge und interessante Artikel mit optionalen Feldern, Row Level Security und Sichtbarkeitsstatus"
           ],
           "startedAt": null,
           "completedAt": null,
@@ -440,7 +477,7 @@
         {
           "id": "task-15",
           "title": "Storage und Bild-Upload",
-          "description": "Buckets, Verkleinerung auf 2400 px, WebP, 800-px-Vorschau, Bildmaße speichern.",
+          "description": "Buckets, Verkleinerung auf 2400 px, WebP, 800-px-Vorschau, Bildmaße speichern. Unterstützt zusätzlich PDF-Dateien für das Pressearchiv und erzeugt Vorschaubilder aus der ersten PDF-Seite.",
           "order": 2,
           "weight": 4,
           "status": "planned",
@@ -450,7 +487,8 @@
           "definitionOfDone": [
             "Buckets mit korrekten Rechten",
             "Upload erzeugt WebP und Vorschau und speichert Maße",
-            "Beim Löschen eines Werks werden Bilddateien entfernt"
+            "Beim Löschen eines Werks werden Bilddateien entfernt",
+            "PDF-Upload für den Bucket des Pressearchivs, Vorschaubild aus der ersten Seite"
           ],
           "startedAt": null,
           "completedAt": null,
@@ -592,23 +630,80 @@
           }
         },
         {
+          "id": "task-38",
+          "title": "Dashboard: Presse",
+          "description": "Dashboard-Modul für das Pressearchiv mit Datei-zuerst-Anlage: JPEG, PNG oder PDF hochladen, speichern, veröffentlichen. Weitere Angaben jederzeit ergänzbar.",
+          "order": 8,
+          "weight": 4,
+          "status": "planned",
+          "dependsOn": [
+            "task-15",
+            "task-16"
+          ],
+          "definitionOfDone": [
+            "Upload von JPEG, PNG und PDF ohne Pflichtfelder, mehrere Dateien gleichzeitig",
+            "Vorschaubild entsteht automatisch (bei PDF aus der ersten Seite)",
+            "Datei austauschen, Angaben bearbeiten, per Drag & Drop sortieren, hervorheben, veröffentlichen oder ausblenden",
+            "Löschen mit Bestätigungsdialog",
+            "Kategorien verwaltbar, weitere Dateiformate ohne Umbau ergänzbar",
+            "Hinweis im Dashboard, dass für Fremdartikel die Urheberrechte zu klären sind",
+            "Bedienbar auf Smartphone und Tablet"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
+          }
+        },
+        {
+          "id": "task-39",
+          "title": "Dashboard: Interessante Artikel",
+          "description": "Dashboard-Modul für externe Artikel und Links, die der Künstler präsentieren möchte.",
+          "order": 9,
+          "weight": 3,
+          "status": "planned",
+          "dependsOn": [
+            "task-16"
+          ],
+          "definitionOfDone": [
+            "Link hinzufügen mit nur einer URL, Titel, Quelle, Notiz und Vorschaubild optional",
+            "Bearbeiten, per Drag & Drop sortieren, veröffentlichen oder ausblenden, Löschen mit Bestätigung",
+            "Fehlende Angaben erzeugen keine leeren Bereiche auf der öffentlichen Seite",
+            "Bedienbar auf Smartphone und Tablet"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
+          }
+        },
+        {
           "id": "task-20",
           "title": "Umstellung auf Supabase und Seed-Daten",
           "description": "Alle Platzhalterdaten durch Supabase-Abfragen ersetzen und Seed-Daten einspielen.",
-          "order": 8,
+          "order": 10,
           "weight": 2,
           "status": "planned",
           "dependsOn": [
             "task-17",
             "task-18",
             "task-19",
-            "task-34"
+            "task-34",
+            "task-38",
+            "task-39"
           ],
           "definitionOfDone": [
             "Keine Platzhalterdaten mehr im Frontend",
             "Beispielwerke und Vita-Einträge in der Datenbank",
             "Öffentliches Design unverändert",
-            "Globale Sichtbarkeitsschalter werden aus der Datenbank gelesen"
+            "Globale Sichtbarkeitsschalter werden aus der Datenbank gelesen",
+            "Presse und interessante Artikel werden aus der Datenbank gelesen"
           ],
           "startedAt": null,
           "completedAt": null,

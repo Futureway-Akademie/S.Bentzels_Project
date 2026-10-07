@@ -10,7 +10,8 @@ export const posts: Post[] = [
     excerptDe:
       'Über Zögern, Entscheidung und die leere Leinwand. Anreißer folgt.',
     excerptEn: '',
-    contentDe: 'Der Beitragstext folgt.',
+    contentDe:
+      'Platzhaltertext. Der Beitragstext folgt.\n\n[[bild]]\n\nPlatzhaltertext. Hier setzt der Beitrag fort.',
     contentEn: '',
     coverImageUrl: placeholderImage(1600, 1067),
     coverImageWidth: 1600,

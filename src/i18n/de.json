@@ -423,5 +423,34 @@
   },
   "circlePage": {
     "text": "{{name}} bildet den exklusiveren Rahmen dieses Netzwerks. Er bringt Menschen zusammen, die kulturelle Qualität, persönliche Begegnung und geistige Offenheit schätzen. Denkbar sind ausgewählte Veranstaltungen an besonderen Orten, private Ausstellungsbesuche, Künstlergespräche, Salons, Vorträge und gemeinsame Reisen oder Exkursionen. In einer Zeit permanenter digitaler Kommunikation werden echte Begegnungen wieder wertvoll. Kunst ermöglicht Gespräche, die nicht mit der Frage beginnen, was jemand beruflich macht, sondern damit, was jemand sieht, denkt oder empfindet."
+  },
+  "journal": {
+    "intro": "Gedanken aus dem Atelier, zu Kunst, Wahrnehmung und Begegnung.",
+    "empty": "Noch keine Beiträge veröffentlicht.",
+    "back": "Zum Journal",
+    "notFound": "Dieser Beitrag wurde nicht gefunden.",
+    "imageAlt": "Platzhalter für ein Bild im Beitrag",
+    "readMore": "Beitrag lesen"
+  },
+  "contact": {
+    "intro": "Ich freue mich über Ihre Nachricht.",
+    "address": "Adresse",
+    "email": "E-Mail",
+    "phone": "Telefon",
+    "form": "Nachricht senden",
+    "name": "Name",
+    "emailField": "E-Mail",
+    "subject": "Betreff",
+    "message": "Nachricht",
+    "required": "Pflichtfeld",
+    "send": "Nachricht vorbereiten",
+    "mailNote": "Beim Absenden öffnet sich Ihr E-Mail-Programm mit Ihrer Nachricht.",
+    "errorName": "Bitte geben Sie Ihren Namen an.",
+    "errorEmail": "Bitte geben Sie eine gültige E-Mail-Adresse an.",
+    "errorMessage": "Bitte geben Sie eine Nachricht ein.",
+    "defaultSubject": "Kontaktanfrage"
+  },
+  "legal": {
+    "placeholder": "Inhalt folgt"
   }
 }

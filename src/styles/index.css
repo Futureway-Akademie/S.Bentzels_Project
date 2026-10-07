@@ -330,6 +330,36 @@
     content: '−';
   }
 
+  /* Formularfelder: nur Unterlinie */
+  .field {
+    display: block;
+    width: 100%;
+    margin-top: 0.5rem;
+    border: 0;
+    border-bottom: 1px solid var(--color-foreground);
+    border-radius: 0;
+    background: transparent;
+    padding: 0.5rem 0;
+    font: inherit;
+    color: var(--color-foreground);
+    resize: vertical;
+  }
+
+  .field:focus-visible {
+    outline: 2px solid var(--color-foreground);
+    outline-offset: 4px;
+  }
+
+  .field[aria-invalid='true'] {
+    border-bottom-width: 2px;
+  }
+
+  .field-error {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--color-foreground);
+  }
+
   /* Kunstwerke nie beschneiden */
   .artwork-img {
     display: block;

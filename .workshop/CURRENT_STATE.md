@@ -2,7 +2,7 @@
 
 ## Projekt
 
-Website Stephan Graf Bentzel-Sturmfeder (Roadmap Version 2, 4 Phasen, 36 Tasks, Gesamtgewicht 113).
+Website Stephan Graf Bentzel-Sturmfeder (Roadmap Version 3, 4 Phasen, 39 Tasks, Gesamtgewicht 124).
 
 ## Aktive Phase
 
@@ -14,13 +14,11 @@ Keine.
 
 ## Zuletzt abgeschlossen
 
-task-11: Netzwerk, Veranstaltungsdetail und Club-Seite. Fortschritt 31.86 % (11 von 36 Tasks).
+task-12: Journal, Kontakt und Rechtsseiten. Fortschritt 30.65 % (12 von 39 Tasks).
 
 ## Bereite nächste Aufgaben
 
-- task-12: Journal, Kontakt und Rechtsseiten
-
-Nichts.
+- task-37: Presse und interessante Artikel (öffentlich)
 
 ## Wichtige Entscheidungen
 
@@ -28,6 +26,7 @@ Nichts.
 - Das Projekt wird in diesem Repository mit React, TypeScript, Tailwind und Vite gebaut statt in Lovable.
 - Dashboards (Werke, Journal, Veranstaltungen) bleiben in Phase 2 (task-17 bis 19). task-4 bereitet die Datenstruktur dafür vor. Ein Supabase-Projekt ist bereits angelegt; Zugangsdaten gehören nur in `.env`, nie in den Chat.
 - Galerie-Prompt: Werkangaben bis auf das Bild optional, Bild zuerst im Werkdetail, globale Sichtbarkeitsschalter, neue Tasks task-34 (Sichtbarkeitsschalter), task-35 (Werkstatistik), task-36 (PDF-Werkblatt). Abschnitt 13 „Performance“ des Prompts lag nicht vor.
+- Presse-Prompt: eigener Menüpunkt „Presse“ (Pressearchiv, Interessante Artikel), getrennt vom Journal, alle Angaben außer Datei oder Link optional. Neue Tasks task-37 bis task-39. Der Prompt war nach Abschnitt 3 abgeschnitten. Rechte an gescannten Fremdartikeln sind vor der Veröffentlichung zu klären.
 - Linting mit oxlint (Vite-Standard) statt ESLint.
 
 ## Bekannte Probleme
@@ -37,4 +36,4 @@ Nichts.
 
 ## Empfohlener nächster Schritt
 
-task-12 (Journal, Kontakt und Rechtsseiten) auswählen.
+task-37 (Presse und interessante Artikel) auswählen, danach task-13 (Mobile-Prüfung) und Phase 2.

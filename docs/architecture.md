@@ -75,3 +75,9 @@ Details folgen mit der Umsetzung.
 - `src/pages/Circle.tsx` (`routes.circle`): exklusivere Inszenierung mit mehr Weißraum und langsamerer Einblendung.
 - Name des Kreises (Arbeitstitel „Bentzel Club“): Anzeigetexte stehen nur in `de.json` unter `circle.*` (name, nameWithArticle, interest, interestSubject), der URL-Pfad nur in `src/config/routes.ts`. Für eine Umbenennung genügen diese zwei Dateien.
 - Angemeldete Personen (`registeredGuests`), Eventfotos und die Veranstaltungen sind Platzhalter. Die Regel „Noch X Plätze frei erst ab weniger als 10“ folgt in task-24.
+
+## Journal, Kontakt und Rechtsseiten (task-12)
+
+- `src/pages/Journal.tsx` (`/journal`): veröffentlichte Beiträge nach Datum, mit Titelbild, Datum, Titel und Anreißer. `JournalPost.tsx` (`/journal/:slug`): lesbare Typografie (19 px, Zeilenhöhe 1,75, maximal 65 Zeichen), Titelbild, Anreißer, Text mit Bild im Text. Der Beitragsinhalt nutzt vorerst ein einfaches Blockformat (`src/lib/postContent.ts`: Absätze, `[[bild]]` für ein Bild), das in Phase 2 durch den Rich-Text-Editor ersetzt wird.
+- `src/pages/Contact.tsx` (`/kontakt`): Adresse, E-Mail, Telefon und Formular mit Unterlinien-Feldern und Validierung. Beim Absenden öffnet sich vorerst das E-Mail-Programm (Übergangslösung bis task-22/23).
+- `src/pages/LegalPage.tsx`: Impressum und Datenschutz mit „Inhalt folgt“ (Pflege im Dashboard in task-29).

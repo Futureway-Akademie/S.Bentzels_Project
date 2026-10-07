@@ -50,3 +50,9 @@
 {"timestamp": "2026-10-07T13:58:09Z", "type": "task_started", "summary": "Netzwerk, Veranstaltungsdetail und Club-Seite gestartet.", "taskId": "task-11"}
 {"timestamp": "2026-10-07T14:00:13Z", "type": "verification_passed", "summary": "Typprüfung, Lint, Build und Browser-Prüfung für task-11 bestanden.", "taskId": "task-11"}
 {"timestamp": "2026-10-07T14:00:13Z", "type": "task_completed", "summary": "Netzwerk, Veranstaltungsdetail und Club-Seite abgeschlossen.", "taskId": "task-11"}
+{"timestamp": "2026-10-07T14:02:50Z", "type": "task_started", "summary": "Journal, Kontakt und Rechtsseiten gestartet.", "taskId": "task-12"}
+{"timestamp": "2026-10-07T14:05:32Z", "type": "verification_passed", "summary": "Typprüfung, Lint, Build und Browser-Prüfung für task-12 bestanden.", "taskId": "task-12"}
+{"timestamp": "2026-10-07T14:05:32Z", "type": "task_completed", "summary": "Journal, Kontakt und Rechtsseiten abgeschlossen.", "taskId": "task-12"}
+{"timestamp": "2026-10-07T14:05:32Z", "type": "roadmap_updated", "summary": "Roadmap Version 3 nach Presse-Prompt: neue Tasks task-37 (Presse öffentlich), task-38 (Dashboard Presse), task-39 (Dashboard Interessante Artikel); task-13, task-14, task-15 und task-20 angepasst."}
+{"timestamp": "2026-10-07T14:05:32Z", "type": "decision_recorded", "summary": "Presse und interessante Artikel erhalten einen eigenen Menüpunkt „Presse“ mit zwei Untermenüs, getrennt vom Journal. Alle Angaben außer Datei oder Link sind optional."}
+{"timestamp": "2026-10-07T14:05:32Z", "type": "task_ready", "summary": "Task task-37 ist startbereit.", "taskId": "task-37"}
