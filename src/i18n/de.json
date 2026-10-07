@@ -493,5 +493,21 @@
     "curatedRead": "Artikel lesen",
     "curatedCount_one": "{{count}} Artikel",
     "curatedCount_other": "{{count}} Artikel"
+  },
+  "admin": {
+    "area": "Verwaltung",
+    "loginTitle": "Anmelden",
+    "title": "Dashboard",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "signIn": "Anmelden",
+    "signingIn": "Anmeldung läuft",
+    "signOut": "Abmelden",
+    "loading": "Wird geladen",
+    "errorRequired": "Bitte E-Mail und Passwort eingeben.",
+    "errorLogin": "Anmeldung nicht möglich. Bitte E-Mail und Passwort prüfen.",
+    "notConfigured": "Die Verbindung zu Supabase ist noch nicht eingerichtet. Bitte VITE_SUPABASE_URL und VITE_SUPABASE_ANON_KEY in der Datei .env eintragen (siehe docs/SUPABASE_SETUP.md).",
+    "noAccess": "Für dieses Konto besteht kein Zugriff auf die Verwaltung.",
+    "comingSoon": "Der Verwaltungsbereich folgt in den nächsten Schritten (Werke, Journal, Veranstaltungen, Presse)."
   }
 }

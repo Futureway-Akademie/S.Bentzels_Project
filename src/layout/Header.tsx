@@ -128,7 +128,7 @@ export default function Header() {
         <nav
           id="mobile-menu"
           aria-label={t('nav.main')}
-          className="fixed inset-x-0 bottom-0 top-[73px] z-40 overflow-y-auto bg-background lg:hidden"
+          className="absolute inset-x-0 top-full z-40 h-[calc(100dvh-100%)] overflow-y-auto bg-background lg:hidden"
         >
           <ul className="container-page m-0 list-none py-8">
             {navItems.map((item) => (

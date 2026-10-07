@@ -41,6 +41,9 @@
     font-weight: 400;
     line-height: 1.05;
     margin: 0;
+    /* lange deutsche Wörter auf schmalen Bildschirmen trennen statt überlaufen */
+    hyphens: auto;
+    overflow-wrap: break-word;
   }
 
   h1 {
@@ -204,6 +207,8 @@
 
   /* Navigation */
   .nav-link {
+    display: inline-block;
+    padding-block: 0.3rem;
     white-space: nowrap;
     font-size: 0.75rem;
     letter-spacing: var(--tracking-label);

@@ -20,4 +20,6 @@ export const routes = {
   imprint: '/impressum',
   privacy: '/datenschutz',
   designSystem: '/design-system',
+  admin: '/admin',
+  adminLogin: '/admin/login',
 } as const

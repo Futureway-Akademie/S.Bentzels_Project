@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { routes } from './config/routes'
 import Layout from './layout/Layout'
@@ -21,9 +22,19 @@ import Press from './pages/Press'
 import Seminars from './pages/Seminars'
 import Talks from './pages/Talks'
 
+const AdminRoutes = lazy(() => import('./admin/AdminRoutes'))
+
 export default function App() {
   return (
     <Routes>
+      <Route
+        path="/admin/*"
+        element={
+          <Suspense fallback={null}>
+            <AdminRoutes />
+          </Suspense>
+        }
+      />
       <Route element={<Layout />}>
         <Route path={routes.home} element={<Home />} />
         <Route path={routes.artist} element={<Artist />} />

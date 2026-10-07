@@ -7,7 +7,7 @@ export default function Footer() {
   return (
     <footer className="mt-32 border-t border-line">
       <div className="container-page grid-12 gap-y-8 py-12">
-        <div className="col-span-4 md:col-span-6">
+        <div className="col-span-4 md:col-span-12 lg:col-span-6">
           <p className="label">{t('footer.names')}</p>
           <address className="mt-4 not-italic">
             {t('footer.street')}
@@ -15,7 +15,7 @@ export default function Footer() {
             {t('footer.city')}
           </address>
         </div>
-        <div className="col-span-4 md:col-span-3">
+        <div className="col-span-4 md:col-span-6 lg:col-span-3">
           <p>
             <a href={`mailto:${t('footer.email')}`} className="footer-link">
               {t('footer.email')}
@@ -27,7 +27,7 @@ export default function Footer() {
             </a>
           </p>
         </div>
-        <ul className="col-span-4 m-0 list-none p-0 md:col-span-3">
+        <ul className="col-span-4 m-0 list-none p-0 md:col-span-6 lg:col-span-3">
           <li>
             <Link to={routes.imprint} className="footer-link">
               {t('footer.imprint')}

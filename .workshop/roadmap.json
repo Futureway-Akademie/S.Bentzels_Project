@@ -9,7 +9,7 @@
       "description": "Design-System, Navigation und alle öffentlichen Seiten mit den echten Texten, noch mit Platzhalterdaten, ohne Backend und Login.",
       "order": 1,
       "weight": 43,
-      "status": "in_progress",
+      "status": "completed",
       "tasks": [
         {
           "id": "task-1",
@@ -417,7 +417,7 @@
           "description": "Alle Seiten bei 360, 768, 1280 und 1920 px prüfen und Darstellungsfehler beheben, einschließlich des Presse-Bereichs.",
           "order": 14,
           "weight": 1,
-          "status": "ready",
+          "status": "completed",
           "dependsOn": [
             "task-6",
             "task-7",
@@ -433,13 +433,19 @@
             "Kein horizontales Scrollen, keine abgeschnittenen Werke",
             "Build, Lint und Typprüfung fehlerfrei"
           ],
-          "startedAt": null,
-          "completedAt": null,
+          "startedAt": "2026-10-07T14:12:12Z",
+          "completedAt": "2026-10-07T14:16:01Z",
           "verification": {
-            "status": "not_run",
-            "summary": null,
-            "commands": [],
-            "checkedAt": null
+            "status": "passed",
+            "summary": "Alle 22 öffentlichen Routen (Start, Künstler, Galerie, Werkdetail ohne und mit Angaben, Seminare, Art of Becoming, Kunstkurse, Vorträge, Netzwerk, Veranstaltungen, Club, Presse, Interessante Artikel, Journal, Beitrag, Kontakt, Impressum, Datenschutz, Design-System, 404) wurden im Browser bei 360, 768, 1280 und 1920 px automatisiert auf horizontales Scrollen, Überlauf über den Rand, verzerrte Bilder, abgeschnittene Texte, Bedienflächen unter 20 px und fehlende H1 geprüft. Gefunden und behoben: (1) „Erfahrungsraum“ in der Überschrift von /seminare lief bei 360 px über die Spalte, jetzt Silbentrennung für Überschriften; (2) E-Mail-Adresse in der Fußzeile wurde bei 768 px abgeschnitten, Fußzeilenraster angepasst; (3) Menüeinträge am Desktop nur 18 px hoch, jetzt 30 px; (4) mobiles Menü begann 4 px unter der Kopfzeile, jetzt direkt darunter (1 px Überlappung mit dem Rahmen der Kopfzeile). Nach den Korrekturen: bei allen vier Breiten alle 22 Routen ohne Befund (360 px nach den Änderungen komplett wiederholt). Mobiles Menü bei 360 px: scrollbar, letzter Eintrag erreichbar, Esc schließt, Scroll-Sperre wird gelöst. Typprüfung, Lint, Formatprüfung und Build fehlerfrei. Nicht geprüft: echte Geräte und andere Browser (nur eingebetteter Browser mit Größenemulation), Querformat, Touch-Gesten auf einem Gerät, Kontrastwerte und Screenreader, Hover-Zustände, die Einblend-Animation bei sichtbarem Fenster. Die Bedienflächen wurden nach Elementgröße beurteilt, die vergrößerte Trefferfläche der Textlinks ist darin nicht enthalten. Der Admin-Bereich existiert noch nicht.",
+            "commands": [
+              "node_modules/.bin/prettier --check src",
+              "node_modules/.bin/tsc -b --noEmit",
+              "node_modules/.bin/oxlint",
+              "node_modules/.bin/tsc -b && node_modules/.bin/vite build",
+              "Browser-Prüfung aller 22 Routen bei 360, 768, 1280 und 1920 px"
+            ],
+            "checkedAt": "2026-10-07T14:16:01Z"
           }
         }
       ]
@@ -450,7 +456,7 @@
       "description": "Supabase-Anbindung, geschützter Admin-Bereich und Umstellung der öffentlichen Seiten auf echte Daten.",
       "order": 2,
       "weight": 35,
-      "status": "planned",
+      "status": "in_progress",
       "tasks": [
         {
           "id": "task-14",
@@ -458,7 +464,7 @@
           "description": "Supabase in der Region EU Central, Tabellen, Row Level Security, is_admin() und Admin-Login. Werkdaten sind bis auf das Bild optional, inklusive Künstler, Untergrund als Freitext, Kategorie/Serie, Detailbildern, Archivstatus, Bildausschnitt für Vorschaubilder, einer Einstellungstabelle für globale Sichtbarkeitsschalter und Zählern für Werkstatistik. Zusätzlich Tabellen für Presseeinträge (alle Angaben außer Datei oder Link optional, Kategorien) und für Links zu interessanten Artikeln.",
           "order": 1,
           "weight": 5,
-          "status": "planned",
+          "status": "completed",
           "dependsOn": [
             "task-13"
           ],
@@ -471,13 +477,20 @@
             "Login nur über /admin/login, keine öffentliche Registrierung",
             "Tabellen für Presseeinträge und interessante Artikel mit optionalen Feldern, Row Level Security und Sichtbarkeitsstatus"
           ],
-          "startedAt": null,
-          "completedAt": null,
+          "startedAt": "2026-10-07T14:19:38Z",
+          "completedAt": "2026-10-07T14:25:18Z",
           "verification": {
-            "status": "not_run",
-            "summary": null,
-            "commands": [],
-            "checkedAt": null
+            "status": "passed",
+            "summary": "Schema und Login lokal geprüft, aber nicht gegen das echte Supabase-Projekt. (1) Datenbank: Das Schema (supabase/migrations/0001_schema.sql, 14 Tabellen, View und 5 Hilfsfunktionen) wurde in einer echten lokalen PostgreSQL-Datenbank (PGlite) mit nachgebauten Supabase-Rollen eingespielt und mit 23 Prüfungen getestet, alle bestanden: Row Level Security auf allen Tabellen; anon liest nur veröffentlichte Inhalte, nicht die Werktabelle, nur die View artworks_public (veröffentlicht, nicht archiviert); Werk nur mit Bild lesbar und anlegbar (Adresse automatisch); Anfragen nur einfügbar und nicht lesbar, fremder Status, leerer Name und unbekannter Typ abgelehnt; Anmeldungen weder lesbar noch einfügbar; Nutzer ohne Admin-Recht ohne Zugriff und ohne Möglichkeit, sich Admin zu machen; Admin darf Werke, Anfragen, Statistik und Anmeldungen verwalten; Sichtbarkeitsschalter (Preis, Jahr, Maße, Technik, Verfügbarkeit, Beschreibung) blenden in der öffentlichen Sicht aus und wieder ein, gespeicherte Daten bleiben unverändert; Statistik zählt nur öffentliche Werke und gültige Ereignisse und ist nicht lesbar; Presse braucht Datei oder Link; Wertebereiche und updated_at. Der Test fand einen Fehler (fehlendes Ausführungsrecht für gallery_flag in der View), der behoben wurde. (2) Login: Mit einem lokalen Ersatz für die Supabase-API und der echten supabase-js-Bibliothek getestet: ohne Zugangsdaten zeigt /admin/login einen Hinweis und /admin leitet um; leere Eingabe und falsches Passwort zeigen Fehlermeldungen; Konto ohne Admin-Eintrag sieht „kein Zugriff“; Admin-Konto sieht das Dashboard, die Anmeldung bleibt nach dem Neuladen erhalten, Abmelden leitet zur Anmeldung, unbekannte /admin-Pfade leiten um; pro Anmeldung genau eine Admin-Abfrage; die öffentlichen Seiten stellen keine Supabase-Anfragen; Admin-Seiten werden nachgeladen und tragen noindex. Typprüfung, Lint (ohne Warnungen), Formatprüfung und Build fehlerfrei. NICHT geprüft: das Einspielen und die Regeln gegen dein echtes Supabase-Projekt, die echte Supabase-Anmeldung (nur lokaler Ersatz), das Ausschalten der öffentlichen Registrierung und das Anlegen des Admin-Kontos (manuelle Schritte laut docs/SUPABASE_SETUP.md), Passwort zurücksetzen (nicht umgesetzt). Die Anmeldung bei 360 px wurde nur gemessen. Es wurden keine Zugangsdaten verwendet oder gespeichert, .env existiert nicht und ist ignoriert.",
+            "commands": [
+              "node supabase/tests/schema.test.mjs",
+              "node_modules/.bin/prettier --check src",
+              "node_modules/.bin/tsc -b --noEmit",
+              "node_modules/.bin/oxlint",
+              "node_modules/.bin/tsc -b && node_modules/.bin/vite build",
+              "Browser-Prüfung der Anmeldung gegen lokalen Supabase-Ersatz bei 1280 px und 360 px"
+            ],
+            "checkedAt": "2026-10-07T14:25:18Z"
           }
         },
         {
@@ -486,7 +499,7 @@
           "description": "Buckets, Verkleinerung auf 2400 px, WebP, 800-px-Vorschau, Bildmaße speichern. Unterstützt zusätzlich PDF-Dateien für das Pressearchiv und erzeugt Vorschaubilder aus der ersten PDF-Seite.",
           "order": 2,
           "weight": 4,
-          "status": "planned",
+          "status": "ready",
           "dependsOn": [
             "task-14"
           ],
@@ -511,7 +524,7 @@
           "description": "Geschützter Bereich mit Seitenleiste und Übersichtsseite.",
           "order": 3,
           "weight": 2,
-          "status": "planned",
+          "status": "ready",
           "dependsOn": [
             "task-14"
           ],

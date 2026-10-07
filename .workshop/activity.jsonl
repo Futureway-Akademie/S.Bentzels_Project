@@ -60,3 +60,13 @@
 {"timestamp": "2026-10-07T14:10:02Z", "type": "verification_passed", "summary": "Typprüfung, Lint, Build und Browser-Prüfung für task-37 bestanden.", "taskId": "task-37"}
 {"timestamp": "2026-10-07T14:10:02Z", "type": "task_completed", "summary": "Presse und interessante Artikel (öffentlich) abgeschlossen.", "taskId": "task-37"}
 {"timestamp": "2026-10-07T14:10:02Z", "type": "task_ready", "summary": "Task task-13 ist startbereit.", "taskId": "task-13"}
+{"timestamp": "2026-10-07T14:12:12Z", "type": "task_started", "summary": "Mobile-Prüfung gestartet.", "taskId": "task-13"}
+{"timestamp": "2026-10-07T14:16:01Z", "type": "verification_passed", "summary": "Mobile-Prüfung bei vier Breiten für alle 22 Routen bestanden, vier Befunde behoben.", "taskId": "task-13"}
+{"timestamp": "2026-10-07T14:16:01Z", "type": "task_completed", "summary": "Mobile-Prüfung abgeschlossen. Phase 1 ist vollständig.", "taskId": "task-13"}
+{"timestamp": "2026-10-07T14:16:01Z", "type": "task_ready", "summary": "Task task-14 ist startbereit.", "taskId": "task-14"}
+{"timestamp": "2026-10-07T14:19:38Z", "type": "task_started", "summary": "Supabase, Schema, Sicherheit und Login gestartet.", "taskId": "task-14"}
+{"timestamp": "2026-10-07T14:25:18Z", "type": "verification_passed", "summary": "Schema lokal (23 Datenbankprüfungen) und Login gegen lokalen Supabase-Ersatz geprüft, nicht gegen das echte Projekt.", "taskId": "task-14"}
+{"timestamp": "2026-10-07T14:25:18Z", "type": "task_completed", "summary": "Supabase, Schema, Sicherheit und Login abgeschlossen (Einspielen im echten Projekt durch den Nutzer ausstehend).", "taskId": "task-14"}
+{"timestamp": "2026-10-07T14:25:18Z", "type": "task_ready", "summary": "Task task-15 ist startbereit.", "taskId": "task-15"}
+{"timestamp": "2026-10-07T14:25:18Z", "type": "task_ready", "summary": "Task task-16 ist startbereit.", "taskId": "task-16"}
+{"timestamp": "2026-10-07T14:25:18Z", "type": "decision_recorded", "summary": "Anmeldungen (registrations) sind nicht öffentlich einfügbar, sondern laufen über die Edge Function mit Kapazitätsprüfung. Werke werden öffentlich nur über die View artworks_public gelesen."}

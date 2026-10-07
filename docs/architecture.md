@@ -90,3 +90,16 @@ Details folgen mit der Umsetzung.
 - `src/components/PressCard.tsx`: zeigt nur vorhandene Angaben. Ohne Vorschaubild erscheint bei Bildern die Datei selbst, bei PDFs eine typografische Kachel „PDF“.
 - `src/pages/CuratedArticles.tsx`: ohne Titel dient der Domainname als Titel.
 - Presseeinträge, Autoren, Medien und Links sind Platzhalter. `public/platzhalter.pdf` ist ein Platzhalter-PDF. Vorschaubilder aus PDF-Seiten, Upload und Pflege folgen in Phase 2 (task-15, task-38, task-39).
+
+## Mobile-Prüfung (task-13)
+
+- Alle 22 öffentlichen Routen wurden bei 360, 768, 1280 und 1920 px automatisiert geprüft (horizontales Scrollen, Überlauf über den Rand, verzerrte Bilder, abgeschnittene Texte, zu kleine Bedienflächen, fehlende Überschrift).
+- Behoben: Silbentrennung für Überschriften (`hyphens: auto`, Seite ist als Deutsch markiert), Fußzeilen-Raster auf Tablet-Breite (E-Mail-Adresse wurde abgeschnitten), Höhe der Menüeinträge am Desktop (30 px), mobiles Menü setzt direkt unter der Kopfzeile an.
+
+## Datenbank, Sicherheit und Login (task-14)
+
+- `supabase/migrations/0001_schema.sql`: alle Tabellen (Werke, Werkbilder, Journal, Veranstaltungen, Eventfotos, Kurse, Vita, Presse, Links, Anfragen, Anmeldungen, Statistik, Einstellungen, Admins), Row Level Security auf allen Tabellen, `is_admin()`, `artworks_public` (ausgeblendete Angaben serverseitig leer), `track_artwork_event()` (Zähler ohne Personenbezug). Anleitung zum Einspielen: `docs/SUPABASE_SETUP.md`.
+- Test des Schemas gegen eine echte lokale PostgreSQL-Datenbank (PGlite) mit nachgebauten Supabase-Rollen: `node supabase/tests/schema.test.mjs` (23 Prüfungen).
+- `src/lib/supabase.ts`: Client, nur aktiv wenn `VITE_SUPABASE_URL` und `VITE_SUPABASE_ANON_KEY` gesetzt sind. Die öffentliche Seite funktioniert auch ohne.
+- `src/admin/`: Login (`/admin/login`), geschützter Bereich (`/admin`, vorerst Platzhalter), Prüfung über die Tabelle `admins`. Wird nur bei Bedarf nachgeladen, mit `noindex`. Es gibt keine Registrierung.
+- Abweichungen vom Masterprompt: Anmeldungen (`registrations`) sind nicht öffentlich einfügbar, sondern laufen über die Edge Function mit Kapazitätsprüfung (task-24). Posts leiten `is_published` aus `status` ab.
