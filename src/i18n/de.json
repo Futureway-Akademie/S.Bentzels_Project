@@ -33,7 +33,8 @@
       "reserviert": "reserviert",
       "verkauft": "verkauft"
     },
-    "dimensions": "{{height}} × {{width}} cm"
+    "dimensions": "{{height}} × {{width}} cm",
+    "untitled": "Kunstwerk"
   },
   "lightbox": {
     "label": "Bildansicht",
@@ -157,5 +158,47 @@
     "quote": "Er ist sich in Werk und Leben der Untrennbarkeit von Tragik und Heldentum bewusst. Sein Denken und Wirken sind stets radikal wie seine Persönlichkeit.",
     "quoteSource": "T. Krause, 2017",
     "statementLabel": "Statement"
+  },
+  "gallery": {
+    "intro": "Kunst, die nicht nur Räume verändert. Die hier präsentierten Originalwerke können erworben werden. In der Online-Galerie finden Sie eine Auswahl aktueller Arbeiten mit Angaben zu Format, Technik und Verfügbarkeit. Bei Interesse an einem Werk oder bei Fragen zu weiteren Arbeiten nehmen Sie gerne persönlich Kontakt auf.",
+    "closing": "Kunst beginnt nicht mit Besitz. Sie beginnt mit Resonanz.",
+    "filterLabel": "Filter",
+    "all": "Alle",
+    "canvas": "Leinwand",
+    "paper": "Papier",
+    "byCycle": "nach Zyklus",
+    "byYear": "nach Jahr",
+    "onlyAvailable": "nur verfügbare",
+    "count_one": "{{count}} Werk",
+    "count_other": "{{count}} Werke",
+    "empty": "Keine Werke für diese Auswahl.",
+    "bySupport": "Untergrund"
+  },
+  "artworkDetail": {
+    "cycle": "Zyklus",
+    "year": "Jahr",
+    "technique": "Technik",
+    "support": "Untergrund",
+    "dimensions": "Maße (H × B)",
+    "framed": "Gerahmt",
+    "status": "Status",
+    "price": "Preis",
+    "priceInclVat": "{{price}} inkl. MwSt.",
+    "yes": "ja",
+    "no": "nein",
+    "support_leinwand": "Leinwand",
+    "support_papier": "Papier",
+    "inquire": "Werk anfragen",
+    "inquireSubject": "Anfrage zu: {{title}}",
+    "purchaseNote": "Der Erwerb erfolgt nach persönlicher Absprache.",
+    "previous": "Vorheriges Werk",
+    "next": "Nächstes Werk",
+    "back": "Zur Galerie",
+    "enlarge": "Bild vergrößern",
+    "notFound": "Dieses Werk wurde nicht gefunden.",
+    "descriptionLabel": "Beschreibung",
+    "info": "Werkinformationen",
+    "hideInfo": "Werkinformationen schließen",
+    "artist": "Künstler"
   }
 }

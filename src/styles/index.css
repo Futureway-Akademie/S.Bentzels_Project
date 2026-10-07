@@ -249,6 +249,43 @@
     border-bottom-color: var(--color-foreground);
   }
 
+  /* Filter als Textlinks */
+  .filter-link {
+    border: 0;
+    border-bottom: 1px solid transparent;
+    background: transparent;
+    padding: 0 0 0.2rem;
+    font: inherit;
+    font-size: 0.75rem;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--color-muted);
+    cursor: pointer;
+    transition: color 300ms var(--ease-gallery);
+  }
+
+  .filter-link:hover,
+  .filter-link[aria-pressed='true'] {
+    color: var(--color-foreground);
+  }
+
+  .filter-link[aria-pressed='true'] {
+    border-bottom-color: var(--color-foreground);
+  }
+
+  /* Größere Trefferfläche für Touchscreens, ohne das Layout zu verändern */
+  .btn-link,
+  .filter-link {
+    position: relative;
+  }
+
+  .btn-link::after,
+  .filter-link::after {
+    content: '';
+    position: absolute;
+    inset: -0.55rem -0.4rem;
+  }
+
   /* Kunstwerke nie beschneiden */
   .artwork-img {
     display: block;

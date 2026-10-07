@@ -45,3 +45,12 @@ Details folgen mit der Umsetzung.
 
 - `src/pages/Artist.tsx` (`/kuenstler`): Statement, Porträt mit Einleitung, kreativer Prozess in vier Phasen (Bild und Text abwechselnd), Überleitung zu The Art of Becoming, Vita nach Kategorien (Ausbildung, Ausstellungen, Messen, Kuratorische Projekte) und Zitat „Stimmen“. Die Vita kommt aus `src/data/vita.ts`.
 - Porträt und Prozessfotos sind graue Platzhalter.
+
+## Galerie und Werkdetail (task-8)
+
+- Werkdaten: Bis auf Bild und Kennung sind alle Angaben optional (`null`). Untergrund ist Freitext (`supportDe`). Dieselbe Struktur gilt für die Datenbank in Phase 2.
+- `src/config/gallerySettings.ts`: globale Sichtbarkeitsschalter (Preis, Maße, Technik, Jahr, Verfügbarkeit, Beschreibung) über `useGalleryVisibility()`. Aktuell Konfiguration im Code, ab task-34 aus der Datenbank. Ein Schalter blendet nur aus und löscht nichts. Neue Schalter werden dort ergänzt.
+- `src/pages/Gallery.tsx`: Filter (Untergrund, Zyklus, Jahr, nur verfügbare) entstehen aus den vorhandenen Daten und entfallen bei fehlender oder ausgeblendeter Angabe, Zustand in der URL. Ruhiges Masonry (1 bis 4 Spalten), Mehrteiler in voller Breite.
+- `src/pages/ArtworkDetail.tsx`: Bild zuerst, Werkinformationen optional aufklappbar, „Werk anfragen“ vorerst als mailto (Formular in task-23), Vor/Zurück.
+- `src/components/Lightbox.tsx`: drei Zoomstufen, Pfeiltasten, Wischen, Wechsel zwischen allen Werken mit Anpassung der URL.
+- Fehlende oder ausgeblendete Angaben, auch der Preis, werden nicht angezeigt. Alt-Texte nennen das Jahr nur, wenn es sichtbar ist.

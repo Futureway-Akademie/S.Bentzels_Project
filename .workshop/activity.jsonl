@@ -36,3 +36,8 @@
 {"timestamp": "2026-10-07T13:36:46Z", "type": "verification_passed", "summary": "Typprüfung, Lint, Build und Browser-Prüfung für task-7 bestanden.", "taskId": "task-7"}
 {"timestamp": "2026-10-07T13:36:46Z", "type": "task_completed", "summary": "Künstlerseite abgeschlossen.", "taskId": "task-7"}
 {"timestamp": "2026-10-07T13:36:46Z", "type": "decision_recorded", "summary": "Korrektur: Die Vita-Platzhalterdaten enthalten 44 Einträge (31 Ausstellungen), nicht 38 wie bei task-4 angegeben."}
+{"timestamp": "2026-10-07T13:38:48Z", "type": "task_started", "summary": "Galerie und Werkdetail gestartet.", "taskId": "task-8"}
+{"timestamp": "2026-10-07T13:45:15Z", "type": "roadmap_updated", "summary": "Roadmap Version 2 nach Galerie-Prompt: task-8, task-14, task-17, task-20, task-31 und task-32 angepasst, neue Tasks task-34 (Sichtbarkeitsschalter), task-35 (Werkstatistik), task-36 (PDF-Werkblatt)."}
+{"timestamp": "2026-10-07T13:45:15Z", "type": "decision_recorded", "summary": "Werkdetail folgt dem Galerie-Prompt: Bild zuerst, Werkinformationen optional. Fehlende oder global ausgeblendete Angaben, auch der Preis, werden nicht angezeigt. Wischgesten der Lightbox werden in task-8 umgesetzt."}
+{"timestamp": "2026-10-07T13:48:47Z", "type": "verification_passed", "summary": "Typprüfung, Lint, Build und Browser-Prüfung für task-8 bestanden.", "taskId": "task-8"}
+{"timestamp": "2026-10-07T13:48:47Z", "type": "task_completed", "summary": "Galerie und Werkdetail abgeschlossen.", "taskId": "task-8"}

@@ -1,33 +1,34 @@
 // Typen spiegeln das geplante Supabase-Datenmodell (camelCase der Spalten).
 // Texte mit späterer Übersetzung haben *De und *En (En darf leer sein).
 
-export type Support = 'leinwand' | 'papier'
 export type ArtworkStatus = 'verfuegbar' | 'reserviert' | 'verkauft'
 
+// Bis auf Bild und Kennung sind alle Angaben optional (null = nicht vorhanden).
 export type Artwork = {
   id: string
   slug: string
-  titleDe: string
-  titleEn: string
-  cycle: string | null
-  year: number
-  techniqueDe: string
-  techniqueEn: string
-  support: Support
-  heightCm: number
-  widthCm: number
-  depthCm: number | null
-  framed: boolean
-  isMultipart: boolean
-  priceEur: number
-  showPrice: boolean
-  status: ArtworkStatus
-  descriptionDe: string
-  descriptionEn: string
-  isHighlight: boolean
   mainImageUrl: string
   imageWidth: number
   imageHeight: number
+  titleDe: string | null
+  titleEn: string | null
+  artist: string | null
+  cycle: string | null
+  year: number | null
+  techniqueDe: string | null
+  techniqueEn: string | null
+  /** Untergrund als Freitext, z. B. Leinwand, Papier, Holz */
+  supportDe: string | null
+  heightCm: number | null
+  widthCm: number | null
+  depthCm: number | null
+  framed: boolean | null
+  isMultipart: boolean
+  priceEur: number | null
+  status: ArtworkStatus | null
+  descriptionDe: string | null
+  descriptionEn: string | null
+  isHighlight: boolean
   sortOrder: number
   isPublished: boolean
 }

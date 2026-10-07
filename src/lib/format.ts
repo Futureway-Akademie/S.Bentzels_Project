@@ -27,3 +27,11 @@ export function formatLongDate(iso: string): string {
     year: 'numeric',
   }).format(new Date(iso))
 }
+
+export function formatPrice(value: number): string {
+  return new Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency: 'EUR',
+    maximumFractionDigits: 0,
+  }).format(value)
+}

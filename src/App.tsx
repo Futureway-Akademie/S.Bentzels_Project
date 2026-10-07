@@ -2,7 +2,9 @@ import { useTranslation } from 'react-i18next'
 import { Route, Routes } from 'react-router-dom'
 import { routes } from './config/routes'
 import Layout from './layout/Layout'
+import ArtworkDetail from './pages/ArtworkDetail'
 import Artist from './pages/Artist'
+import Gallery from './pages/Gallery'
 import DesignSystem from './pages/DesignSystem'
 import Home from './pages/Home'
 import PagePlaceholder from './pages/PagePlaceholder'
@@ -17,8 +19,8 @@ export default function App() {
       <Route element={<Layout />}>
         <Route path={routes.home} element={<Home />} />
         <Route path={routes.artist} element={<Artist />} />
-        <Route path={routes.gallery} element={page('gallery')} />
-        <Route path={routes.artwork} element={page('artwork')} />
+        <Route path={routes.gallery} element={<Gallery />} />
+        <Route path={routes.artwork} element={<ArtworkDetail />} />
         <Route path={routes.seminars} element={page('seminars')} />
         <Route path={routes.artOfBecoming} element={page('artOfBecoming')} />
         <Route path={routes.courses} element={page('courses')} />

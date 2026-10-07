@@ -143,7 +143,7 @@ export default function Header() {
                 {item.children && (
                   <ul className="m-0 mt-3 list-none p-0">
                     {item.children.map((child) => (
-                      <li key={child.to} className="py-1">
+                      <li key={child.to} className="py-2">
                         <Link to={child.to} className="nav-link">
                           {t(child.labelKey)}
                         </Link>

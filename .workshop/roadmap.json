@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "roadmapVersion": 1,
+  "roadmapVersion": 2,
   "status": "active",
   "phases": [
     {
@@ -221,28 +221,36 @@
         {
           "id": "task-8",
           "title": "Galerie und Werkdetail",
-          "description": "Galerie mit Filtern und Masonry, Mehrteiler in voller Breite, Werkdetail mit Lightbox und Navigation.",
+          "description": "Galerie mit Filtern und ruhigem Masonry (3–4 Werke gleichzeitig sichtbar, bis ca. 60 Werke), Werkdetail mit Bild zuerst, optionalen Werkinformationen und Lightbox mit Zoom, Vor/Zurück und Wischgesten. Alle Werkangaben außer dem Bild sind optional, globale Sichtbarkeitsschalter steuern die Anzeige.",
           "order": 8,
           "weight": 4,
-          "status": "ready",
+          "status": "completed",
           "dependsOn": [
             "task-3",
             "task-4",
             "task-5"
           ],
           "definitionOfDone": [
-            "Filter funktionieren",
-            "Werkdetail mit allen Feldern und Preis als „inkl. MwSt.“",
-            "Button „Werk anfragen“ vorhanden (Formular später)",
-            "Vorheriges und nächstes Werk navigierbar"
+            "Filter funktionieren und blenden sich aus, wenn die zugehörige Angabe fehlt oder global ausgeblendet ist",
+            "Hoch-, Quer- und Quadratformate werden ohne Verzerrung und ohne Beschnitt dargestellt",
+            "Ein Werk ohne jede Angabe (nur Bild) erzeugt keine leeren Bereiche oder Platzhaltertexte",
+            "Zentrale Sichtbarkeitsschalter für Preis, Maße, Technik, Jahr, Verfügbarkeit und Beschreibung wirken in Galerie und Detail, ohne Daten zu löschen",
+            "Werkdetail zeigt das Bild groß, Werkinformationen öffnen optional",
+            "Lightbox mit Zoom, Pfeiltasten, Vor/Zurück zwischen Werken und Wischgesten",
+            "Button „Werk anfragen“ vorhanden (Formular später)"
           ],
-          "startedAt": null,
-          "completedAt": null,
+          "startedAt": "2026-10-07T13:38:48Z",
+          "completedAt": "2026-10-07T13:48:47Z",
           "verification": {
-            "status": "not_run",
-            "summary": null,
-            "commands": [],
-            "checkedAt": null
+            "status": "passed",
+            "summary": "Typprüfung, Lint (ohne Warnungen) und Build fehlerfrei. Im Browser bei 1440 px und 360 px geprüft. Galerie: 4 Spalten bei 1440 px, 1 Spalte bei 360 px, Hoch-, Quer- und Quadratformate ohne Verzerrung, Mehrteiler in voller Breite, Filter (Untergrund, Zyklus, Jahr, nur verfügbare) mit korrekten Trefferzahlen und URL-Zustand, leere Auswahl zeigt Hinweis, Werk ohne Angaben erzeugt keine Bildunterschrift. Werkdetail: Bild passt in den Bildschirm, Werkinformationen öffnen optional, Werk ohne Angaben zeigt weder Info-Button noch leere Bereiche. Lightbox: Pfeiltasten und Wechsel zwischen den Werken inkl. URL, drei Zoomstufen, Wischen per simulierten Touch-Ereignissen (nicht beim Zoomen), Esc. Sichtbarkeitsschalter testweise auf AUS für Preis, Jahr und Verfügbarkeit: Angaben, Alt-Text-Jahr und zugehörige Filter verschwinden, danach wieder AN (Daten bleiben unverändert). Keine externen Requests, kein horizontales Scrollen. Beim Test fiel auf, dass der Alt-Text das ausgeblendete Jahr nannte und die Bedienflächen auf dem Smartphone nur 25 px hoch waren; beides behoben (Trefferfläche 41 px). Nicht geprüft: echte Wischgesten und Pinch-Zoom auf einem Gerät (nur simuliert), Bildschirmleser, 60 Werke (nur 10 Beispielwerke), Tablet-Breite (task-13). Das Formular „Werk anfragen“ ist noch ein mailto. Die Abschnitt-13-Performance des Galerie-Prompts lag nicht vor.",
+            "commands": [
+              "node_modules/.bin/tsc -b --noEmit",
+              "node_modules/.bin/oxlint",
+              "node_modules/.bin/tsc -b && node_modules/.bin/vite build",
+              "Browser-Prüfung bei 1440 px und 360 px"
+            ],
+            "checkedAt": "2026-10-07T13:48:47Z"
           }
         },
         {
@@ -384,13 +392,13 @@
       "title": "Datenbank und Dashboard",
       "description": "Supabase-Anbindung, geschützter Admin-Bereich und Umstellung der öffentlichen Seiten auf echte Daten.",
       "order": 2,
-      "weight": 25,
+      "weight": 28,
       "status": "planned",
       "tasks": [
         {
           "id": "task-14",
           "title": "Supabase, Schema, Sicherheit und Login",
-          "description": "Supabase in der Region EU Central, Tabellen, Row Level Security, is_admin() und Admin-Login.",
+          "description": "Supabase in der Region EU Central, Tabellen, Row Level Security, is_admin() und Admin-Login. Werkdaten sind bis auf das Bild optional, inklusive Künstler, Untergrund als Freitext, Kategorie/Serie, Detailbildern, Archivstatus, Bildausschnitt für Vorschaubilder, einer Einstellungstabelle für globale Sichtbarkeitsschalter und Zählern für Werkstatistik.",
           "order": 1,
           "weight": 5,
           "status": "planned",
@@ -398,7 +406,9 @@
             "task-13"
           ],
           "definitionOfDone": [
-            "Alle neun Tabellen laut Masterprompt angelegt",
+            "Alle Tabellen laut Masterprompt und Galerie-Prompt angelegt",
+            "Bei artworks ist nur das Bild Pflicht, alle anderen Felder sind optional",
+            "Tabelle für globale Einstellungen (Sichtbarkeitsschalter) und Tabelle für Werkstatistik ohne Personenbezug vorhanden",
             "Row Level Security auf allen Tabellen",
             "Öffentlich nur Lesen veröffentlichter Daten, Eingänge nur INSERT",
             "Login nur über /admin/login, keine öffentliche Registrierung"
@@ -463,7 +473,7 @@
         {
           "id": "task-17",
           "title": "Dashboard-Modul Werke",
-          "description": "Rasteransicht, Mehrfach-Upload, Formular, Bildtausch, Sortierung, Schnellschalter, Duplizieren.",
+          "description": "Rasteransicht, Bild-zuerst-Upload mit sofortigem Veröffentlichen, Formular mit optionalen Feldern, Bildtausch, Detailbilder, Bildausschnitt für Vorschaubilder (Original bleibt erhalten), Sortierung per Drag & Drop, Schnellschalter, Archivieren, Duplizieren.",
           "order": 4,
           "weight": 5,
           "status": "planned",
@@ -472,8 +482,12 @@
             "task-16"
           ],
           "definitionOfDone": [
-            "Alle Funktionen laut Masterprompt",
-            "Bestätigungsdialog vor Löschen",
+            "Bild hochladen und sofort veröffentlichen ist ohne weitere Angaben möglich",
+            "Angaben lassen sich Wochen später ergänzen",
+            "Bildausschnitt für Vorschaubilder definierbar, Original bleibt unverändert",
+            "Archivieren, Duplizieren und Löschen mit Bestätigungsdialog",
+            "Drag & Drop für Reihenfolge und mehrere Bilder",
+            "Bedienbar auf Smartphone und Tablet",
             "Toast nach dem Speichern, validierte Formulare"
           ],
           "startedAt": null,
@@ -536,21 +550,50 @@
           }
         },
         {
+          "id": "task-34",
+          "title": "Globale Sichtbarkeitsschalter",
+          "description": "Dashboard-Bereich, in dem Preise, Maße, Technik, Jahr, Verfügbarkeit und Beschreibung für die gesamte öffentliche Galerie ein- und ausgeschaltet werden. Weitere Schalter müssen ohne Umbau ergänzbar sein.",
+          "order": 7,
+          "weight": 3,
+          "status": "planned",
+          "dependsOn": [
+            "task-14",
+            "task-16"
+          ],
+          "definitionOfDone": [
+            "Schalter für Preis, Maße, Technik, Jahr, Verfügbarkeit und Beschreibung im Dashboard",
+            "Ausschalten blendet die Angabe überall öffentlich aus, löscht aber keine Daten",
+            "Wieder Einschalten zeigt die Angaben unverändert",
+            "Neue Schalter lassen sich ohne Umbau der Architektur ergänzen",
+            "Bedienbar auf Smartphone"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
+          }
+        },
+        {
           "id": "task-20",
           "title": "Umstellung auf Supabase und Seed-Daten",
           "description": "Alle Platzhalterdaten durch Supabase-Abfragen ersetzen und Seed-Daten einspielen.",
-          "order": 7,
+          "order": 8,
           "weight": 2,
           "status": "planned",
           "dependsOn": [
             "task-17",
             "task-18",
-            "task-19"
+            "task-19",
+            "task-34"
           ],
           "definitionOfDone": [
             "Keine Platzhalterdaten mehr im Frontend",
             "Beispielwerke und Vita-Einträge in der Datenbank",
-            "Öffentliches Design unverändert"
+            "Öffentliches Design unverändert",
+            "Globale Sichtbarkeitsschalter werden aus der Datenbank gelesen"
           ],
           "startedAt": null,
           "completedAt": null,
@@ -568,7 +611,7 @@
       "title": "Formulare und E-Mails",
       "description": "Alle Formulare mit Speicherung, E-Mail-Versand über Resend und Veranstaltungsanmeldung mit Warteliste.",
       "order": 3,
-      "weight": 20,
+      "weight": 23,
       "status": "planned",
       "tasks": [
         {
@@ -714,6 +757,32 @@
             "commands": [],
             "checkedAt": null
           }
+        },
+        {
+          "id": "task-35",
+          "title": "Werkstatistik",
+          "description": "Datenschutzfreundliche Zählung von Anzeigen, Klicks, geöffneten Großansichten und Anfragen je Werk ohne personenbezogenes Tracking, mit verständlicher Auswertung im Dashboard.",
+          "order": 7,
+          "weight": 3,
+          "status": "planned",
+          "dependsOn": [
+            "task-20",
+            "task-23"
+          ],
+          "definitionOfDone": [
+            "Zählung von Anzeigen, Klicks, Großansicht und „Werk anfragen“ je Werk",
+            "Keine Cookies, keine IP-Speicherung, keine Nutzerprofile",
+            "Dashboard zeigt die beliebtesten Werke verständlich",
+            "Zählungen sind nicht von außen lesbar (Row Level Security)"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
+          }
         }
       ]
     },
@@ -722,7 +791,7 @@
       "title": "SEO, Recht und Launch",
       "description": "Suchmaschinenoptimierung, rechtliche Grundlagen, Performance, Feinschliff und Veröffentlichung.",
       "order": 4,
-      "weight": 20,
+      "weight": 23,
       "status": "planned",
       "tasks": [
         {
@@ -823,7 +892,7 @@
         {
           "id": "task-31",
           "title": "Feinschliff",
-          "description": "Favicon, Wischgesten, Seitenübergang, einheitliche Namensschreibweise.",
+          "description": "Favicon, Seitenübergang, einheitliche Namensschreibweise. Wischgesten der Lightbox wurden in task-8 umgesetzt und werden hier auf echten Touchgeräten nachgeprüft.",
           "order": 5,
           "weight": 3,
           "status": "planned",
@@ -832,8 +901,33 @@
           ],
           "definitionOfDone": [
             "Favicon „SB“ in Jost",
-            "Lightbox mit Esc, Pfeilen und Wischgesten",
+            "Lightbox mit Esc, Pfeilen und Wischgesten auf Touchgeräten geprüft",
             "Name überall einheitlich geschrieben"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
+          }
+        },
+        {
+          "id": "task-36",
+          "title": "PDF-Werkblatt",
+          "description": "Professionelles Werkblatt als PDF je Werk, erzeugt aus den gespeicherten Werkdaten, damit nichts doppelt gepflegt wird.",
+          "order": 6,
+          "weight": 3,
+          "status": "planned",
+          "dependsOn": [
+            "task-20"
+          ],
+          "definitionOfDone": [
+            "Werkblatt mit Abbildung und allen vorhandenen Angaben (Titel, Künstler, Jahr, Technik, Untergrund, Maße, Beschreibung, Status, Preis)",
+            "Fehlende Angaben erzeugen keine leeren Zeilen",
+            "Festgelegt und dokumentiert, ob die öffentliche Variante die Sichtbarkeitsschalter beachtet und ob das Dashboard eine interne Vollversion erzeugt",
+            "Layout im Stil der Website"
           ],
           "startedAt": null,
           "completedAt": null,
@@ -848,7 +942,7 @@
           "id": "task-32",
           "title": "Abschlussprüfung",
           "description": "Prüfung bei 360, 768, 1280 und 1920 px sowie Liste aller verbleibenden Platzhalter.",
-          "order": 6,
+          "order": 7,
           "weight": 2,
           "status": "planned",
           "dependsOn": [
@@ -856,7 +950,9 @@
             "task-28",
             "task-29",
             "task-30",
-            "task-31"
+            "task-31",
+            "task-35",
+            "task-36"
           ],
           "definitionOfDone": [
             "Alle Seiten bei vier Breiten geprüft",
@@ -875,7 +971,7 @@
           "id": "task-33",
           "title": "Domain und Launch",
           "description": "Domain bentzel-sturmfeder.de anbinden und Seite veröffentlichen.",
-          "order": 7,
+          "order": 8,
           "weight": 2,
           "status": "planned",
           "dependsOn": [
