@@ -56,3 +56,7 @@
 {"timestamp": "2026-10-07T14:05:32Z", "type": "roadmap_updated", "summary": "Roadmap Version 3 nach Presse-Prompt: neue Tasks task-37 (Presse öffentlich), task-38 (Dashboard Presse), task-39 (Dashboard Interessante Artikel); task-13, task-14, task-15 und task-20 angepasst."}
 {"timestamp": "2026-10-07T14:05:32Z", "type": "decision_recorded", "summary": "Presse und interessante Artikel erhalten einen eigenen Menüpunkt „Presse“ mit zwei Untermenüs, getrennt vom Journal. Alle Angaben außer Datei oder Link sind optional."}
 {"timestamp": "2026-10-07T14:05:32Z", "type": "task_ready", "summary": "Task task-37 ist startbereit.", "taskId": "task-37"}
+{"timestamp": "2026-10-07T14:07:47Z", "type": "task_started", "summary": "Presse und interessante Artikel (öffentlich) gestartet.", "taskId": "task-37"}
+{"timestamp": "2026-10-07T14:10:02Z", "type": "verification_passed", "summary": "Typprüfung, Lint, Build und Browser-Prüfung für task-37 bestanden.", "taskId": "task-37"}
+{"timestamp": "2026-10-07T14:10:02Z", "type": "task_completed", "summary": "Presse und interessante Artikel (öffentlich) abgeschlossen.", "taskId": "task-37"}
+{"timestamp": "2026-10-07T14:10:02Z", "type": "task_ready", "summary": "Task task-13 ist startbereit.", "taskId": "task-13"}

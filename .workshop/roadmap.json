@@ -381,7 +381,7 @@
           "description": "Eigener Menüpunkt „Presse“ mit Pressearchiv und interessanten Artikeln. Einträge entstehen datei-zuerst (JPEG, PNG, PDF) oder als externer Link, alle weiteren Angaben sind optional. Vorerst mit Platzhalterdaten.",
           "order": 13,
           "weight": 4,
-          "status": "ready",
+          "status": "completed",
           "dependsOn": [
             "task-3",
             "task-5"
@@ -396,13 +396,19 @@
             "Datenstruktur mit optionalen Feldern (Titel, Medium, Autor, Datum, Kategorie, Kurz- und Langbeschreibung, Link, Status, Sortierung, Hervorhebung) und Kategorien Pressebericht, Interview, Porträt, Ausstellung, Kunst",
             "Bei 360 px ohne horizontales Scrollen"
           ],
-          "startedAt": null,
-          "completedAt": null,
+          "startedAt": "2026-10-07T14:07:47Z",
+          "completedAt": "2026-10-07T14:10:02Z",
           "verification": {
-            "status": "not_run",
-            "summary": null,
-            "commands": [],
-            "checkedAt": null
+            "status": "passed",
+            "summary": "Typprüfung, Lint (ohne Warnungen), Formatprüfung und Build fehlerfrei. Im Browser bei 1280, 1024 und 360 px geprüft. Navigation: neuer Menüpunkt „Presse“ mit Pressearchiv und Interessante Artikel, Dropdown und mobiles Menü; bei 1024 px war die Leiste zu eng (Umbruch), Abstände verringert und Umbruch verhindert, danach 24 px Abstand zum Logo und jedes Label einzeilig. Pressearchiv: 6 Platzhaltereinträge, hervorgehobene zuerst (01 Hervorgehoben, 02 Archiv), Filter nach Kategorie und Jahr nur aus vorhandenen Angaben (Jahr aus Datum oder Jahresfeld), Trefferzahlen und leere Auswahl korrekt, Vorschaubilder in Originalproportionen. Datei-zuerst: Eintrag nur mit Bild zeigt Vorschau und „Ansehen“, Eintrag nur mit Link zeigt nur Titel, Medium, Jahr und Link, PDF ohne Vorschau zeigt Kachel „PDF“; keine leeren Bereiche. Bilder öffnen in der Lightbox mit Wechsel und Esc, alle 6 externen Links mit rel noopener noreferrer, PDF-Platzhalter öffnet in neuem Tab. Interessante Artikel getrennt, Titel fehlt: Domainname als Titel. Keine externen Requests, kein horizontales Scrollen bei 360 px. Nicht geprüft: echtes Öffnen der PDF im Browser (Link und Datei vorhanden, nicht angeklickt), Screenreader, Tablet-Breite (task-13). Alle Einträge, Medien, Autoren und Links sind erfundene Platzhalter. Der Presse-Prompt war nach Abschnitt 3 abgeschnitten, spätere Abschnitte sind nicht berücksichtigt.",
+            "commands": [
+              "node_modules/.bin/prettier --check src",
+              "node_modules/.bin/tsc -b --noEmit",
+              "node_modules/.bin/oxlint",
+              "node_modules/.bin/tsc -b && node_modules/.bin/vite build",
+              "Browser-Prüfung bei 1280 px, 1024 px und 360 px"
+            ],
+            "checkedAt": "2026-10-07T14:10:02Z"
           }
         },
         {
@@ -411,7 +417,7 @@
           "description": "Alle Seiten bei 360, 768, 1280 und 1920 px prüfen und Darstellungsfehler beheben, einschließlich des Presse-Bereichs.",
           "order": 14,
           "weight": 1,
-          "status": "planned",
+          "status": "ready",
           "dependsOn": [
             "task-6",
             "task-7",

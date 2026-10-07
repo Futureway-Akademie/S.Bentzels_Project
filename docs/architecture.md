@@ -81,3 +81,12 @@ Details folgen mit der Umsetzung.
 - `src/pages/Journal.tsx` (`/journal`): veröffentlichte Beiträge nach Datum, mit Titelbild, Datum, Titel und Anreißer. `JournalPost.tsx` (`/journal/:slug`): lesbare Typografie (19 px, Zeilenhöhe 1,75, maximal 65 Zeichen), Titelbild, Anreißer, Text mit Bild im Text. Der Beitragsinhalt nutzt vorerst ein einfaches Blockformat (`src/lib/postContent.ts`: Absätze, `[[bild]]` für ein Bild), das in Phase 2 durch den Rich-Text-Editor ersetzt wird.
 - `src/pages/Contact.tsx` (`/kontakt`): Adresse, E-Mail, Telefon und Formular mit Unterlinien-Feldern und Validierung. Beim Absenden öffnet sich vorerst das E-Mail-Programm (Übergangslösung bis task-22/23).
 - `src/pages/LegalPage.tsx`: Impressum und Datenschutz mit „Inhalt folgt“ (Pflege im Dashboard in task-29).
+
+## Presse und interessante Artikel (task-37)
+
+- Navigation: Menüpunkt „Presse“ mit „Pressearchiv“ (`/presse`) und „Interessante Artikel“ (`/presse/interessante-artikel`), Pfade in `src/config/routes.ts`. Die Desktop-Navigation hat bei 1024 px engere Abstände und bricht nicht um.
+- Daten: `PressItem` und `CuratedLink` in `src/data/types.ts` spiegeln das geplante Datenmodell. Bei Presseeinträgen sind alle Angaben außer Datei bzw. Link optional, bei Links nur die URL. Kategorien: Pressebericht, Interview, Porträt, Ausstellung, Kunst.
+- `src/pages/Press.tsx`: Hervorgehobene Einträge zuerst, dann das Archiv. Filter nach Kategorie und Jahr entstehen aus vorhandenen Angaben (Jahr aus Datum oder Jahresfeld). Bilder öffnen in der Lightbox, PDFs und externe Links in neuem Tab mit `rel="noopener noreferrer"`.
+- `src/components/PressCard.tsx`: zeigt nur vorhandene Angaben. Ohne Vorschaubild erscheint bei Bildern die Datei selbst, bei PDFs eine typografische Kachel „PDF“.
+- `src/pages/CuratedArticles.tsx`: ohne Titel dient der Domainname als Titel.
+- Presseeinträge, Autoren, Medien und Links sind Platzhalter. `public/platzhalter.pdf` ist ein Platzhalter-PDF. Vorschaubilder aus PDF-Seiten, Upload und Pflege folgen in Phase 2 (task-15, task-38, task-39).

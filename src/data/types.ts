@@ -117,3 +117,48 @@ export type VitaEntry = {
   sortOrder: number
   isPublished: boolean
 }
+
+export type PressCategory =
+  'pressebericht' | 'interview' | 'portraet' | 'ausstellung' | 'kunst'
+export type PressMediumType = 'zeitung' | 'magazin' | 'onlineportal'
+export type PressFileType = 'image' | 'pdf'
+
+// Presseeintrag: Alle Angaben außer Datei bzw. Link sind optional (null = nicht vorhanden).
+export type PressItem = {
+  id: string
+  titleDe: string | null
+  titleEn: string | null
+  thumbnailUrl: string | null
+  thumbnailWidth: number | null
+  thumbnailHeight: number | null
+  fileUrl: string | null
+  fileType: PressFileType | null
+  fileWidth: number | null
+  fileHeight: number | null
+  medium: string | null
+  mediumType: PressMediumType | null
+  author: string | null
+  publishedAt: string | null
+  year: number | null
+  category: PressCategory | null
+  summaryDe: string | null
+  descriptionDe: string | null
+  externalUrl: string | null
+  isHighlight: boolean
+  sortOrder: number
+  isPublished: boolean
+}
+
+// Interessanter Artikel: Nur die URL ist Pflicht.
+export type CuratedLink = {
+  id: string
+  url: string
+  titleDe: string | null
+  source: string | null
+  noteDe: string | null
+  thumbnailUrl: string | null
+  thumbnailWidth: number | null
+  thumbnailHeight: number | null
+  sortOrder: number
+  isPublished: boolean
+}

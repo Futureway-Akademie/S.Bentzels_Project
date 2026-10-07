@@ -1,5 +1,6 @@
 export { artworks } from './artworks'
 export { courses, eventPhotos, events, registeredGuests } from './events'
+export { curatedLinks, pressItems } from './press'
 export { posts } from './posts'
 export { vitaEntries } from './vita'
 export { placeholderImage } from './placeholder'

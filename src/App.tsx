@@ -10,12 +10,14 @@ import DesignSystem from './pages/DesignSystem'
 import Home from './pages/Home'
 import Circle from './pages/Circle'
 import Contact from './pages/Contact'
+import CuratedArticles from './pages/CuratedArticles'
 import Courses from './pages/Courses'
 import Journal from './pages/Journal'
 import JournalPost from './pages/JournalPost'
 import LegalPage from './pages/LegalPage'
 import Network from './pages/Network'
 import PagePlaceholder from './pages/PagePlaceholder'
+import Press from './pages/Press'
 import Seminars from './pages/Seminars'
 import Talks from './pages/Talks'
 
@@ -36,6 +38,8 @@ export default function App() {
         <Route path={routes.event} element={<EventDetail />} />
         <Route path={routes.journal} element={<Journal />} />
         <Route path={routes.post} element={<JournalPost />} />
+        <Route path={routes.press} element={<Press />} />
+        <Route path={routes.curated} element={<CuratedArticles />} />
         <Route path={routes.contact} element={<Contact />} />
         <Route
           path={routes.imprint}

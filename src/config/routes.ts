@@ -14,6 +14,8 @@ export const routes = {
   event: '/netzwerk/:slug',
   journal: '/journal',
   post: '/journal/:slug',
+  press: '/presse',
+  curated: '/presse/interessante-artikel',
   contact: '/kontakt',
   imprint: '/impressum',
   privacy: '/datenschutz',

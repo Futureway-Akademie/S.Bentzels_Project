@@ -14,13 +14,11 @@ Keine.
 
 ## Zuletzt abgeschlossen
 
-task-12: Journal, Kontakt und Rechtsseiten. Fortschritt 30.65 % (12 von 39 Tasks).
+task-37: Presse und interessante Artikel (öffentlich). Fortschritt 33.87 % (13 von 39 Tasks).
 
 ## Bereite nächste Aufgaben
 
-- task-37: Presse und interessante Artikel (öffentlich)
-
-## Wichtige Entscheidungen
+- task-13: Mobile-Prüfung
 
 - Der Name des exklusiven Netzwerk-Kreises ist offen. Arbeitstitel „Bentzel Club“, Kandidaten: „Stephan Bentzel“, „Stephan Graf Bentzel The Art Circle“, „Stephan Bentzel Sovereign Art Circle“. Umsetzung zentral konfigurierbar.
 - Das Projekt wird in diesem Repository mit React, TypeScript, Tailwind und Vite gebaut statt in Lovable.
@@ -36,4 +34,4 @@ task-12: Journal, Kontakt und Rechtsseiten. Fortschritt 30.65 % (12 von 39 Tasks
 
 ## Empfohlener nächster Schritt
 
-task-37 (Presse und interessante Artikel) auswählen, danach task-13 (Mobile-Prüfung) und Phase 2.
+task-13 (Mobile-Prüfung) auswählen, danach beginnt Phase 2 (Datenbank und Dashboard).

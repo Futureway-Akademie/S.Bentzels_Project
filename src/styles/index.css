@@ -204,6 +204,7 @@
 
   /* Navigation */
   .nav-link {
+    white-space: nowrap;
     font-size: 0.75rem;
     letter-spacing: var(--tracking-label);
     text-transform: uppercase;

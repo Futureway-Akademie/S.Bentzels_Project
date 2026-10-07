@@ -74,7 +74,10 @@
     "network": "Netzwerk",
     "events": "Veranstaltungen",
     "journal": "Journal",
-    "contact": "Kontakt"
+    "contact": "Kontakt",
+    "press": "Presse",
+    "pressArchive": "Pressearchiv",
+    "curated": "Interessante Artikel"
   },
   "logo": {
     "line1": "Stephan Graf",
@@ -108,7 +111,9 @@
     "privacy": "Datenschutz",
     "notFound": "Seite nicht gefunden",
     "comingSoon": "Inhalt folgt",
-    "backToGallery": "Zur Galerie"
+    "backToGallery": "Zur Galerie",
+    "pressArchive": "Pressearchiv",
+    "curated": "Interessante Artikel"
   },
   "home": {
     "heroLabel": "Malerei & Werke",
@@ -452,5 +457,41 @@
   },
   "legal": {
     "placeholder": "Inhalt folgt"
+  },
+  "press": {
+    "intro": "Presseberichte, Interviews, Porträts und weitere Veröffentlichungen über Arbeit, Kunst und Projekte von Stephan Graf Bentzel-Sturmfeder.",
+    "highlights": "Hervorgehoben",
+    "archive": "Archiv",
+    "filterLabel": "Filter",
+    "all": "Alle",
+    "byYear": "nach Jahr",
+    "count_one": "{{count}} Eintrag",
+    "count_other": "{{count}} Einträge",
+    "empty": "Keine Einträge für diese Auswahl.",
+    "category": {
+      "pressebericht": "Pressebericht",
+      "interview": "Interview",
+      "portraet": "Porträt",
+      "ausstellung": "Ausstellung",
+      "kunst": "Kunst"
+    },
+    "medium": {
+      "zeitung": "Zeitung",
+      "magazin": "Magazin",
+      "onlineportal": "Onlineportal"
+    },
+    "by": "von {{author}}",
+    "view": "Ansehen",
+    "viewPdf": "PDF öffnen",
+    "original": "Zum Originalartikel",
+    "newTab": "öffnet in neuem Tab",
+    "documentAlt": "Pressedokument",
+    "pdfLabel": "PDF",
+    "thumbAlt": "Vorschau",
+    "curatedIntro": "Externe Artikel und Veröffentlichungen, die ich lesenswert finde.",
+    "curatedEmpty": "Noch keine Artikel veröffentlicht.",
+    "curatedRead": "Artikel lesen",
+    "curatedCount_one": "{{count}} Artikel",
+    "curatedCount_other": "{{count}} Artikel"
   }
 }

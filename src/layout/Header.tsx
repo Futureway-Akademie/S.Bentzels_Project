@@ -38,12 +38,12 @@ export default function Header() {
 
   return (
     <header className="relative z-40 border-b border-line bg-background">
-      <div className="container-page flex items-center justify-between py-5">
+      <div className="container-page flex items-center justify-between gap-6 py-5">
         <Logo />
 
         {/* Desktop */}
         <nav aria-label={t('nav.main')} className="hidden lg:block">
-          <ul className="m-0 flex list-none items-center gap-9 p-0">
+          <ul className="m-0 flex list-none items-center gap-5 p-0 xl:gap-9">
             {navItems.map((item) => {
               const label = t(item.labelKey)
               if (!item.children) {

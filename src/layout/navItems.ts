@@ -29,5 +29,13 @@ export const navItems: NavItem[] = [
     ],
   },
   { labelKey: 'nav.journal', to: routes.journal },
+  {
+    labelKey: 'nav.press',
+    to: routes.press,
+    children: [
+      { labelKey: 'nav.pressArchive', to: routes.press },
+      { labelKey: 'nav.curated', to: routes.curated },
+    ],
+  },
   { labelKey: 'nav.contact', to: routes.contact },
 ]
