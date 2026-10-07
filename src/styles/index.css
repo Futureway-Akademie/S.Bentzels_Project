@@ -202,6 +202,53 @@
     }
   }
 
+  /* Navigation */
+  .nav-link {
+    font-size: 0.75rem;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--color-muted);
+    transition: color 300ms var(--ease-gallery);
+  }
+
+  .nav-link:hover,
+  .nav-link[aria-current='page'] {
+    color: var(--color-foreground);
+  }
+
+  .nav-toggle {
+    border: 0;
+    background: transparent;
+    color: var(--color-muted);
+    font: inherit;
+    line-height: 1;
+    padding: 0.25rem 0.35rem;
+    cursor: pointer;
+  }
+
+  .nav-toggle:hover {
+    color: var(--color-foreground);
+  }
+
+  .mobile-link {
+    display: block;
+    font-size: clamp(1.75rem, 1.2rem + 3vw, 2.5rem);
+    line-height: 1.15;
+    text-decoration: none;
+    color: var(--color-foreground);
+  }
+
+  .footer-link {
+    text-decoration: none;
+    color: var(--color-foreground);
+    border-bottom: 1px solid transparent;
+  }
+
+  .footer-link:hover {
+    border-bottom-color: var(--color-foreground);
+  }
+
   /* Kunstwerke nie beschneiden */
   .artwork-img {
     display: block;

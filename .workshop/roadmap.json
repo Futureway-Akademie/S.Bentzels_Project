@@ -133,7 +133,7 @@
           "description": "Zweizeiliges Logo, Navigation mit Dropdowns, Vollbild-Menü mobil, Footer mit Adresse und Rechtslinks, alle Routen.",
           "order": 5,
           "weight": 3,
-          "status": "ready",
+          "status": "completed",
           "dependsOn": [
             "task-2"
           ],
@@ -143,13 +143,18 @@
             "Footer mit Adresse, E-Mail, Telefon, Impressum und Datenschutz",
             "Name und Bereichsbezeichnung des Netzwerk-Kreises stehen an zentraler Stelle (Arbeitstitel „Bentzel Club“)"
           ],
-          "startedAt": null,
-          "completedAt": null,
+          "startedAt": "2026-10-07T13:29:39Z",
+          "completedAt": "2026-10-07T13:30:36Z",
           "verification": {
-            "status": "not_run",
-            "summary": null,
-            "commands": [],
-            "checkedAt": null
+            "status": "passed",
+            "summary": "Typprüfung, Lint (ohne Warnungen) und Build fehlerfrei. Im Browser geprüft: Logo zweizeilig, Navigation mit fünf Einträgen, Dropdown Netzwerk zeigt Veranstaltungen und Club per Hover, alle 17 Routen (inkl. Werk-, Event- und Journal-Detail sowie 404) laden mit Header und Footer, Footer mit Namen, Adresse, E-Mail, Telefon, Impressum und Datenschutz. Mobil (360 px): Menü-Button, Vollbild-Menü mit großen Einträgen, schließt beim Seitenwechsel und mit Esc, Scroll-Sperre wird freigegeben, kein horizontales Scrollen. Keine externen Requests. Nicht getestet: Dropdown per Tastatur-Tabulator, Tablet-Breite (768 px), Seiten außerhalb der Platzhalter sind noch leer. Der Kreis-Name ist über circle.name und routes.circle zentral änderbar.",
+            "commands": [
+              "node_modules/.bin/tsc -b --noEmit",
+              "node_modules/.bin/oxlint",
+              "node_modules/.bin/tsc -b && node_modules/.bin/vite build",
+              "Browser-Prüfung bei 1280 px und 360 px"
+            ],
+            "checkedAt": "2026-10-07T13:30:36Z"
           }
         },
         {
@@ -158,7 +163,7 @@
           "description": "Hero, Statement, ausgewählte Werke, Teaser Art of Becoming, nächste Begegnung, Journal.",
           "order": 6,
           "weight": 3,
-          "status": "planned",
+          "status": "completed",
           "dependsOn": [
             "task-3",
             "task-4",
@@ -169,13 +174,18 @@
             "Masonry-Raster der Highlight-Werke",
             "Responsiv ab 360 px"
           ],
-          "startedAt": null,
-          "completedAt": null,
+          "startedAt": "2026-10-07T13:32:37Z",
+          "completedAt": "2026-10-07T13:33:19Z",
           "verification": {
-            "status": "not_run",
-            "summary": null,
-            "commands": [],
-            "checkedAt": null
+            "status": "passed",
+            "summary": "Typprüfung, Lint (ohne Warnungen) und Build fehlerfrei. Im Browser bei 1280 px und 360 px geprüft: Label „Malerei & Werke“, Namensschriftzug als H1, Hero-Platzhalter über volle Breite mit hoher Ladepriorität, Statement-Text, vier Abschnitte 01 bis 04 mit den Texten des Masterprompts, 5 Highlight-Werke in Originalproportionen (zwei Triptychen in voller Breite), nächste Veranstaltung mit großem Datum (14. November 2026), neuester Beitrag, vier Buttons mit korrekten Zielen, keine externen Requests, kein horizontales Scrollen bei 360 px. Einschränkungen: Das Raster ist bei nur drei Einzelwerken kein echtes Masonry, der Effekt zeigt sich erst mit mehr Werken. Hero, Beitragsbild und Werke sind graue Platzhalter. Die Anzeige „nächste Begegnung“ hängt vom aktuellen Datum ab (die Platzhaltertermine liegen im November und Dezember 2026). Tablet-Breite nicht geprüft (task-13).",
+            "commands": [
+              "node_modules/.bin/tsc -b --noEmit",
+              "node_modules/.bin/oxlint",
+              "node_modules/.bin/tsc -b && node_modules/.bin/vite build",
+              "Browser-Prüfung bei 1280 px und 360 px"
+            ],
+            "checkedAt": "2026-10-07T13:33:19Z"
           }
         },
         {
@@ -184,7 +194,7 @@
           "description": "Statement, Porträt mit Einleitungstext, Prozess in vier Phasen, Vita-Zeitleiste, Stimmen.",
           "order": 7,
           "weight": 3,
-          "status": "planned",
+          "status": "ready",
           "dependsOn": [
             "task-3",
             "task-5"
@@ -209,7 +219,7 @@
           "description": "Galerie mit Filtern und Masonry, Mehrteiler in voller Breite, Werkdetail mit Lightbox und Navigation.",
           "order": 8,
           "weight": 4,
-          "status": "planned",
+          "status": "ready",
           "dependsOn": [
             "task-3",
             "task-4",
@@ -236,7 +246,7 @@
           "description": "Übersicht mit drei Kacheln, Kunstkurse-Seite, Vorträge-Seite.",
           "order": 9,
           "weight": 3,
-          "status": "planned",
+          "status": "ready",
           "dependsOn": [
             "task-3",
             "task-5"
@@ -261,7 +271,7 @@
           "description": "Seminarseite mit Hero, Vierzeiler-Sequenz, vier Modulen, Erlebnisliste, Fundament-Akkordeon, Faktenleiste, Leitung, CTA.",
           "order": 10,
           "weight": 4,
-          "status": "planned",
+          "status": "ready",
           "dependsOn": [
             "task-3",
             "task-5"
@@ -286,7 +296,7 @@
           "description": "Netzwerkseite, Veranstaltungsliste mit Archiv, Detailseite sowie die exklusivere Club-Seite mit langsamerer Einblendung.",
           "order": 11,
           "weight": 3,
-          "status": "planned",
+          "status": "ready",
           "dependsOn": [
             "task-3",
             "task-4",
@@ -312,7 +322,7 @@
           "description": "Journal-Liste und Detail, Kontaktseite, Impressum und Datenschutz mit Platzhalter „Inhalt folgt“.",
           "order": 12,
           "weight": 2,
-          "status": "planned",
+          "status": "ready",
           "dependsOn": [
             "task-3",
             "task-4",

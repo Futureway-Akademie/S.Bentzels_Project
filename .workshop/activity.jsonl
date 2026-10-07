@@ -19,3 +19,16 @@
 {"timestamp": "2026-10-07T13:26:35Z", "type": "task_started", "summary": "Wiederverwendbare Komponenten gestartet: SectionLabel, ArtworkCard, Timeline, Lightbox.", "taskId": "task-3"}
 {"timestamp": "2026-10-07T13:27:38Z", "type": "verification_passed", "summary": "Typprüfung, Lint, Build und Browser-Prüfung für task-3 bestanden.", "taskId": "task-3"}
 {"timestamp": "2026-10-07T13:27:38Z", "type": "task_completed", "summary": "Wiederverwendbare Komponenten abgeschlossen.", "taskId": "task-3"}
+{"timestamp": "2026-10-07T13:29:39Z", "type": "task_started", "summary": "Header, Footer und Routing gestartet.", "taskId": "task-5"}
+{"timestamp": "2026-10-07T13:30:36Z", "type": "verification_passed", "summary": "Typprüfung, Lint, Build und Browser-Prüfung für task-5 bestanden.", "taskId": "task-5"}
+{"timestamp": "2026-10-07T13:30:36Z", "type": "task_completed", "summary": "Header, Footer und Routing abgeschlossen.", "taskId": "task-5"}
+{"timestamp": "2026-10-07T13:30:36Z", "type": "task_ready", "summary": "Task task-6 ist startbereit.", "taskId": "task-6"}
+{"timestamp": "2026-10-07T13:30:36Z", "type": "task_ready", "summary": "Task task-7 ist startbereit.", "taskId": "task-7"}
+{"timestamp": "2026-10-07T13:30:36Z", "type": "task_ready", "summary": "Task task-8 ist startbereit.", "taskId": "task-8"}
+{"timestamp": "2026-10-07T13:30:36Z", "type": "task_ready", "summary": "Task task-9 ist startbereit.", "taskId": "task-9"}
+{"timestamp": "2026-10-07T13:30:36Z", "type": "task_ready", "summary": "Task task-10 ist startbereit.", "taskId": "task-10"}
+{"timestamp": "2026-10-07T13:30:36Z", "type": "task_ready", "summary": "Task task-11 ist startbereit.", "taskId": "task-11"}
+{"timestamp": "2026-10-07T13:30:36Z", "type": "task_ready", "summary": "Task task-12 ist startbereit.", "taskId": "task-12"}
+{"timestamp": "2026-10-07T13:32:37Z", "type": "task_started", "summary": "Startseite gestartet.", "taskId": "task-6"}
+{"timestamp": "2026-10-07T13:33:19Z", "type": "verification_passed", "summary": "Typprüfung, Lint, Build und Browser-Prüfung für task-6 bestanden.", "taskId": "task-6"}
+{"timestamp": "2026-10-07T13:33:19Z", "type": "task_completed", "summary": "Startseite abgeschlossen.", "taskId": "task-6"}

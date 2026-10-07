@@ -2,10 +2,6 @@
   "brand": {
     "name": "Stephan Graf Bentzel-Sturmfeder"
   },
-  "setup": {
-    "label": "Projekt-Setup",
-    "text": "Das Fundament steht. Die Seiten folgen."
-  },
   "designSystem": {
     "label": "Design-System",
     "title": "Typografie, Farbe, Raster",
@@ -55,5 +51,75 @@
       "messe": "Messen",
       "kuratorisch": "Kuratorische Projekte"
     }
+  },
+  "circle": {
+    "name": "Bentzel Club"
+  },
+  "nav": {
+    "menu": "Menü",
+    "closeMenu": "Schließen",
+    "main": "Hauptnavigation",
+    "home": "Zur Startseite",
+    "art": "Kunst",
+    "artist": "Künstler",
+    "gallery": "Galerie",
+    "seminars": "Seminare & Vorträge",
+    "artOfBecoming": "The Art of Becoming",
+    "courses": "Kunstkurse",
+    "talks": "Vorträge",
+    "network": "Netzwerk",
+    "events": "Veranstaltungen",
+    "journal": "Journal",
+    "contact": "Kontakt"
+  },
+  "logo": {
+    "line1": "Stephan Graf",
+    "line2": "Bentzel-Sturmfeder"
+  },
+  "footer": {
+    "names": "Stephan Graf Bentzel-Sturmfeder · Sturmfeder Projects",
+    "street": "Schloss Jägersburg, Fürstenweg 1",
+    "city": "91330 Bammersdorf",
+    "email": "sb@jaegersburg.com",
+    "phone": "+49 177 4346401",
+    "phoneHref": "+491774346401",
+    "imprint": "Impressum",
+    "privacy": "Datenschutz"
+  },
+  "pages": {
+    "artist": "Künstler",
+    "gallery": "Galerie",
+    "artwork": "Werk",
+    "seminars": "Seminare & Vorträge",
+    "artOfBecoming": "The Art of Becoming",
+    "courses": "Individuelle Kunstkurse",
+    "talks": "Vorträge",
+    "network": "Netzwerk",
+    "event": "Veranstaltung",
+    "circle": "{{name}}",
+    "journal": "Journal",
+    "post": "Journalbeitrag",
+    "contact": "Kontakt",
+    "imprint": "Impressum",
+    "privacy": "Datenschutz",
+    "notFound": "Seite nicht gefunden",
+    "comingSoon": "Inhalt folgt",
+    "backToGallery": "Zur Galerie"
+  },
+  "home": {
+    "heroLabel": "Malerei & Werke",
+    "heroAlt": "Platzhalter für das Hauptwerk",
+    "statement": "Ich male nicht, um Antworten zu geben. Ich schaffe Bilder, die Fragen öffnen – über uns selbst, unsere Wahrnehmung und darüber, wie wir die Welt gestalten wollen.",
+    "works": "Ausgewählte Werke",
+    "allWorks": "Alle Werke entdecken",
+    "becoming": "The Art of Becoming",
+    "becomingQuote": "Kunst beginnt dort, wo wir die Angst verlieren, einfach anzufangen.",
+    "becomingButton": "Firmenworkshop entdecken",
+    "formatLabel": "Ein Format von Sturmfeder Projects",
+    "nextEvent": "Nächste Begegnung",
+    "allEvents": "Veranstaltungen entdecken",
+    "clock": "{{time}} Uhr",
+    "journal": "Journal",
+    "readPost": "Beitrag lesen"
   }
 }

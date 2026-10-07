@@ -14,13 +14,16 @@ Keine.
 
 ## Zuletzt abgeschlossen
 
-task-3: Wiederverwendbare Komponenten. Fortschritt 12.5 % (4 von 33 Tasks).
+task-6: Startseite. Fortschritt 18.27 % (6 von 33 Tasks).
 
 ## Bereite nächste Aufgaben
 
-- task-5: Header, Footer und Routing
-
-## Blockiert
+- task-7: Künstlerseite
+- task-8: Galerie und Werkdetail
+- task-9: Seminare, Kunstkurse und Vorträge
+- task-10: The Art of Becoming
+- task-11: Netzwerk, Veranstaltungsdetail und Club-Seite (Arbeitstitel „Bentzel Club“, endgültiger Name offen)
+- task-12: Journal, Kontakt und Rechtsseiten
 
 Nichts.
 
@@ -37,4 +40,4 @@ Nichts.
 
 ## Empfohlener nächster Schritt
 
-task-5 (Header, Footer und Routing) auswählen, danach die Seiten.
+task-7 (Künstlerseite) auswählen.

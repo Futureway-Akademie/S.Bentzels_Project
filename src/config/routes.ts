@@ -1,0 +1,21 @@
+// Zentrale Pfade. Der Pfad des exklusiven Netzwerk-Kreises (Arbeitstitel „Bentzel Club“)
+// wird nur hier festgelegt, damit eine spätere Umbenennung an einer Stelle erfolgt.
+export const routes = {
+  home: '/',
+  artist: '/kuenstler',
+  gallery: '/galerie',
+  artwork: '/galerie/:slug',
+  seminars: '/seminare',
+  artOfBecoming: '/seminare/the-art-of-becoming',
+  courses: '/seminare/kunstkurse',
+  talks: '/seminare/vortraege',
+  network: '/netzwerk',
+  circle: '/netzwerk/bentzel-club',
+  event: '/netzwerk/:slug',
+  journal: '/journal',
+  post: '/journal/:slug',
+  contact: '/kontakt',
+  imprint: '/impressum',
+  privacy: '/datenschutz',
+  designSystem: '/design-system',
+} as const
