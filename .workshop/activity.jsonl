@@ -41,3 +41,6 @@
 {"timestamp": "2026-10-07T13:45:15Z", "type": "decision_recorded", "summary": "Werkdetail folgt dem Galerie-Prompt: Bild zuerst, Werkinformationen optional. Fehlende oder global ausgeblendete Angaben, auch der Preis, werden nicht angezeigt. Wischgesten der Lightbox werden in task-8 umgesetzt."}
 {"timestamp": "2026-10-07T13:48:47Z", "type": "verification_passed", "summary": "Typprüfung, Lint, Build und Browser-Prüfung für task-8 bestanden.", "taskId": "task-8"}
 {"timestamp": "2026-10-07T13:48:47Z", "type": "task_completed", "summary": "Galerie und Werkdetail abgeschlossen.", "taskId": "task-8"}
+{"timestamp": "2026-10-07T13:50:48Z", "type": "task_started", "summary": "Seminare, Kunstkurse und Vorträge gestartet.", "taskId": "task-9"}
+{"timestamp": "2026-10-07T13:51:34Z", "type": "verification_passed", "summary": "Typprüfung, Lint, Build und Browser-Prüfung für task-9 bestanden.", "taskId": "task-9"}
+{"timestamp": "2026-10-07T13:51:34Z", "type": "task_completed", "summary": "Seminare, Kunstkurse und Vorträge abgeschlossen.", "taskId": "task-9"}

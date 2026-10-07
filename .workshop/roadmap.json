@@ -259,7 +259,7 @@
           "description": "Übersicht mit drei Kacheln, Kunstkurse-Seite, Vorträge-Seite.",
           "order": 9,
           "weight": 3,
-          "status": "ready",
+          "status": "completed",
           "dependsOn": [
             "task-3",
             "task-5"
@@ -269,13 +269,18 @@
             "Label „Ein Format von Sturmfeder Projects“",
             "Buttons vorhanden (Formulare später)"
           ],
-          "startedAt": null,
-          "completedAt": null,
+          "startedAt": "2026-10-07T13:50:48Z",
+          "completedAt": "2026-10-07T13:51:34Z",
           "verification": {
-            "status": "not_run",
-            "summary": null,
-            "commands": [],
-            "checkedAt": null
+            "status": "passed",
+            "summary": "Typprüfung, Lint (ohne Warnungen) und Build fehlerfrei. Im Browser bei 1280 px und 360 px geprüft. /seminare: Label „Ein Format von Sturmfeder Projects“, Headline und vollständiger Text, drei Kacheln 01 The Art of Becoming (Für Unternehmen), 02 Individuelle Kunstkurse, 03 Vorträge mit korrekten Links. /seminare/kunstkurse: Headline und Text, zwei kommende Termine aus den Platzhalterdaten mit Datum, Uhrzeit, Ort und Plätzen, Button „Individuellen Kunstkurs anfragen“. /seminare/vortraege: Einleitung, vier nummerierte Themen mit den Texten des Masterprompts, Zielgruppe, Button „Vortrag anfragen“. Keine externen Requests, kein horizontales Scrollen bei 360 px. Einschränkungen: Die Buttons sind vorerst E-Mail-Links (Formulare in task-23), die Kurstermine, -beschreibungen und -orte sind Platzhalter, der Hover der Kacheln wurde nicht mit der Maus ausgelöst, Tablet-Breite nicht geprüft (task-13). Die Zielgruppen-Zeile und der Text von „Kunstkurse“ stammen wörtlich aus dem Masterprompt.",
+            "commands": [
+              "node_modules/.bin/tsc -b --noEmit",
+              "node_modules/.bin/oxlint",
+              "node_modules/.bin/tsc -b && node_modules/.bin/vite build",
+              "Browser-Prüfung bei 1280 px und 360 px"
+            ],
+            "checkedAt": "2026-10-07T13:51:34Z"
           }
         },
         {

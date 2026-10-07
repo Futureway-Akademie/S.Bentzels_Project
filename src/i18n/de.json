@@ -200,5 +200,51 @@
     "info": "Werkinformationen",
     "hideInfo": "Werkinformationen schließen",
     "artist": "Künstler"
+  },
+  "seminars": {
+    "format": "Ein Format von Sturmfeder Projects",
+    "headline": "Kunst als Erfahrungsraum für neues Denken",
+    "text": "Kreativität gehört zu den wesentlichen Fähigkeiten in einer Welt, die von Veränderung, Unsicherheit und wachsender Komplexität geprägt ist. Dennoch erleben viele Menschen ihren beruflichen Alltag vor allem rational, strukturiert und ergebnisorientiert. Die künstlerischen Formate von Sturmfeder Projects setzen genau hier an. Sie schaffen Räume, in denen Menschen nicht nur über Veränderung sprechen, sondern sie unmittelbar erleben. Farbe, Material, Bewegung und künstlerische Entscheidungen werden zu einem Labor für Wahrnehmung, Intuition, Selbstwirksamkeit und neue Perspektiven. Dabei geht es ausdrücklich nicht um künstlerische Vorkenntnisse oder Talent. Entscheidend ist der Prozess.",
+    "formats": "Formate",
+    "tileCompanies": "Für Unternehmen",
+    "tileBecoming": "The Art of Becoming",
+    "tileCourses": "Individuelle Kunstkurse",
+    "tileTalks": "Vorträge",
+    "open": "Ansehen"
+  },
+  "courses": {
+    "headline": "Kreativität ist kein Privileg weniger Menschen. Sie entsteht, wenn wir beginnen.",
+    "text": "Neben Firmenformaten bietet Sturmfeder Projects Workshops für Einzelpersonen und kleinere Gruppen an. Diese Formate richten sich ausdrücklich auch an Menschen, die bislang wenig oder gar keine Erfahrung mit eigener künstlerischer Arbeit haben. Die Teilnehmer arbeiten mit Leinwand, Farbe, Kohle, Spachtel oder anderen Materialien. Es gibt kein vorgegebenes ‚richtig‘ oder ‚falsch‘. Ziel ist es, die Scheu vor dem eigenen Ausdruck zu verlieren, Wahrnehmung zu verändern und eine persönliche Formensprache zu entdecken. Gerade Menschen, die im Alltag stark funktionieren und entscheiden müssen, erleben den künstlerischen Prozess häufig als überraschenden Perspektivwechsel.",
+    "upcoming": "Kommende Kurstermine",
+    "none": "Aktuell sind keine Termine veröffentlicht. Individuelle Termine sind auf Anfrage möglich.",
+    "clock": "{{from}}–{{to}} Uhr",
+    "places": "{{count}} Plätze",
+    "inquire": "Individuellen Kunstkurs anfragen",
+    "inquireSubject": "Anfrage Kunstkurs"
+  },
+  "talks": {
+    "intro": "Stephan Graf Bentzel-Sturmfeder verbindet in seinen Vorträgen über drei Jahrzehnte künstlerische Erfahrung mit Kunstgeschichte, gesellschaftlicher Beobachtung und unternehmerischem Denken.",
+    "topics": "Themen",
+    "audience": "Für Unternehmen, Führungskräfte, Kulturinstitutionen, Netzwerke und Veranstalter, die ihren Gästen mehr bieten möchten als klassische Wissensvermittlung.",
+    "inquire": "Vortrag anfragen",
+    "inquireSubject": "Anfrage Vortrag",
+    "items": [
+      {
+        "title": "Kunst & Leadership",
+        "text": "Wie kreatives Denken Führung, Intuition und Entscheidungsfähigkeit verändert."
+      },
+      {
+        "title": "Kunst & Gesellschaft",
+        "text": "Warum Künstler gesellschaftliche Veränderungen häufig sichtbar machen, bevor sie allgemein wahrgenommen werden."
+      },
+      {
+        "title": "Kreativität & Transformation",
+        "text": "Was Unternehmen vom künstlerischen Prozess über Innovation und Wandel lernen können."
+      },
+      {
+        "title": "Kunstgeschichte neu erleben",
+        "text": "Persönliche und lebendige Zugänge zu Epochen, Künstlerpersönlichkeiten und kulturellen Entwicklungen."
+      }
+    ]
   }
 }

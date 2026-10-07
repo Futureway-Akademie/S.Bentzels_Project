@@ -35,3 +35,10 @@ export function formatPrice(value: number): string {
     maximumFractionDigits: 0,
   }).format(value)
 }
+
+export function formatTimeRange(
+  startIso: string,
+  endIso: string,
+): { from: string; to: string } {
+  return { from: formatTime(startIso), to: formatTime(endIso) }
+}

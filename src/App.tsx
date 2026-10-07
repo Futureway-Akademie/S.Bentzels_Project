@@ -7,7 +7,10 @@ import Artist from './pages/Artist'
 import Gallery from './pages/Gallery'
 import DesignSystem from './pages/DesignSystem'
 import Home from './pages/Home'
+import Courses from './pages/Courses'
 import PagePlaceholder from './pages/PagePlaceholder'
+import Seminars from './pages/Seminars'
+import Talks from './pages/Talks'
 
 export default function App() {
   const { t } = useTranslation()
@@ -21,10 +24,10 @@ export default function App() {
         <Route path={routes.artist} element={<Artist />} />
         <Route path={routes.gallery} element={<Gallery />} />
         <Route path={routes.artwork} element={<ArtworkDetail />} />
-        <Route path={routes.seminars} element={page('seminars')} />
+        <Route path={routes.seminars} element={<Seminars />} />
         <Route path={routes.artOfBecoming} element={page('artOfBecoming')} />
-        <Route path={routes.courses} element={page('courses')} />
-        <Route path={routes.talks} element={page('talks')} />
+        <Route path={routes.courses} element={<Courses />} />
+        <Route path={routes.talks} element={<Talks />} />
         <Route path={routes.network} element={page('network')} />
         <Route
           path={routes.circle}

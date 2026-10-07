@@ -10,15 +10,14 @@ Phase 1: Fundament und öffentliche Seiten
 
 ## Aktive Aufgabe
 
-Keine. Vom Nutzer gewünschte Reihenfolge: task-9, dann task-10.
+Keine. Vom Nutzer gewünschte Reihenfolge: task-10.
 
 ## Zuletzt abgeschlossen
 
-task-8: Galerie und Werkdetail. Fortschritt 23.01 % (8 von 36 Tasks).
+task-9: Seminare, Kunstkurse und Vorträge. Fortschritt 25.66 % (9 von 36 Tasks).
 
 ## Bereite nächste Aufgaben
 
-- task-9: Seminare, Kunstkurse und Vorträge
 - task-10: The Art of Becoming
 - task-11: Netzwerk, Veranstaltungsdetail und Club-Seite (Arbeitstitel „Bentzel Club“, endgültiger Name offen)
 - task-12: Journal, Kontakt und Rechtsseiten
@@ -39,4 +38,4 @@ Nichts.
 
 ## Empfohlener nächster Schritt
 
-task-9 (Seminare, Kunstkurse und Vorträge) auswählen.
+task-10 (The Art of Becoming) auswählen.

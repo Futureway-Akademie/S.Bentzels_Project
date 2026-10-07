@@ -54,3 +54,9 @@ Details folgen mit der Umsetzung.
 - `src/pages/ArtworkDetail.tsx`: Bild zuerst, Werkinformationen optional aufklappbar, „Werk anfragen“ vorerst als mailto (Formular in task-23), Vor/Zurück.
 - `src/components/Lightbox.tsx`: drei Zoomstufen, Pfeiltasten, Wischen, Wechsel zwischen allen Werken mit Anpassung der URL.
 - Fehlende oder ausgeblendete Angaben, auch der Preis, werden nicht angezeigt. Alt-Texte nennen das Jahr nur, wenn es sichtbar ist.
+
+## Seminare, Kunstkurse und Vorträge (task-9)
+
+- `src/pages/Seminars.tsx` (`/seminare`): Label „Ein Format von Sturmfeder Projects“, Headline, Text, drei große Kacheln (invertieren beim Hover). `Courses.tsx` (`/seminare/kunstkurse`): Text und kommende Termine aus `courses` (nur zukünftige, veröffentlichte). `Talks.tsx` (`/seminare/vortraege`): vier nummerierte Themen, Zielgruppe.
+- Die Buttons „Individuellen Kunstkurs anfragen“ und „Vortrag anfragen“ sind vorerst E-Mail-Links mit Betreff. Die Formulare folgen in task-23.
+- Kurstermine, -beschreibungen und -orte sind Platzhalter.

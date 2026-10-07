@@ -286,6 +286,36 @@
     inset: -0.55rem -0.4rem;
   }
 
+  /* Große Kachel: Hover invertiert wie die Buttons */
+  .tile {
+    color: var(--color-foreground);
+    transition:
+      background-color 300ms var(--ease-gallery),
+      color 300ms var(--ease-gallery);
+  }
+
+  .tile .tile-label {
+    transition: color 300ms var(--ease-gallery);
+  }
+
+  .tile:hover,
+  .tile:focus-visible {
+    background: var(--color-foreground);
+    color: var(--color-background);
+  }
+
+  .tile:hover .tile-label,
+  .tile:focus-visible .tile-label {
+    color: var(--color-line);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tile,
+    .tile .tile-label {
+      transition: none;
+    }
+  }
+
   /* Kunstwerke nie beschneiden */
   .artwork-img {
     display: block;
