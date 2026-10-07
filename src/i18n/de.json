@@ -246,5 +246,134 @@
         "text": "Persönliche und lebendige Zugänge zu Epochen, Künstlerpersönlichkeiten und kulturellen Entwicklungen."
       }
     ]
+  },
+  "becoming": {
+    "title": "The Art of Becoming",
+    "subtitle": "Strategische Führungskräfteentwicklung durch künstlerische Transformation",
+    "core": "Kunst beginnt dort, wo wir die Angst verlieren, einfach anzufangen.",
+    "intro": "Das für Unternehmen und Führungskräfte entwickelte Format verbindet künstlerisches Arbeiten mit Erkenntnissen aus Leadership, Positiver Psychologie, Resilienz und Persönlichkeitsentwicklung. Eine leere Leinwand wird dabei zum Sinnbild einer offenen unternehmerischen oder persönlichen Herausforderung. Der erste Pinselstrich verlangt eine Entscheidung. Ein unerwarteter Farbimpuls durchbricht den ursprünglichen Plan. Schichten werden aufgebaut, verändert oder wieder verworfen. Im künstlerischen Prozess werden damit Situationen sichtbar, die auch Führung prägen: Unsicherheit aushalten, Entscheidungen treffen, Kontrolle abgeben, Fehler integrieren und trotz unvollständiger Informationen handlungsfähig bleiben.",
+    "lines": [
+      "Aus dem anfänglichen Zögern entsteht Handlung.",
+      "Aus einer Störung entsteht eine neue Möglichkeit.",
+      "Aus Kontrolle kann Intuition werden.",
+      "Aus dem einzelnen Strich entwickelt sich eine persönliche Handschrift."
+    ],
+    "modulesLabel": "Die vier Module",
+    "modules": [
+      {
+        "title": "Anfangen",
+        "subtitle": "Perfektionismus ablegen & Handlungsfähigkeit aktivieren",
+        "text": "Die Angst vor Fehlentscheidungen, symbolisiert durch die leere weiße Fläche, wird körperlich durchbrochen. Weniger Prokrastination, mehr Initiativkraft."
+      },
+      {
+        "title": "Störung",
+        "subtitle": "Disruption & Ambiguitätstoleranz",
+        "text": "Unvorhersehbarer Kontrollverlust wird im geschützten Raum der Leinwand erlebbar. Gelassenheit und Handlungsfähigkeit bei Budgetkürzungen, Marktveränderungen oder strategischen Umbrüchen. Der „Fehler“ wird zum wertvollen Impuls."
+      },
+      {
+        "title": "Flow",
+        "subtitle": "Flow & Feedback-Resilienz",
+        "text": "Vertrauen in die eigene Intuition, Frustrationstoleranz in zähen Projektphasen und die Fähigkeit, Kritik am Produkt von Kritik an der Person zu trennen."
+      },
+      {
+        "title": "Präsenz",
+        "subtitle": "Präsenz & Erinnerungsanker",
+        "text": "In der „Leadership-Vernissage“ wird das eigene Werk zum visuellen Manifest der Führungspersönlichkeit. Das Bild wirkt danach im Büro als dauerhafter Anker für Mut und Gestaltungswillen."
+      }
+    ],
+    "experienceLabel": "Was Führungskräfte erleben",
+    "experience": [
+      "Selbstwirksamkeit und Entscheidungsfähigkeit",
+      "Umgang mit Unsicherheit und Veränderung",
+      "kreative Problemlösung und Perspektivwechsel",
+      "Resilienz und Ambiguitätstoleranz",
+      "Wahrnehmung eigener Stärken und Verhaltensmuster",
+      "Intuition und emotionale Intelligenz",
+      "Kommunikation, Präsenz und Storytelling",
+      "eine offenere Fehler- und Innovationskultur"
+    ],
+    "experienceClosing": "Der künstlerische Prozess wird zum Führungslabor.",
+    "scienceLabel": "Das wissenschaftliche Fundament",
+    "science": [
+      {
+        "title": "PERMA-Modell",
+        "source": "Martin Seligman, 2011",
+        "text": "Beschreibt fünf Säulen des Wohlbefindens: positive Emotionen, Engagement, Beziehungen, Sinn und Zielerreichung."
+      },
+      {
+        "title": "Broaden-and-Build-Theorie",
+        "source": "Barbara Fredrickson, 1998/2001",
+        "text": "Positive Emotionen erweitern Denken und Handeln und bauen dauerhaft persönliche Ressourcen auf."
+      },
+      {
+        "title": "Affective Creativity",
+        "source": "Teresa Amabile, Harvard Business School, 1996",
+        "text": "Intrinsische Motivation und positives emotionales Erleben fördern kreatives Denken und Problemlösen."
+      },
+      {
+        "title": "Selbstbestimmungstheorie",
+        "source": "Deci & Ryan",
+        "text": "Motivation und Wohlbefinden entstehen, wenn Autonomie, Kompetenz und soziale Verbundenheit erlebt werden."
+      },
+      {
+        "title": "Growth Mindset",
+        "source": "Carol Dweck, 2006",
+        "text": "Wer Fähigkeiten für entwickelbar hält, geht mit Fehlern und Herausforderungen konstruktiver um."
+      },
+      {
+        "title": "Ambiguitätstoleranz",
+        "source": "Frenkel-Brunswik / Budner",
+        "text": "Beschreibt die Fähigkeit, mehrdeutige und unsichere Situationen auszuhalten, statt sie vorschnell aufzulösen."
+      },
+      {
+        "title": "Transaktionales Stressmodell",
+        "source": "Richard Lazarus, 1984",
+        "text": "Stress entsteht aus der Bewertung einer Situation und der Einschätzung der eigenen Bewältigungsmöglichkeiten."
+      },
+      {
+        "title": "Flow",
+        "source": "Mihaly Csikszentmihalyi",
+        "text": "Beschreibt das vollständige Aufgehen in einer Tätigkeit, wenn Anforderung und Können im Gleichgewicht stehen."
+      },
+      {
+        "title": "Psychologische Sicherheit",
+        "source": "Amy Edmondson, Harvard, 1999",
+        "text": "Teams lernen und innovieren besser, wenn Fehler und Fragen ohne Furcht vor Nachteilen angesprochen werden können."
+      },
+      {
+        "title": "Selbstwirksamkeit",
+        "source": "Albert Bandura",
+        "text": "Der Glaube an die eigene Fähigkeit, Aufgaben zu bewältigen, beeinflusst Motivation, Ausdauer und Handeln."
+      },
+      {
+        "title": "Authentic Leadership",
+        "source": "Avolio & Gardner, 2005",
+        "text": "Führung wirkt glaubwürdiger, wenn Selbstbewusstsein, Transparenz und Werteorientierung zusammenkommen."
+      }
+    ],
+    "factsLabel": "Eckdaten",
+    "facts": [
+      "1 Tag",
+      "09:00–17:30 Uhr",
+      "keine Vorkenntnisse nötig",
+      "Inhouse oder an besonderen Orten"
+    ],
+    "leadLabel": "Leitung",
+    "photoAlt": "Platzhalter für das Porträtfoto",
+    "lead": [
+      {
+        "name": "Stephan Graf Bentzel-Sturmfeder",
+        "role": "Künstlerische Praxis",
+        "bio": "Künstler und Creative Mentor mit über 30 Jahren Erfahrung."
+      },
+      {
+        "name": "Antonie Höldrich",
+        "role": "Psychologischer Transfer & Konzept",
+        "bio": "Kurzbio folgt."
+      }
+    ],
+    "cta": "Den detaillierten Trainerleitfaden stellen wir Ihnen gern persönlich vor.",
+    "ctaButton": "Persönlichen Termin vereinbaren",
+    "ctaSubject": "Termin The Art of Becoming"
   }
 }

@@ -10,15 +10,14 @@ Phase 1: Fundament und öffentliche Seiten
 
 ## Aktive Aufgabe
 
-Keine. Vom Nutzer gewünschte Reihenfolge: task-10.
+Keine.
 
 ## Zuletzt abgeschlossen
 
-task-9: Seminare, Kunstkurse und Vorträge. Fortschritt 25.66 % (9 von 36 Tasks).
+task-10: The Art of Becoming. Fortschritt 29.2 % (10 von 36 Tasks).
 
 ## Bereite nächste Aufgaben
 
-- task-10: The Art of Becoming
 - task-11: Netzwerk, Veranstaltungsdetail und Club-Seite (Arbeitstitel „Bentzel Club“, endgültiger Name offen)
 - task-12: Journal, Kontakt und Rechtsseiten
 
@@ -34,8 +33,9 @@ Nichts.
 
 ## Bekannte Probleme
 
+- Die Ein-Satz-Erklärungen zum wissenschaftlichen Fundament (task-10) sind Entwürfe und fachlich zu prüfen.
 - Der lokale Ordnerpfad enthält Doppelpunkte („Kunst 2024:25:26“). `npm run`-Skripte finden dadurch ihre Programme nicht, und der Vite-Dev-Server braucht `server.fs.strict: false`. Empfehlung: Projekt in einen Ordner ohne Doppelpunkte verschieben.
 
 ## Empfohlener nächster Schritt
 
-task-10 (The Art of Becoming) auswählen.
+task-11 (Netzwerk, Veranstaltungsdetail und Club-Seite) auswählen.

@@ -289,7 +289,7 @@
           "description": "Seminarseite mit Hero, Vierzeiler-Sequenz, vier Modulen, Erlebnisliste, Fundament-Akkordeon, Faktenleiste, Leitung, CTA.",
           "order": 10,
           "weight": 4,
-          "status": "ready",
+          "status": "completed",
           "dependsOn": [
             "task-3",
             "task-5"
@@ -299,13 +299,18 @@
             "Überraschungsinterventionen der Module nicht detaillierter beschrieben als vorgegeben",
             "Akkordeon per Tastatur bedienbar"
           ],
-          "startedAt": null,
-          "completedAt": null,
+          "startedAt": "2026-10-07T13:54:18Z",
+          "completedAt": "2026-10-07T13:55:28Z",
           "verification": {
-            "status": "not_run",
-            "summary": null,
-            "commands": [],
-            "checkedAt": null
+            "status": "passed",
+            "summary": "Typprüfung, Lint (ohne Warnungen) und Build fehlerfrei. Im Browser bei 1280 px geprüft: H1 „The Art of Becoming“ in Versalien, Untertitel, Kernbotschaft, Einleitung, Vierzeiler mit gestaffelten Verzögerungen (0 / 0,45 / 0,9 / 1,35 s bei 1,1 s Dauer, nur per Stilwerten geprüft), vier Module 01 bis 04 mit Titel, Untertitel und Nutzen, acht Erlebnispunkte in zwei Spalten mit Abschlusssatz, Akkordeon mit 11 Einträgen (öffnet und schließt, Icon wechselt), Faktenleiste mit vier Angaben, zwei Profile (Stephan Graf Bentzel-Sturmfeder, Antonie Höldrich), Abschluss-CTA mit Button. Die Interventionen der Module sind nicht detaillierter beschrieben als im Masterprompt. Bei 360 px: kein horizontales Scrollen, H1 passt, Faktenleiste und Profile einspaltig. Keine externen Requests. Nicht geprüft: Das zeilenweise Einblenden konnte nicht beobachtet werden, weil der Browser-Bereich ausgeblendet war und der Scroll-Auslöser dann nicht feuert (derselbe Mechanismus funktionierte auf anderen Seiten). Akkordeon nicht per Tastatur getestet (native details-Elemente). Tablet-Breite nicht geprüft (task-13). Die Ein-Satz-Erklärungen der elf wissenschaftlichen Grundlagen habe ich selbst formuliert, sie sind nicht fachlich geprüft und stammen nicht aus dem Masterprompt. Porträtfotos und Kurzbio von Antonie Höldrich sind Platzhalter, der Termin-Button ist ein E-Mail-Link.",
+            "commands": [
+              "node_modules/.bin/tsc -b --noEmit",
+              "node_modules/.bin/oxlint",
+              "node_modules/.bin/tsc -b && node_modules/.bin/vite build",
+              "Browser-Prüfung bei 1280 px und 360 px"
+            ],
+            "checkedAt": "2026-10-07T13:55:28Z"
           }
         },
         {

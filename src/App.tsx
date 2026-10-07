@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { Route, Routes } from 'react-router-dom'
 import { routes } from './config/routes'
 import Layout from './layout/Layout'
+import ArtOfBecoming from './pages/ArtOfBecoming'
 import ArtworkDetail from './pages/ArtworkDetail'
 import Artist from './pages/Artist'
 import Gallery from './pages/Gallery'
@@ -25,7 +26,7 @@ export default function App() {
         <Route path={routes.gallery} element={<Gallery />} />
         <Route path={routes.artwork} element={<ArtworkDetail />} />
         <Route path={routes.seminars} element={<Seminars />} />
-        <Route path={routes.artOfBecoming} element={page('artOfBecoming')} />
+        <Route path={routes.artOfBecoming} element={<ArtOfBecoming />} />
         <Route path={routes.courses} element={<Courses />} />
         <Route path={routes.talks} element={<Talks />} />
         <Route path={routes.network} element={page('network')} />

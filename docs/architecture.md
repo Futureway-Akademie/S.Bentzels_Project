@@ -60,3 +60,10 @@ Details folgen mit der Umsetzung.
 - `src/pages/Seminars.tsx` (`/seminare`): Label „Ein Format von Sturmfeder Projects“, Headline, Text, drei große Kacheln (invertieren beim Hover). `Courses.tsx` (`/seminare/kunstkurse`): Text und kommende Termine aus `courses` (nur zukünftige, veröffentlichte). `Talks.tsx` (`/seminare/vortraege`): vier nummerierte Themen, Zielgruppe.
 - Die Buttons „Individuellen Kunstkurs anfragen“ und „Vortrag anfragen“ sind vorerst E-Mail-Links mit Betreff. Die Formulare folgen in task-23.
 - Kurstermine, -beschreibungen und -orte sind Platzhalter.
+
+## The Art of Becoming (task-10)
+
+- `src/pages/ArtOfBecoming.tsx` (`/seminare/the-art-of-becoming`): Hero mit Kernbotschaft, Einleitung, Vierzeiler (zeilenweise gestaffelt eingeblendet), vier Module, Erlebnisliste, wissenschaftliches Fundament als Akkordeon (native `details`), Eckdaten, Leitung, Abschluss-CTA. Alle Texte stehen unter `becoming.*` in `de.json`.
+- Die Überraschungsinterventionen der Module sind bewusst nicht genauer beschrieben als im Masterprompt.
+- Die Ein-Satz-Erklärungen zum wissenschaftlichen Fundament sind Entwürfe und müssen fachlich geprüft werden. Porträtfotos und die Kurzbio von Antonie Höldrich sind Platzhalter.
+- Der Termin-Button ist vorerst ein E-Mail-Link (Formular in task-23).

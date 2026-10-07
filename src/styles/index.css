@@ -316,6 +316,20 @@
     }
   }
 
+  /* Akkordeon (native details) */
+  .accordion-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .accordion-icon::before {
+    content: '+';
+    font-size: 1rem;
+  }
+
+  .accordion[open] .accordion-icon::before {
+    content: '−';
+  }
+
   /* Kunstwerke nie beschneiden */
   .artwork-img {
     display: block;
