@@ -14,11 +14,10 @@ Keine.
 
 ## Zuletzt abgeschlossen
 
-task-14: Supabase, Schema, Sicherheit und Login. Fortschritt 38.71 % (15 von 39 Tasks).
+task-15: Storage und Bild-Upload. Fortschritt 41.94 % (16 von 39 Tasks).
 
 ## Bereite nächste Aufgaben
 
-- task-15: Storage und Bild-Upload
 - task-16: Dashboard-Grundgerüst und Übersicht
 
 - Die Ein-Satz-Erklärungen zum wissenschaftlichen Fundament (task-10) sind Entwürfe und fachlich zu prüfen.
@@ -26,4 +25,4 @@ task-14: Supabase, Schema, Sicherheit und Login. Fortschritt 38.71 % (15 von 39 
 
 ## Empfohlener nächster Schritt
 
-Setup laut docs/SUPABASE_SETUP.md durchführen, danach task-15 (Storage und Bild-Upload) oder task-16 (Dashboard-Grundgerüst) auswählen.
+Setup laut docs/SUPABASE_SETUP.md durchführen, danach task-16 (Dashboard-Grundgerüst) auswählen.

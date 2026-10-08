@@ -10,6 +10,11 @@ Diese Anleitung verbindet die Website mit deinem Supabase-Projekt (Region EU Cen
 
 Die Datei darf nur **einmal** ausgeführt werden. Bei einer Fehlermeldung „already exists“ wurde sie schon eingespielt.
 
+## 1b. Speicher für Bilder und PDFs anlegen
+
+1. Im **SQL Editor** eine weitere **New query** öffnen, den gesamten Inhalt der Datei `supabase/migrations/0002_storage.sql` einfügen und **Run** drücken (erst nach Schritt 1).
+2. Unter **Storage** sind jetzt die Buckets `artworks`, `posts`, `events`, `people` und `press` sichtbar. Sie sind öffentlich lesbar, hochladen und löschen dürfen nur Admins. Erlaubt sind nur Bilder (JPEG, PNG, WebP), im Bucket `press` zusätzlich PDF.
+
 ## 2. Öffentliche Registrierung ausschalten
 
 Es soll sich niemand selbst ein Konto anlegen können.
@@ -49,4 +54,6 @@ Nur Konten in der Tabelle `admins` dürfen später Inhalte ändern. Ein eingelog
 - Das Schema und die Sicherheitsregeln lassen sich ohne Supabase-Konto in einer lokalen PostgreSQL-Datenbank prüfen: `node supabase/tests/schema.test.mjs`
 - Öffentlich lesbar sind nur veröffentlichte Inhalte. Werke werden über die View `artworks_public` gelesen, ausgeblendete Angaben (Tabelle `site_settings`, Schlüssel `gallery_visibility`) sind dort serverseitig leer.
 - Anfragen (`inquiries`) dürfen öffentlich nur eingefügt werden. Anmeldungen (`registrations`) schreibt später die Edge Function mit dem `service_role`-Schlüssel, damit die Kapazität serverseitig geprüft wird.
-- Spätere Schema-Änderungen kommen als neue Dateien (`0002_...sql`) in `supabase/migrations/`.
+- Schema-Änderungen kommen als neue, fortlaufend nummerierte Dateien in `supabase/migrations/`. Die Dateien werden der Reihe nach eingespielt.
+- Bilder werden im Browser auf höchstens 2400 px verkleinert, als WebP gespeichert und erhalten eine Vorschau mit höchstens 800 px. PDFs bleiben unverändert, die Vorschau entsteht aus der ersten Seite (Code in `src/admin/lib/`).
+- Tests ohne Supabase-Konto: `node supabase/tests/schema.test.mjs` (Datenbank und Speicherregeln) und `node --test src/admin/lib/imageMath.test.ts` (Bildrechnung und Adressen).

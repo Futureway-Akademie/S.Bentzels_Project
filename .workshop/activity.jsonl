@@ -70,3 +70,6 @@
 {"timestamp": "2026-10-07T14:25:18Z", "type": "task_ready", "summary": "Task task-15 ist startbereit.", "taskId": "task-15"}
 {"timestamp": "2026-10-07T14:25:18Z", "type": "task_ready", "summary": "Task task-16 ist startbereit.", "taskId": "task-16"}
 {"timestamp": "2026-10-07T14:25:18Z", "type": "decision_recorded", "summary": "Anmeldungen (registrations) sind nicht öffentlich einfügbar, sondern laufen über die Edge Function mit Kapazitätsprüfung. Werke werden öffentlich nur über die View artworks_public gelesen."}
+{"timestamp": "2026-10-08T07:12:25Z", "type": "task_started", "summary": "Storage und Bild-Upload gestartet.", "taskId": "task-15"}
+{"timestamp": "2026-10-08T07:19:41Z", "type": "verification_passed", "summary": "Speicherregeln (28 Datenbankprüfungen), Bildrechnung (9 Tests), Bildverarbeitung, Upload, PDF-Vorschau, Löschen und Abbruch lokal geprüft, nicht gegen das echte Projekt.", "taskId": "task-15"}
+{"timestamp": "2026-10-08T07:19:41Z", "type": "task_completed", "summary": "Storage und Bild-Upload abgeschlossen (Einspielen von 0002_storage.sql durch den Nutzer ausstehend).", "taskId": "task-15"}

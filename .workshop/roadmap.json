@@ -499,7 +499,7 @@
           "description": "Buckets, Verkleinerung auf 2400 px, WebP, 800-px-Vorschau, Bildmaße speichern. Unterstützt zusätzlich PDF-Dateien für das Pressearchiv und erzeugt Vorschaubilder aus der ersten PDF-Seite.",
           "order": 2,
           "weight": 4,
-          "status": "ready",
+          "status": "completed",
           "dependsOn": [
             "task-14"
           ],
@@ -509,13 +509,22 @@
             "Beim Löschen eines Werks werden Bilddateien entfernt",
             "PDF-Upload für den Bucket des Pressearchivs, Vorschaubild aus der ersten Seite"
           ],
-          "startedAt": null,
-          "completedAt": null,
+          "startedAt": "2026-10-08T07:12:25Z",
+          "completedAt": "2026-10-08T07:19:41Z",
           "verification": {
-            "status": "not_run",
-            "summary": null,
-            "commands": [],
-            "checkedAt": null
+            "status": "passed",
+            "summary": "Lokal gegen Ersatzumgebungen geprüft, nicht gegen dein echtes Supabase-Projekt. (1) Speicherregeln: Migration 0002_storage.sql zusammen mit 0001 in einer echten lokalen PostgreSQL-Datenbank (PGlite, nachgebauter Speicher) getestet, 28 Prüfungen bestanden: fünf öffentliche Buckets, PDF nur im Presse-Bucket, kein HTML und kein SVG erlaubt; Admin lädt hoch, liest, ersetzt und löscht; Besucher und Nutzer ohne Admin-Recht dürfen nichts hochladen, lesen, ändern oder löschen; Admin darf nicht in fremde Buckets schreiben. (2) Bildrechnung: 9 Unit-Tests bestanden (Verkleinerung, kein Hochskalieren, Ausschnitt, Dateitypen, PDF-Erkennung, Zerlegen und Gruppieren der Speicheradressen). (3) Bildverarbeitung im Browser: Querformat 4000x3000 wird 2400x1800 WebP mit Vorschau 800x600, Hochformat 1800x2400 und 600x800, kleines Bild 500x300 wird nicht hochskaliert, PNG mit Transparenz und WebP-Eingabe werden verarbeitet, Farben bleiben erhalten, ein Bildausschnitt wirkt nur auf die Vorschau (Original unverändert), ungültige Dateien (Text, GIF, SVG, ohne Typ, über 50 MB, defekt) werden mit passendem Fehlercode abgelehnt. (4) Upload gegen einen lokalen Ersatz der Supabase-Speicher-API mit der echten supabase-js-Bibliothek: Original und Vorschau landen als WebP im richtigen Bucket mit richtigem Dateityp und öffentlicher Adresse; PDF wird unverändert gespeichert, Vorschau aus der ersten Seite mit 565x800 (A4-Format) enthält echten Seiteninhalt (1888 dunkle Pixel, weiße Fläche), defektes PDF, Text als PDF, zu großes PDF und Word-Datei werden abgelehnt und laden nichts hoch; bei einem Fehler beim zweiten Hochladen bleibt keine halbe Datei zurück (Bild und PDF). (5) Löschen: Ein Werk wird samt Hauptbild, Vorschau und weiteren Bildern aus dem Speicher entfernt, fremde Adressen und Dateien anderer Werke bleiben, ein unbekanntes Werk meldet einen Fehler; Presseeintrag entfernt PDF und Vorschau. (6) Produktions-Build mit eingebundenem Code: PDF-Arbeiter (1,26 MB) und PDF-Bibliothek (431 KB) liegen lokal im Build und laden nur bei Bedarf, das Hauptpaket der öffentlichen Seite blieb unverändert (407,7 kB), keine Abrufe externer Server. Typprüfung, Lint (ohne Warnungen), Formatprüfung und Build fehlerfrei. NICHT geprüft: Einspielen und Rechte im echten Supabase-Projekt, echter Supabase-Speicher, Drehung aus Kameradaten (EXIF) bei Fotos, Rückfall auf JPEG in Browsern ohne WebP-Kodierung (z. B. ältere Safari-Versionen), Pinch-Zoom und Geräte, sehr große Fotos über 30 Megapixel, Upload vom Smartphone, mehrere gleichzeitige Uploads. Es gibt noch keine Bedienoberfläche für den Upload (task-17 und task-38). Ein Bild bleibt nach dem Löschen eines Werks als Dateirest übrig, wenn in der Datenbank keine Vorschau-Adresse für dieses Bild gespeichert war. Das Rendern der PDF-Vorschau braucht einen sichtbaren oder zumindest laufenden Browser-Tab (im ausgeblendeten Tab blockiert das Zeichnen).",
+            "commands": [
+              "node supabase/tests/schema.test.mjs",
+              "node --test src/admin/lib/imageMath.test.ts",
+              "node_modules/.bin/prettier --check src",
+              "node_modules/.bin/tsc -b --noEmit",
+              "node_modules/.bin/oxlint",
+              "node_modules/.bin/tsc -b && node_modules/.bin/vite build",
+              "Browser-Tests der Bildverarbeitung, des Uploads, der PDF-Vorschau, des Löschens und des Abbruchs gegen lokalen Supabase-Ersatz",
+              "Produktions-Build mit eingebundenem Upload-Code"
+            ],
+            "checkedAt": "2026-10-08T07:19:41Z"
           }
         },
         {

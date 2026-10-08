@@ -103,3 +103,12 @@ Details folgen mit der Umsetzung.
 - `src/lib/supabase.ts`: Client, nur aktiv wenn `VITE_SUPABASE_URL` und `VITE_SUPABASE_ANON_KEY` gesetzt sind. Die öffentliche Seite funktioniert auch ohne.
 - `src/admin/`: Login (`/admin/login`), geschützter Bereich (`/admin`, vorerst Platzhalter), Prüfung über die Tabelle `admins`. Wird nur bei Bedarf nachgeladen, mit `noindex`. Es gibt keine Registrierung.
 - Abweichungen vom Masterprompt: Anmeldungen (`registrations`) sind nicht öffentlich einfügbar, sondern laufen über die Edge Function mit Kapazitätsprüfung (task-24). Posts leiten `is_published` aus `status` ab.
+
+## Speicher und Bild-Upload (task-15)
+
+- `supabase/migrations/0002_storage.sql`: Buckets `artworks`, `posts`, `events`, `people`, `press` (öffentlich lesbar, Hochladen, Ersetzen, Löschen und Auflisten nur Admins, nur Bild- bzw. PDF-Typen, Größenlimit), Vorschauspalte `thumb_url` für weitere Werkbilder und Eventfotos.
+- `src/admin/lib/imageMath.ts`: reine Rechenfunktionen (Verkleinerung ohne Hochskalieren, Bildausschnitt, Dateitypen, PDF-Erkennung, Zerlegen und Gruppieren von Speicheradressen), getestet in `imageMath.test.ts`.
+- `src/admin/lib/images.ts`: `processImage` verkleinert auf höchstens 2400 px, kodiert als WebP (Rückfall auf JPEG, falls der Browser kein WebP erzeugt) und erzeugt die 800-px-Vorschau, optional aus einem Bildausschnitt. Das Original bleibt unverändert.
+- `src/admin/lib/pdfThumbnail.ts`: Vorschau aus der ersten PDF-Seite mit `pdfjs-dist` (nur bei Bedarf geladen, der Arbeiter liegt lokal im Build).
+- `src/admin/lib/storage.ts`: `uploadImage`, `uploadPressFile` (Bild oder PDF), `removeFilesByUrl`, `deleteArtworkWithFiles`, `deletePressItemWithFiles`. Bei einem Fehler wird nichts Halbes zurückgelassen. Beim Löschen wird zuerst der Datenbankeintrag und danach werden die Dateien entfernt.
+- Die Bedienoberfläche für den Upload folgt im Dashboard (task-17, task-38).

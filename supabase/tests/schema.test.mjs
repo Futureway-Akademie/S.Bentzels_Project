@@ -8,7 +8,9 @@ import { fileURLToPath } from 'node:url'
 import { PGlite } from '@electric-sql/pglite'
 
 const here = dirname(fileURLToPath(import.meta.url))
-const migration = readFileSync(join(here, '..', 'migrations', '0001_schema.sql'), 'utf8')
+const migrations = ['0001_schema.sql', '0002_storage.sql'].map((file) =>
+  readFileSync(join(here, '..', 'migrations', file), 'utf8'),
+)
 
 const ADMIN = '00000000-0000-0000-0000-0000000000a1'
 const USER = '00000000-0000-0000-0000-0000000000b2'
@@ -29,8 +31,24 @@ await db.exec(`
   grant usage on schema public, auth to anon, authenticated, service_role;
   alter default privileges in schema public grant all on tables to anon, authenticated, service_role;
   alter default privileges in schema public grant all on functions to anon, authenticated, service_role;
+
+  -- Nachbau des Supabase-Speichers (nur die für die Regeln relevanten Teile)
+  create schema storage;
+  create table storage.buckets (
+    id text primary key, name text not null, public boolean not null default false,
+    file_size_limit bigint, allowed_mime_types text[]
+  );
+  create table storage.objects (
+    id uuid primary key default gen_random_uuid(),
+    bucket_id text references storage.buckets (id),
+    name text not null,
+    created_at timestamptz not null default now()
+  );
+  alter table storage.objects enable row level security;
+  grant usage on schema storage to anon, authenticated, service_role;
+  grant all on storage.objects, storage.buckets to anon, authenticated, service_role;
 `)
-await db.exec(migration)
+for (const migration of migrations) await db.exec(migration)
 
 async function as(role, sub, fn) {
   await db.exec(`reset role; set role ${role}`)
@@ -296,6 +314,46 @@ await check('Anfrage-Werk-Verknüpfung bleibt beim Löschen des Werks als leere 
   const row = (await db.query(`select artwork_id from public.inquiries where name = 'W'`)).rows[0]
   equal(row.artwork_id, null, 'artwork_id')
 })
+
+// ----- Speicher (0002_storage.sql)
+await check('Speicher: fünf öffentliche Buckets, PDF nur im Presse-Bucket', async () => {
+  const rows = (await db.query(`select id, public, allowed_mime_types from storage.buckets order by id`)).rows
+  equal(rows.map((r) => r.id), ['artworks', 'events', 'people', 'posts', 'press'], 'Buckets')
+  equal(rows.every((r) => r.public), true, 'alle öffentlich')
+  equal(rows.filter((r) => r.allowed_mime_types.includes('application/pdf')).map((r) => r.id), ['press'], 'PDF erlaubt in')
+  equal(rows.every((r) => !r.allowed_mime_types.includes('text/html') && !r.allowed_mime_types.includes('image/svg+xml')), true, 'kein HTML oder SVG')
+})
+await check('Speicher: Admin lädt hoch, liest, ersetzt und löscht', () =>
+  as('authenticated', ADMIN, async () => {
+    await db.query(`insert into storage.objects (bucket_id, name) values ('artworks', 'w1/a.webp')`)
+    await db.query(`insert into storage.objects (bucket_id, name) values ('press', 'p1/b.pdf')`)
+    equal(await count('select count(*) n from storage.objects'), 2, 'sichtbare Dateien')
+    equal((await db.query(`update storage.objects set name = 'w1/a2.webp' where name = 'w1/a.webp'`)).affectedRows, 1, 'ersetzt')
+    equal((await db.query(`delete from storage.objects where bucket_id = 'artworks'`)).affectedRows, 1, 'gelöscht')
+  }),
+)
+await check('Speicher: Besucher und Nutzer ohne Admin-Recht dürfen weder hochladen noch lesen noch löschen', async () => {
+  for (const [role, sub] of [['anon', null], ['authenticated', USER]]) {
+    await as(role, sub, async () => {
+      await denied(() => db.query(`insert into storage.objects (bucket_id, name) values ('artworks', 'x/evil.webp')`))
+      equal(await count('select count(*) n from storage.objects'), 0, `${role}: sichtbare Dateien`)
+      equal((await db.query(`delete from storage.objects`)).affectedRows, 0, `${role}: gelöschte Dateien`)
+      equal((await db.query(`update storage.objects set name = 'x'`)).affectedRows, 0, `${role}: geänderte Dateien`)
+    })
+  }
+})
+await check('Speicher: Admin darf nicht in fremde Buckets schreiben', async () => {
+  await db.exec(`insert into storage.buckets (id, name) values ('privat', 'privat')`)
+  await as('authenticated', ADMIN, () =>
+    denied(() => db.query(`insert into storage.objects (bucket_id, name) values ('privat', 'x.webp')`)),
+  )
+})
+await check('Vorschaubilder: weitere Werkbilder und Eventfotos haben thumb_url', () =>
+  as('authenticated', ADMIN, async () => {
+    await db.query(`insert into public.artwork_images (artwork_id, image_url, thumb_url) values ('11111111-1111-1111-1111-111111111111', 'b.webp', 'b-800.webp')`)
+    await db.query(`insert into public.event_photos (event_id, image_url, thumb_url) values ('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 'p.webp', 'p-800.webp')`)
+  }),
+)
 
 console.log(`${passed} Prüfungen bestanden, ${failures.length} fehlgeschlagen`)
 for (const failure of failures) console.log(`  FEHLER: ${failure}`)
