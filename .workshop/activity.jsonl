@@ -73,3 +73,13 @@
 {"timestamp": "2026-10-08T07:12:25Z", "type": "task_started", "summary": "Storage und Bild-Upload gestartet.", "taskId": "task-15"}
 {"timestamp": "2026-10-08T07:19:41Z", "type": "verification_passed", "summary": "Speicherregeln (28 Datenbankprüfungen), Bildrechnung (9 Tests), Bildverarbeitung, Upload, PDF-Vorschau, Löschen und Abbruch lokal geprüft, nicht gegen das echte Projekt.", "taskId": "task-15"}
 {"timestamp": "2026-10-08T07:19:41Z", "type": "task_completed", "summary": "Storage und Bild-Upload abgeschlossen (Einspielen von 0002_storage.sql durch den Nutzer ausstehend).", "taskId": "task-15"}
+{"timestamp": "2026-10-08T08:01:43Z", "type": "decision_recorded", "summary": "Schema (0001) und Speicher (0002) wurden im Supabase-Projekt „Kunst_Stephan_Bentzel“ (eu-central-1) über den SQL Editor eingespielt und per Abfrage und Zugriffstest geprüft (14 Tabellen mit RLS, 5 öffentliche Buckets, Besucher können weder Werke anlegen noch hochladen). Offen: Registrierung ausschalten, Admin-Konto anlegen und in admins eintragen (vom Nutzer auszuführen). Eine lokale .env mit Projekt-URL und öffentlichem Schlüssel existiert, ist von git ignoriert."}
+{"timestamp": "2026-10-08T08:04:44Z", "type": "task_started", "summary": "Dashboard-Grundgerüst und Übersicht gestartet.", "taskId": "task-16"}
+{"timestamp": "2026-10-08T08:10:51Z", "type": "verification_passed", "summary": "Dashboard-Grundgerüst in Chrome gegen lokalen Supabase-Ersatz geprüft (Zugriff, Übersicht, schmale Ansicht, Fehlerfälle), nicht gegen das echte Projekt.", "taskId": "task-16"}
+{"timestamp": "2026-10-08T08:10:51Z", "type": "task_completed", "summary": "Dashboard-Grundgerüst und Übersicht abgeschlossen.", "taskId": "task-16"}
+{"timestamp": "2026-10-08T08:10:51Z", "type": "task_ready", "summary": "Task task-17 ist startbereit.", "taskId": "task-17"}
+{"timestamp": "2026-10-08T08:10:51Z", "type": "task_ready", "summary": "Task task-18 ist startbereit.", "taskId": "task-18"}
+{"timestamp": "2026-10-08T08:10:51Z", "type": "task_ready", "summary": "Task task-19 ist startbereit.", "taskId": "task-19"}
+{"timestamp": "2026-10-08T08:10:51Z", "type": "task_ready", "summary": "Task task-34 ist startbereit.", "taskId": "task-34"}
+{"timestamp": "2026-10-08T08:10:51Z", "type": "task_ready", "summary": "Task task-38 ist startbereit.", "taskId": "task-38"}
+{"timestamp": "2026-10-08T08:10:51Z", "type": "task_ready", "summary": "Task task-39 ist startbereit.", "taskId": "task-39"}

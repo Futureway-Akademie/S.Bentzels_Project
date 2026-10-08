@@ -112,3 +112,10 @@ Details folgen mit der Umsetzung.
 - `src/admin/lib/pdfThumbnail.ts`: Vorschau aus der ersten PDF-Seite mit `pdfjs-dist` (nur bei Bedarf geladen, der Arbeiter liegt lokal im Build).
 - `src/admin/lib/storage.ts`: `uploadImage`, `uploadPressFile` (Bild oder PDF), `removeFilesByUrl`, `deleteArtworkWithFiles`, `deletePressItemWithFiles`. Bei einem Fehler wird nichts Halbes zurückgelassen. Beim Löschen wird zuerst der Datenbankeintrag und danach werden die Dateien entfernt.
 - Die Bedienoberfläche für den Upload folgt im Dashboard (task-17, task-38).
+
+## Dashboard-Grundgerüst (task-16)
+
+- `src/admin/AdminRoutes.tsx`: `/admin/login` und, hinter `RequireAdmin`, das Layout mit allen Modulen. Module sind in `src/admin/modules.ts` beschrieben (Pfad, Beschriftung, `ready`). Neue Module (Rechtstexte, Sichtbarkeit, Statistik) werden dort ergänzt, nicht umgesetzte zeigen eine Platzhalterseite.
+- `RequireAdmin`: Zugriff nur für Admins. Ohne Anmeldung Weiterleitung zum Login, ohne Admin-Eintrag „kein Zugriff“, bei einer Verbindungsstörung (nach etwa 8 bis 9 Sekunden) eine eigene Meldung mit „Erneut versuchen“. Die eigentliche Sicherheit liegt in den Datenbankregeln.
+- `AdminLayout`: feste Seitenleiste ab 1024 px, darunter Kopfleiste mit ausklappbarem Menü (schließt mit Esc und beim Seitenwechsel, Einträge 44 px hoch). Zähler neuer Eingänge in der Seitenleiste.
+- `pages/Overview.tsx`, `overviewData.ts`: neue Eingänge (Zahl und die letzten 5), nächste Veranstaltung mit belegten Plätzen (nur Status „angemeldet“, inklusive Begleitung), verfügbare und gesamte Werke (archivierte zählen nicht). Leerzustände und Fehlerzustand mit „Erneut versuchen“. Daten laden über `useLoad`.

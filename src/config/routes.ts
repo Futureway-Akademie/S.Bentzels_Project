@@ -22,4 +22,12 @@ export const routes = {
   designSystem: '/design-system',
   admin: '/admin',
   adminLogin: '/admin/login',
+  adminArtworks: '/admin/werke',
+  adminJournal: '/admin/journal',
+  adminEvents: '/admin/veranstaltungen',
+  adminCourses: '/admin/kunstkurse',
+  adminVita: '/admin/vita',
+  adminPress: '/admin/presse',
+  adminCurated: '/admin/artikel',
+  adminInquiries: '/admin/eingaenge',
 } as const

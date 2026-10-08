@@ -533,7 +533,7 @@
           "description": "Geschützter Bereich mit Seitenleiste und Übersichtsseite.",
           "order": 3,
           "weight": 2,
-          "status": "ready",
+          "status": "completed",
           "dependsOn": [
             "task-14"
           ],
@@ -542,13 +542,21 @@
             "Übersicht zeigt neue Eingänge, nächste Veranstaltung und verfügbare Werke",
             "Bedienbar auf Tablet und Smartphone"
           ],
-          "startedAt": null,
-          "completedAt": null,
+          "startedAt": "2026-10-08T08:04:44Z",
+          "completedAt": "2026-10-08T08:10:51Z",
           "verification": {
-            "status": "not_run",
-            "summary": null,
-            "commands": [],
-            "checkedAt": null
+            "status": "passed",
+            "summary": "Getestet in deinem Chrome (eigener Tab) mit der echten supabase-js-Bibliothek gegen einen lokalen Ersatz der Supabase-API mit Testdaten, nicht gegen dein echtes Projekt (dort existiert noch kein Admin-Konto). Zugriff: ohne Anmeldung leitet /admin auf /admin/login um; ein Konto ohne Admin-Eintrag sieht „kein Zugriff“ ohne Seitenleiste; ein Admin sieht das Dashboard. Übersicht: 3 neue Eingänge mit den letzten Einträgen (Typ, Datum, Name), nächste Veranstaltung mit „4 von 30 Plätzen belegt“ (Anmeldungen mit Begleitung gezählt, Warteliste und Stornierte nicht), 3 verfügbare von 4 Werken (archivierte nicht mitgezählt), Zähler 3 in der Seitenleiste. Leerzustände (keine Eingänge, keine Veranstaltung, keine Werke) korrekt. Module führen auf Platzhalterseiten mit markiertem Menüeintrag. Schmale Ansicht (Smartphone 388 px und Tablet 766 px, über eingebettete Rahmen derselben Seite in Chrome): Seitenleiste ausgeblendet, Kopfleiste mit Menü-Knopf und Zähler, Menü mit neun 44 px hohen Einträgen und Kontoblock, schließt mit Esc und beim Seitenwechsel, Seite scrollt gesperrt solange offen, kein horizontales Scrollen. Fehlerfälle: Beim gestoppten Server erschien zuerst fälschlich „kein Zugriff“ bzw. dauerhaft „Wird geladen“; behoben, jetzt Meldung zur fehlgeschlagenen Verbindung mit „Erneut versuchen“ (funktioniert nach Neustart des Servers); Fehler bei der Datenabfrage zeigt Meldung und „Erneut versuchen“ bei erhaltener Seitenleiste. Einzahl „1 Werk insgesamt“ korrigiert. Typprüfung, Lint (ohne Warnungen), Formatprüfung und Build fehlerfrei, 28 Datenbankprüfungen und 9 Unit-Tests bestehen weiter. NICHT geprüft: Anmeldung und Übersicht gegen das echte Supabase-Projekt (Registrierung und Admin-Konto fehlen noch), echte Smartphones und Tablets (nur Rahmen mit Breitenemulation in Chrome, das Chrome-Fenster ließ sich nicht verkleinern), Tastaturbedienung der Seitenleiste, Bildschirmleser, der Zähler aktualisiert sich nur beim Laden der Seite. Die Module hinter der Seitenleiste sind Platzhalter (task-17 bis 19, 38, 39).",
+            "commands": [
+              "node_modules/.bin/prettier --check src",
+              "node_modules/.bin/tsc -b --noEmit",
+              "node_modules/.bin/oxlint",
+              "node_modules/.bin/tsc -b && node_modules/.bin/vite build",
+              "node supabase/tests/schema.test.mjs",
+              "node --test src/admin/lib/imageMath.test.ts",
+              "Chrome-Tests von Zugriff, Übersicht, Leerzuständen, schmaler Ansicht, Verbindungs- und Datenfehlern gegen lokalen Supabase-Ersatz"
+            ],
+            "checkedAt": "2026-10-08T08:10:51Z"
           }
         },
         {
@@ -557,7 +565,7 @@
           "description": "Rasteransicht, Bild-zuerst-Upload mit sofortigem Veröffentlichen, Formular mit optionalen Feldern, Bildtausch, Detailbilder, Bildausschnitt für Vorschaubilder (Original bleibt erhalten), Sortierung per Drag & Drop, Schnellschalter, Archivieren, Duplizieren.",
           "order": 4,
           "weight": 5,
-          "status": "planned",
+          "status": "ready",
           "dependsOn": [
             "task-15",
             "task-16"
@@ -586,7 +594,7 @@
           "description": "Journal mit Rich-Text-Editor, Entwurf und Vorschau, Vita-Verwaltung nach Kategorie.",
           "order": 5,
           "weight": 4,
-          "status": "planned",
+          "status": "ready",
           "dependsOn": [
             "task-15",
             "task-16"
@@ -611,7 +619,7 @@
           "description": "Veranstaltungen mit Gästeliste, CSV-Export und Rückblick, Kunstkurs-Termine.",
           "order": 6,
           "weight": 3,
-          "status": "planned",
+          "status": "ready",
           "dependsOn": [
             "task-15",
             "task-16"
@@ -636,7 +644,7 @@
           "description": "Dashboard-Bereich, in dem Preise, Maße, Technik, Jahr, Verfügbarkeit und Beschreibung für die gesamte öffentliche Galerie ein- und ausgeschaltet werden. Weitere Schalter müssen ohne Umbau ergänzbar sein.",
           "order": 7,
           "weight": 3,
-          "status": "planned",
+          "status": "ready",
           "dependsOn": [
             "task-14",
             "task-16"
@@ -663,7 +671,7 @@
           "description": "Dashboard-Modul für das Pressearchiv mit Datei-zuerst-Anlage: JPEG, PNG oder PDF hochladen, speichern, veröffentlichen. Weitere Angaben jederzeit ergänzbar.",
           "order": 8,
           "weight": 4,
-          "status": "planned",
+          "status": "ready",
           "dependsOn": [
             "task-15",
             "task-16"
@@ -692,7 +700,7 @@
           "description": "Dashboard-Modul für externe Artikel und Links, die der Künstler präsentieren möchte.",
           "order": 9,
           "weight": 3,
-          "status": "planned",
+          "status": "ready",
           "dependsOn": [
             "task-16"
           ],

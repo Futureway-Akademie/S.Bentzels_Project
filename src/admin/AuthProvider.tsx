@@ -10,14 +10,22 @@ import {
 import { supabase } from '../lib/supabase'
 import { AuthContext, type AuthStatus, type AuthValue } from './authContext'
 
+const CHECK_TIMEOUT_MS = 8000
+
 // Prüft über die Datenbank, ob der eingeloggte Nutzer in der Tabelle admins steht.
 async function checkAdmin(session: Session): Promise<boolean> {
   if (!supabase) return false
-  const { data } = await supabase
+  const request = supabase
     .from('admins')
     .select('user_id')
     .eq('user_id', session.user.id)
     .maybeSingle()
+  // Eine Störung der Verbindung darf nicht wie „kein Admin“ aussehen.
+  const timeout = new Promise<never>((_, reject) =>
+    setTimeout(() => reject(new Error('Zeitüberschreitung')), CHECK_TIMEOUT_MS),
+  )
+  const { data, error } = await Promise.race([request, timeout])
+  if (error) throw new Error(error.message)
   return Boolean(data)
 }
 
@@ -27,6 +35,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   )
   const [session, setSession] = useState<Session | null>(null)
   const [isAdmin, setIsAdmin] = useState(false)
+  const [attempt, setAttempt] = useState(0)
   // Ergebnis der Admin-Prüfung je Nutzer, damit mehrere Auth-Ereignisse nicht mehrfach abfragen.
   const checked = useRef<{ id: string; admin: boolean } | null>(null)
 
@@ -40,7 +49,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         if (checked.current?.id === next.user.id) {
           admin = checked.current.admin
         } else {
-          admin = await checkAdmin(next)
+          try {
+            admin = await checkAdmin(next)
+          } catch {
+            if (active) setStatus('error')
+            return
+          }
           checked.current = { id: next.user.id, admin }
         }
       } else {
@@ -63,7 +77,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       active = false
       subscription.subscription.unsubscribe()
     }
-  }, [])
+  }, [attempt])
 
   const signIn = useCallback(async (email: string, password: string) => {
     if (!supabase) return false
@@ -79,6 +93,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     await supabase.auth.signOut()
   }, [])
 
+  const retry = useCallback(() => {
+    setStatus('loading')
+    setAttempt((n) => n + 1)
+  }, [])
+
   const value = useMemo<AuthValue>(
     () => ({
       status,
@@ -86,8 +105,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       isAdmin,
       signIn,
       signOut,
+      retry,
     }),
-    [status, session, isAdmin, signIn, signOut],
+    [status, session, isAdmin, signIn, signOut, retry],
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
