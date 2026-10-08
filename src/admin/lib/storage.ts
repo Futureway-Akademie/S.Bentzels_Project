@@ -1,7 +1,12 @@
 import { supabase } from '../../lib/supabase'
 import { pdfFirstPageThumbnail } from './pdfThumbnail'
-import { groupByBucket, looksLikePdf, MAX_PDF_BYTES } from './imageMath'
-import { processImage, type EncodedImage } from './images'
+import {
+  groupByBucket,
+  looksLikePdf,
+  MAX_PDF_BYTES,
+  parsePublicUrl,
+} from './imageMath'
+import { processImage, processThumb, type EncodedImage } from './images'
 import { UploadError } from './uploadError'
 
 export type Bucket = 'artworks' | 'posts' | 'events' | 'people' | 'press'
@@ -166,6 +171,56 @@ export async function uploadPressFile(
     await removePaths('press', [pdfPath, thumbPath]).catch(() => undefined)
     throw error
   }
+}
+
+export type StoredThumb = {
+  url: string
+  width: number
+  height: number
+  path: string
+}
+
+/** Erzeugt aus einem vorhandenen Bild eine neue Vorschau (optional mit Bildausschnitt) und lädt sie hoch. */
+export async function uploadThumbFromUrl(
+  bucket: Bucket,
+  folder: string,
+  sourceUrl: string,
+  crop?: Parameters<typeof processThumb>[1],
+): Promise<StoredThumb> {
+  const response = await fetch(sourceUrl)
+  if (!response.ok)
+    throw new UploadError(
+      'decode',
+      `Bild nicht erreichbar (${response.status})`,
+    )
+  const blob = await response.blob()
+  const file = new File([blob], 'quelle', { type: blob.type || 'image/webp' })
+  const thumb = await processThumb(file, crop)
+  const path = `${folder}/${crypto.randomUUID()}-800.${thumb.ext}`
+  const url = await put(bucket, path, thumb.blob, thumb.mime)
+  return { url, width: thumb.width, height: thumb.height, path }
+}
+
+/** Kopiert eine Datei im selben Bucket und liefert die neue öffentliche Adresse. */
+export async function copyFileByUrl(
+  url: string,
+  newFolder: string,
+): Promise<string> {
+  const location = parsePublicUrl(url)
+  if (!location) throw new UploadError('upload', 'Dateiadresse nicht erkannt')
+  const name = location.path.split('/').pop() ?? 'datei'
+  const ext = name.includes('.') ? name.slice(name.lastIndexOf('.')) : ''
+  const suffix = name.includes('-800.') ? '-800' : ''
+  const target = `${newFolder}/${crypto.randomUUID()}${suffix}${ext}`
+  const storage = client().storage.from(location.bucket)
+  const { error } = await storage.copy(location.path, target)
+  if (error)
+    throw new UploadError(
+      'upload',
+      `Kopieren fehlgeschlagen: ${error.message}`,
+      { cause: error },
+    )
+  return storage.getPublicUrl(target).data.publicUrl
 }
 
 export type RemovalResult = { removed: number; failed: number }

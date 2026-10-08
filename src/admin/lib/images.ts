@@ -197,3 +197,36 @@ export async function encodeCanvasAsThumb(
     size.height,
   )
 }
+
+/** Erzeugt nur ein Vorschaubild (höchstens 800 px), optional aus einem Bildausschnitt. */
+export async function processThumb(
+  file: File,
+  crop?: CropRect,
+): Promise<EncodedImage> {
+  validateImageFile(file)
+  let bitmap: ImageBitmap
+  try {
+    bitmap = await createImageBitmap(file)
+  } catch (cause) {
+    throw new UploadError('decode', 'Bild konnte nicht gelesen werden', {
+      cause,
+    })
+  }
+  try {
+    const area = crop
+      ? cropToPixels(bitmap.width, bitmap.height, crop)
+      : { sx: 0, sy: 0, sw: bitmap.width, sh: bitmap.height }
+    const size = fitWithin(area.sw, area.sh, THUMB_MAX_EDGE)
+    return await encode(
+      bitmap,
+      area.sx,
+      area.sy,
+      area.sw,
+      area.sh,
+      size.width,
+      size.height,
+    )
+  } finally {
+    bitmap.close()
+  }
+}

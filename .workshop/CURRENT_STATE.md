@@ -14,11 +14,10 @@ Keine.
 
 ## Zuletzt abgeschlossen
 
-task-16: Dashboard-Grundgerüst und Übersicht. Fortschritt 43.55 % (17 von 39 Tasks).
+task-17: Dashboard-Modul Werke. Fortschritt 47.58 % (18 von 39 Tasks).
 
 ## Bereite nächste Aufgaben
 
-- task-17: Dashboard-Modul Werke
 - task-18: Dashboard-Module Journal und Vita
 - task-19: Dashboard-Module Veranstaltungen und Kunstkurse
 - task-34: Globale Sichtbarkeitsschalter
@@ -48,4 +47,4 @@ Nichts.
 
 ## Empfohlener nächster Schritt
 
-Registrierung ausschalten und Admin-Konto anlegen (siehe Bekannte Probleme), dann task-17 (Dashboard-Modul Werke), task-18 (Journal und Vita) oder task-19 (Veranstaltungen und Kunstkurse) auswählen.
+Registrierung ausschalten und Admin-Konto anlegen (siehe Bekannte Probleme), dann die echte Anmeldung und das Werke-Modul im echten Projekt prüfen. Danach task-18 (Journal und Vita), task-19 (Veranstaltungen und Kunstkurse), task-34, task-38 oder task-39 auswählen.

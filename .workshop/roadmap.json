@@ -565,7 +565,7 @@
           "description": "Rasteransicht, Bild-zuerst-Upload mit sofortigem Veröffentlichen, Formular mit optionalen Feldern, Bildtausch, Detailbilder, Bildausschnitt für Vorschaubilder (Original bleibt erhalten), Sortierung per Drag & Drop, Schnellschalter, Archivieren, Duplizieren.",
           "order": 4,
           "weight": 5,
-          "status": "ready",
+          "status": "completed",
           "dependsOn": [
             "task-15",
             "task-16"
@@ -579,13 +579,21 @@
             "Bedienbar auf Smartphone und Tablet",
             "Toast nach dem Speichern, validierte Formulare"
           ],
-          "startedAt": null,
-          "completedAt": null,
+          "startedAt": "2026-10-08T08:13:55Z",
+          "completedAt": "2026-10-08T08:26:11Z",
           "verification": {
-            "status": "not_run",
-            "summary": null,
-            "commands": [],
-            "checkedAt": null
+            "status": "passed",
+            "summary": "Getestet in deinem Chrome (eigener Tab, Fenster 768 px breit, Smartphone-Breite über eingebettete Rahmen) mit der echten supabase-js-Bibliothek gegen einen lokalen Ersatz der Supabase-API mit echtem Speicher von Bilddateien, nicht gegen dein echtes Projekt (dort fehlt noch das Admin-Konto). Upload: drei Bilder (quer, hoch, quadratisch) per Ablegen auf das Feld erzeugten drei Werke, nur Bildfelder gefüllt, veröffentlicht, Originale höchstens 2400 px, Vorschauen 800 px, WebP, Reihenfolge 1 bis 3; ungültige Dateien (Text, GIF, defektes JPEG) wurden mit passender Meldung abgelehnt und legten nichts an. Raster: Bilder vollständig und unverzerrt, Schnellschalter (sichtbar, Highlight, Status) speichern, ein fehlgeschlagener Schalter springt zurück mit Fehlermeldung, Sortieren per Knopf und per Ziehen und Ablegen (mit Markierung des Ziels) speichert die Reihenfolge. Bearbeiten: ungültige Eingaben (Jahr, Maße, Preis) zeigen vier Fehler, fokussieren das erste Feld und speichern nichts; gültige Angaben speichern korrekt (Komma als Dezimaltrenner, leere Felder bleiben leer, Adresse „poppy-picking“ aus dem Titel, bei Doppelung „-kopie-2“). Bild ersetzen: neue Datei, alte Hauptdatei und Vorschau entfernt, Ausschnitt zurückgesetzt, Angaben erhalten. Bildausschnitt: 1:1 aus einem Hochformat ergab eine 800x800-Vorschau, das gespeicherte Hauptbild blieb unverändert (gleiche Adresse und Größe), die alte Vorschau wurde entfernt; Verkleinern am Griff und Verschieben mit der echten Maus sowie Pfeiltasten funktionieren und der Rahmen bleibt im Bild. Weitere Bilder: hinzufügen, sortieren, Entfernen mit Bestätigungsdialog (Fokus bei Abbrechen, Esc bricht ab, bestätigen entfernt Bild, Vorschau und Dateien). Duplizieren: Kopie mit „(Kopie)“, nicht veröffentlicht, Dateien in eigenem Ordner kopiert, Original unberührt; Löschen der Kopie entfernt deren vier Dateien, die Dateien des Originals werden weiter ausgeliefert. Archiv: Archivieren, Wiederherstellen und endgültiges Löschen aus dem Archiv (mit Bestätigung, Dateien entfernt). Beim Test fanden sich zwei Mängel, beide behoben: nach dem Duplizieren zeigte die Bearbeiten-Seite weiter die Daten des vorherigen Werks (Speichern hätte falsche Daten geschrieben); jetzt lädt sie neu und baut sich pro geladenem Werk neu auf. Schmale Ansicht (388 px): kein horizontales Scrollen, einspaltiges Raster, Auswahlfelder 44 px hoch. Zusätzlich 8 neue Datenbankprüfungen (31 insgesamt) und 14 neue Unit-Tests (23 insgesamt) bestehen, ebenso Typprüfung, Lint ohne Warnungen, Formatprüfung und Build. NICHT geprüft: Anmeldung und Funktionen gegen das echte Supabase-Projekt (Registrierung und Admin-Konto fehlen), echte Smartphones (Berühren statt Maus, Wischen, Kamera- und Fotoauswahl), das Ziehen der Karten per Touch (dafür gibt es die Knöpfe), Tastaturbedienung außer Pfeiltasten im Ausschnitt und im Dialog, Bildschirmleser, größere Mengen (60 Werke), gleichzeitige Änderungen durch zwei Personen, Speichern-Fehler im Bearbeiten-Formular (nur der Schalter in der Liste wurde mit Fehler getestet). Die öffentliche Galerie liest noch die Platzhalterdaten (task-20). Die Anpassung des Kopierens im Speicher (Copy-API) wurde nur gegen den lokalen Ersatz geprüft, die Rechte dafür sind in den Speicherregeln vorhanden.",
+            "commands": [
+              "node --test src/admin/lib/imageMath.test.ts src/admin/lib/adminLib.test.ts",
+              "node supabase/tests/schema.test.mjs",
+              "node_modules/.bin/prettier --check src",
+              "node_modules/.bin/tsc -b --noEmit",
+              "node_modules/.bin/oxlint",
+              "node_modules/.bin/tsc -b && node_modules/.bin/vite build",
+              "Chrome-Tests von Upload, Raster, Sortieren, Bearbeiten, Ausschnitt, Bildern, Duplizieren, Archiv, Löschen und Fehlerfällen gegen lokalen Supabase-Ersatz"
+            ],
+            "checkedAt": "2026-10-08T08:26:11Z"
           }
         },
         {

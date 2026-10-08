@@ -119,3 +119,13 @@ Details folgen mit der Umsetzung.
 - `RequireAdmin`: Zugriff nur für Admins. Ohne Anmeldung Weiterleitung zum Login, ohne Admin-Eintrag „kein Zugriff“, bei einer Verbindungsstörung (nach etwa 8 bis 9 Sekunden) eine eigene Meldung mit „Erneut versuchen“. Die eigentliche Sicherheit liegt in den Datenbankregeln.
 - `AdminLayout`: feste Seitenleiste ab 1024 px, darunter Kopfleiste mit ausklappbarem Menü (schließt mit Esc und beim Seitenwechsel, Einträge 44 px hoch). Zähler neuer Eingänge in der Seitenleiste.
 - `pages/Overview.tsx`, `overviewData.ts`: neue Eingänge (Zahl und die letzten 5), nächste Veranstaltung mit belegten Plätzen (nur Status „angemeldet“, inklusive Begleitung), verfügbare und gesamte Werke (archivierte zählen nicht). Leerzustände und Fehlerzustand mit „Erneut versuchen“. Daten laden über `useLoad`.
+
+## Dashboard-Modul Werke (task-17)
+
+- `src/admin/pages/Artworks.tsx` (`/admin/werke`): Ablagefeld für mehrere Bilder (aus jedem Bild entsteht ein Werk, optional sofort veröffentlicht), Raster der Werke mit Vorschau in Originalproportionen, Schnellschalter (sichtbar, Highlight, Status), Duplizieren, Archivieren, Reihenfolge per Ziehen und Ablegen oder per „Nach vorn/hinten“ (für Touch und Tastatur), Archiv-Ansicht mit Wiederherstellen und endgültigem Löschen.
+- `src/admin/pages/ArtworkEdit.tsx` (`/admin/werke/:id`): Bild ersetzen, Vorschau mit Bildausschnitt (`CropEditor`: Rahmen ziehen, Griff, Seitenverhältnisse, Pfeiltasten), weitere Bilder (hinzufügen, sortieren, entfernen), alle Angaben als optionales, validiertes Formular. Die Adresse (Slug) entsteht beim Speichern aus dem Titel und ist eindeutig.
+- `src/admin/lib/`: `artworks.ts` (Datenzugriff), `artworkForm.ts` (Formular und Prüfung), `slug.ts`, `order.ts`, `cropMath.ts` (reine Funktionen, getestet in `adminLib.test.ts`), `errors.ts`.
+- Dateien werden je Werk in einem eigenen Ordner gespeichert (`artworks/<Werk-Kennung>/`). Beim Duplizieren werden die Dateien kopiert, damit das Löschen einer Kopie nie Bilder des Originals entfernt. Ein neues Bild ersetzt alte Dateien erst nach erfolgreichem Speichern.
+- Der Bildausschnitt erzeugt nur eine neue 800-px-Vorschau aus dem gespeicherten Bild (höchstens 2400 px) und speichert den Ausschnitt in `thumb_crop`. Das gespeicherte Bild bleibt unverändert.
+- `ToastProvider` (Rückmeldungen), `ConfirmDialog` (Bestätigung vor dem Löschen, Fokus bei „Abbrechen“, Esc bricht ab), `Dropzone` (Ziehen oder Auswählen).
+- Die öffentliche Galerie liest noch die Platzhalterdaten (task-20).

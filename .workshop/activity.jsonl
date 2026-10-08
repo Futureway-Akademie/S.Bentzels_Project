@@ -83,3 +83,6 @@
 {"timestamp": "2026-10-08T08:10:51Z", "type": "task_ready", "summary": "Task task-34 ist startbereit.", "taskId": "task-34"}
 {"timestamp": "2026-10-08T08:10:51Z", "type": "task_ready", "summary": "Task task-38 ist startbereit.", "taskId": "task-38"}
 {"timestamp": "2026-10-08T08:10:51Z", "type": "task_ready", "summary": "Task task-39 ist startbereit.", "taskId": "task-39"}
+{"timestamp": "2026-10-08T08:13:55Z", "type": "task_started", "summary": "Dashboard-Modul Werke gestartet.", "taskId": "task-17"}
+{"timestamp": "2026-10-08T08:26:11Z", "type": "verification_passed", "summary": "Dashboard-Modul Werke in Chrome gegen lokalen Supabase-Ersatz geprüft (Upload, Raster, Sortieren, Bearbeiten, Ausschnitt, Bilder, Duplizieren, Archiv, Löschen, Fehlerfälle), nicht gegen das echte Projekt.", "taskId": "task-17"}
+{"timestamp": "2026-10-08T08:26:11Z", "type": "task_completed", "summary": "Dashboard-Modul Werke abgeschlossen.", "taskId": "task-17"}

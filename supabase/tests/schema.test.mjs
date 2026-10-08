@@ -355,6 +355,49 @@ await check('Vorschaubilder: weitere Werkbilder und Eventfotos haben thumb_url',
   }),
 )
 
+// ----- Was das Dashboard der Datenbank abverlangt (task-17)
+await check('Dashboard: Werk mit fester Kennung nur aus Bild anlegen, Ausschnitt speichern, doppelte Adresse abgelehnt', () =>
+  as('authenticated', ADMIN, async () => {
+    const id = 'cccccccc-cccc-cccc-cccc-cccccccccccc'
+    await db.query(
+      `insert into public.artworks (id, main_image_url, image_width, image_height, thumb_url, is_published, sort_order) values ($1, 'neu.webp', 2400, 1600, 'neu-800.webp', true, 99)`,
+      [id],
+    )
+    await db.query(`update public.artworks set thumb_crop = $2::jsonb, slug = 'mein-werk', title_de = 'Mein Werk' where id = $1`, [
+      id,
+      JSON.stringify({ x: 0.1, y: 0, width: 0.5, height: 1 }),
+    ])
+    const row = (await db.query(`select thumb_crop, slug from public.artworks where id = $1`, [id])).rows[0]
+    equal(row, { thumb_crop: { x: 0.1, y: 0, width: 0.5, height: 1 }, slug: 'mein-werk' }, 'Ausschnitt und Adresse')
+    await denied(() =>
+      db.query(`insert into public.artworks (main_image_url, image_width, image_height, slug) values ('x.webp', 1, 1, 'mein-werk')`),
+    )
+    const like = (await db.query(`select slug from public.artworks where slug like 'mein-%' and id <> $1`, [id])).rows
+    equal(like, [], 'andere Werke mit ähnlicher Adresse')
+  }),
+)
+await check('Dashboard: Archivieren blendet öffentlich aus, Löschen entfernt Bilder und Statistik mit', async () => {
+  const id = 'cccccccc-cccc-cccc-cccc-cccccccccccc'
+  await as('authenticated', ADMIN, async () => {
+    await db.query(`insert into public.artwork_images (artwork_id, image_url, thumb_url) values ($1, 'z.webp', 'z-800.webp')`, [id])
+    await db.query(`update public.artworks set archived_at = now() where id = $1`, [id])
+  })
+  await as('anon', null, async () => {
+    equal(await count(`select count(*) n from public.artworks_public where slug = 'mein-werk'`), 0, 'archiviertes Werk öffentlich')
+    equal(await count(`select count(*) n from public.artwork_images where image_url = 'z.webp'`), 0, 'Bild archivierten Werks öffentlich')
+  })
+  await as('authenticated', ADMIN, async () => {
+    await db.query(`delete from public.artworks where id = $1`, [id])
+    equal(await count(`select count(*) n from public.artwork_images where artwork_id = $1`, [id]), 0, 'übrige Bilder')
+  })
+})
+await check('Dashboard: Reihenfolge der Werke lässt sich einzeln ändern', () =>
+  as('authenticated', ADMIN, async () => {
+    const result = await db.query(`update public.artworks set sort_order = 42 where slug = 'sichtbar'`)
+    equal(result.affectedRows, 1, 'geänderte Zeilen')
+  }),
+)
+
 console.log(`${passed} Prüfungen bestanden, ${failures.length} fehlgeschlagen`)
 for (const failure of failures) console.log(`  FEHLER: ${failure}`)
 process.exit(failures.length === 0 ? 0 : 1)

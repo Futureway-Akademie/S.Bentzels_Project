@@ -13,6 +13,14 @@ export function useLoad<T>(load: () => Promise<T>): {
   const [state, setState] = useState<LoadState<T>>({ status: 'loading' })
   const [attempt, setAttempt] = useState(0)
 
+  // Ändert sich die Ladefunktion (z. B. anderes Werk), zuerst wieder „lädt“ zeigen,
+  // damit nie Daten des vorherigen Eintrags stehen bleiben.
+  const [currentLoad, setCurrentLoad] = useState(() => load)
+  if (currentLoad !== load) {
+    setCurrentLoad(() => load)
+    setState({ status: 'loading' })
+  }
+
   useEffect(() => {
     let active = true
     load()

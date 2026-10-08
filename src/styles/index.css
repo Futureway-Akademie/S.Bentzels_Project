@@ -410,6 +410,58 @@
     }
   }
 
+  /* Verwaltung: Ablagefeld, Bildausschnitt, Meldungen, Gefahr-Knopf */
+  .dropzone {
+    border: 1px dashed var(--color-foreground);
+    padding: 1.5rem;
+    transition: background-color 200ms var(--ease-gallery);
+  }
+
+  .dropzone-over {
+    background: var(--color-line);
+  }
+
+  .crop-rect {
+    position: absolute;
+    border: 2px solid var(--color-foreground);
+    box-shadow: 0 0 0 9999px rgba(247, 246, 242, 0.65);
+    cursor: move;
+    touch-action: none;
+  }
+
+  .crop-handle {
+    position: absolute;
+    right: -14px;
+    bottom: -14px;
+    width: 28px;
+    height: 28px;
+    background: var(--color-foreground);
+    border: 2px solid var(--color-background);
+    cursor: nwse-resize;
+    touch-action: none;
+  }
+
+  .btn-danger {
+    border-color: var(--color-foreground);
+  }
+
+  .toast {
+    animation: toast-in 250ms var(--ease-gallery);
+  }
+
+  @keyframes toast-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toast {
+      animation: none;
+    }
+  }
+
   /* Kunstwerke nie beschneiden */
   .artwork-img {
     display: block;
