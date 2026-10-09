@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "roadmapVersion": 3,
+  "roadmapVersion": 4,
   "status": "active",
   "phases": [
     {
@@ -455,7 +455,7 @@
       "title": "Datenbank und Dashboard",
       "description": "Supabase-Anbindung, geschützter Admin-Bereich und Umstellung der öffentlichen Seiten auf echte Daten.",
       "order": 2,
-      "weight": 35,
+      "weight": 46,
       "status": "in_progress",
       "tasks": [
         {
@@ -602,7 +602,7 @@
           "description": "Journal mit Rich-Text-Editor, Entwurf und Vorschau, Vita-Verwaltung nach Kategorie.",
           "order": 5,
           "weight": 4,
-          "status": "ready",
+          "status": "completed",
           "dependsOn": [
             "task-15",
             "task-16"
@@ -612,47 +612,171 @@
             "Entwurf und veröffentlicht trennbar",
             "Vita inline bearbeitbar"
           ],
-          "startedAt": null,
-          "completedAt": null,
+          "startedAt": "2026-10-08T08:28:21Z",
+          "completedAt": "2026-10-08T08:42:48Z",
           "verification": {
-            "status": "not_run",
-            "summary": null,
-            "commands": [],
-            "checkedAt": null
+            "status": "passed",
+            "summary": "Getestet in deinem Chrome (eigener Tab, Fenster 768 px breit) mit der echten supabase-js-Bibliothek, Tiptap und DOMPurify gegen einen lokalen Ersatz der Supabase-API mit echtem Dateispeicher, nicht gegen dein echtes Projekt (dort fehlen noch das Admin-Konto und die neue Migration 0003). Journal: Liste leer, „Neuer Beitrag“ legt einen Entwurf an und öffnet den Editor. Editor: Überschrift, Kursiv und Fett wurden mit echter Tastatur und Maus erzeugt (Text getippt, Wörter markiert, Knöpfe geklickt); Zitat, Liste, Unterüberschrift und Link wurden über die Werkzeugleisten-Knöpfe geprüft: gültige Adressen werden mit https:// ergänzt und tragen target und rel noopener noreferrer, javascript:-Adressen und Unsinn werden abgelehnt. Bild: Upload mit Beschreibung, Breite und Höhe werden gespeichert, ungültige Dateien abgelehnt, ein verworfenes Bild hinterlässt keine Datei, das Bild wird nach dem Absatz eingefügt und ersetzt keinen markierten Text. Speichern: Adresse „warum-der-erste-strich-zaehlt“ aus dem Titel, Text bereinigt ohne leeren Absatz am Ende, nicht mehr verwendete Bilddateien werden entfernt, Hinweis „Ungespeicherte Änderungen“ erscheint und verschwindet. Vorschau im Stil der Website (19 px, Überschriften, Zitat, Bilder). Entwurf und veröffentlicht trennbar: Veröffentlichen ohne Datum setzt den aktuellen Zeitpunkt, ein gewähltes Datum bleibt erhalten, Zurück zum Entwurf und wieder Veröffentlichen aus der Liste, zu langer Titel wird mit Fehler abgelehnt. Titelbild: hochladen, ersetzen (alte Dateien entfernt), entfernen. Löschen eines Beitrags entfernt alle vier Dateien, der andere Entwurf bleibt. Sicherheit: Die Bereinigung entfernt Skripte, Ereignis-Attribute, Rahmen, Formulare, SVG, javascript- und data-Adressen und Bilder ohne http-Adresse; Links in neuem Tab erhalten rel. Vita: vier Kategorien, Anlegen mit Prüfung (Jahr und Eintrag Pflicht, Endjahr nicht vor Startjahr), Sortierung neueste zuerst, direkte Bearbeitung mit vorausgefülltem Formular und Abbrechen, Sichtbarkeit umschalten (durchgestrichen), Löschen mit Bestätigung. Beim Test fanden sich vier Mängel, alle behoben: (1) Die Bereinigung entfernte Breite, Höhe, target und rel (Ursache: strenge Adressregel galt für alle Attribute). (2) Eingebettete data:-Bilder blieben erhalten. (3) Das Bild ersetzte beim Einfügen den markierten Text. (4) Ein verworfenes Bild ließ die Vorschaudatei zurück; außerdem endete der Text immer mit einem leeren Absatz. Zusätzlich 33 Datenbankprüfungen (5 neue) und 31 Unit-Tests (8 neue) bestehen, ebenso Typprüfung, Lint ohne Warnungen, Formatprüfung und Build; der Editor lädt als eigenes Paket (408 kB) und belastet die öffentliche Seite nicht. NICHT geprüft: Journal und Vita im echten Projekt (Admin-Konto und Migration 0003 fehlen; ohne 0003 lässt sich das Journal im Dashboard dort nicht öffnen), Bedienung per Touch und Smartphone, Link-Setzen und Formatieren mit der Maus für alle Knöpfe (Zitat, Liste, Link wurden über ausgelöste Knopf-Klicks statt echter Mausklicks getestet), Bildschirmleser, englische Texte (Felder vorhanden, keine Oberfläche), sehr lange Beiträge, gleichzeitiges Bearbeiten durch zwei Personen, die öffentliche Anzeige (task-20, dort muss sanitizeHtml verwendet werden). Wegen eines Werkzeug-Problems beim Klicken per Referenz wurden manche Tippschritte per Skript statt per Tastatur ausgeführt.",
+            "commands": [
+              "node --test src/admin/lib/imageMath.test.ts src/admin/lib/adminLib.test.ts",
+              "node supabase/tests/schema.test.mjs",
+              "node_modules/.bin/prettier --check src",
+              "node_modules/.bin/tsc -b --noEmit",
+              "node_modules/.bin/oxlint",
+              "node_modules/.bin/tsc -b && node_modules/.bin/vite build",
+              "Chrome-Tests von Journal, Editor, Bereinigung, Titelbild, Veröffentlichen, Löschen und Vita gegen lokalen Supabase-Ersatz"
+            ],
+            "checkedAt": "2026-10-08T08:42:48Z"
+          }
+        },
+        {
+          "id": "task-40",
+          "title": "Datenmodell Veranstaltungsmodul",
+          "description": "Migration 0004: gemeinsames Veranstaltungsmodul statt getrennter Tabellen für Events und Kurse, mit Arten, Terminen, Anfrage-Zuordnung, Statistik und Rollen.",
+          "order": 6,
+          "weight": 3,
+          "status": "completed",
+          "dependsOn": [
+            "task-14"
+          ],
+          "definitionOfDone": [
+            "events ohne Pflichtfelder außer Titel, alle Felder und Status laut Prompt",
+            "Erweiterbare Tabelle der Veranstaltungsarten",
+            "Tabelle event_dates für mehrere und wiederkehrende Termine",
+            "Kursdaten (courses) in events überführt",
+            "inquiries mit event_id",
+            "Anonyme Tageszähler je Veranstaltung",
+            "Rolle Event-Redakteur mit Rechten nur für Veranstaltungsdaten, durch RLS erzwungen",
+            "Datenbanktests lokal grün",
+            "Im echten Projekt eingespielt (nach Freigabe)"
+          ],
+          "startedAt": "2026-10-08T09:45:00Z",
+          "completedAt": "2026-10-08T11:00:00Z",
+          "verification": {
+            "status": "passed",
+            "summary": "Migration 0004 lokal gegen PGlite geprüft (44 Prüfungen, inklusive Upgrade mit vorhandenen Kursen) und im echten Supabase-Projekt eingespielt und per Leseabfrage geprüft (16 Tabellen, RLS überall, courses entfallen, 8 Arten, Views, Rolle, Bucket-PDF, 4 Speicherregeln, keine verfälschten Regelnamen). Migration 0003 gleichzeitig eingespielt. Dashboard nach der Rollenänderung nicht erneut in Chrome getestet.",
+            "commands": [
+              "node supabase/tests/schema.test.mjs",
+              "node --test src/admin/lib/imageMath.test.ts src/admin/lib/adminLib.test.ts",
+              "tsc -b --noEmit",
+              "oxlint",
+              "vite build"
+            ],
+            "checkedAt": "2026-10-08T11:00:00Z"
           }
         },
         {
           "id": "task-19",
-          "title": "Dashboard-Module Veranstaltungen und Kunstkurse",
-          "description": "Veranstaltungen mit Gästeliste, CSV-Export und Rückblick, Kunstkurs-Termine.",
+          "title": "Dashboard: Veranstaltungen",
+          "description": "Gemeinsames Modul für Seminare, Gruppenkurse, Workshops, Vorlesungen, Events, Ausstellungen und Kunstprojekte. Anlegen mit Titel und Datum, alle weiteren Angaben optional.",
           "order": 6,
-          "weight": 3,
-          "status": "ready",
+          "weight": 4,
+          "status": "completed",
           "dependsOn": [
             "task-15",
-            "task-16"
+            "task-16",
+            "task-40"
           ],
           "definitionOfDone": [
-            "Anmeldung öffnen und schließen",
-            "Gästeliste mit CSV-Export",
-            "Rückblicktext und Fotos pflegbar"
+            "Veranstaltung mit nur Titel und Datum anlegen und speichern",
+            "Alle optionalen Felder laut Prompt pflegbar (Art, Beschreibung, Ort, Referent, Preis, Plätze, Anmeldefrist, Zielgruppe, Voraussetzungen, Material, Leistungen, Kontakt, PDF, Link)",
+            "Status ändern, verschieben, absagen, archivieren, hervorheben, veröffentlichen oder ausblenden",
+            "Duplizieren mit Übernahme von Beschreibung, Bildern und Art",
+            "Mehrere Termine je Veranstaltung und wiederkehrende Termine erzeugen",
+            "Veranstaltungsarten verwaltbar und erweiterbar",
+            "Bilder und PDF hochladen",
+            "Löschen mit Bestätigungsdialog",
+            "Bedienbar auf Smartphone und Tablet"
           ],
-          "startedAt": null,
-          "completedAt": null,
+          "startedAt": "2026-10-08T11:20:00Z",
+          "completedAt": "2026-10-08T12:10:00Z",
           "verification": {
-            "status": "not_run",
-            "summary": null,
-            "commands": [],
-            "checkedAt": null
+            "status": "passed",
+            "summary": "In Chrome gegen lokalen Supabase-Ersatz geprüft: Schnellanlage (Titel genügt, leerer Titel abgelehnt), Prüfung der Felder, Speichern aller Angaben, wiederkehrende Termine, Verschieben, einzelner abgesagter Termin, Status, Veröffentlichen, Hervorheben, Archivieren und Wiederherstellen, Titelbild, zwei weitere Bilder, PDF (falsche Datei abgelehnt), Duplizieren mit Dateikopie, Löschen räumt Dateien auf und lässt das Original unberührt, keine Überbreite bei 320 und 375 px. 44 Unit-Tests, Typprüfung, Lint, Format, Build, 44 Datenbankprüfungen. Nicht gegen das echte Supabase-Projekt getestet (noch kein Admin-Konto), Touch und Bildschirmleser nicht geprüft.",
+            "commands": [
+              "node --test src/admin/lib/*.test.ts",
+              "tsc -b --noEmit",
+              "oxlint",
+              "prettier --check",
+              "vite build",
+              "node supabase/tests/schema.test.mjs"
+            ],
+            "checkedAt": "2026-10-08T12:10:00Z"
+          }
+        },
+        {
+          "id": "task-41",
+          "title": "Öffentlicher Veranstaltungskalender",
+          "description": "Veranstaltungsübersicht, Kalender (Monat, Liste, Kommende), Filter, Archiv und Detailseite mit Anfrage-Button, mobil zuerst.",
+          "order": 7,
+          "weight": 4,
+          "status": "completed",
+          "dependsOn": [
+            "task-19"
+          ],
+          "definitionOfDone": [
+            "Nächste Veranstaltungen mit 2–3 großen Einträgen, hervorhebbar",
+            "Monats-, Listen- und Kommende-Ansicht, Liste auf Smartphone komfortabel",
+            "Filter nach Art, Zeitraum, Monat, Ort, Verfügbarkeit und Referent",
+            "Archiv vergangener Veranstaltungen mit einstellbarer Sichtbarkeit",
+            "Detailseite zeigt nur vorhandene Angaben",
+            "Button Informationen anfragen oder Interesse anmelden",
+            "Ruhige Gestaltung passend zur Galerie, kein Ticketportal-Look"
+          ],
+          "startedAt": "2026-10-08T12:30:00Z",
+          "completedAt": "2026-10-08T13:30:00Z",
+          "verification": {
+            "status": "passed",
+            "summary": "In Chrome gegen lokalen Supabase-Ersatz mit sieben Testveranstaltungen geprüft: nächste Veranstaltungen (Hervorgehobene zuerst), Ansichten Kommende, Liste, Monat und Archiv, alle fünf Filter einzeln, Monatsnavigation, Mobilansicht des Monats als Liste, Detailseiten (nur vorhandene Angaben, mehrere Termine mit abgesagtem Termin, mehrtägig, Preis auf Anfrage, ausgebucht, vergangen mit Rückblick, ohne Datum, Entwurf und unbekannte Adresse als nicht gefunden), Anfrageformular mit Prüfung und gespeicherter Anfrage samt Veranstaltung, Zähleraufrufe. Keine Überbreite bei 320, 375, 768, 1024, 1100 und 1280 px. Dabei Menüleiste bei 1024 px zu breit gefunden und Breakpoint auf 1100 px gesetzt, Haupt-Bundle durch Lazy-Loading klein gehalten. 57 Unit-Tests, 44 Datenbankprüfungen, Typprüfung, Lint, Format, Build. Nicht gegen das echte Supabase-Projekt getestet, Touch und Bildschirmleser nicht geprüft.",
+            "commands": [
+              "node --test src/**/*.test.ts",
+              "tsc -b --noEmit",
+              "oxlint",
+              "prettier --check",
+              "vite build",
+              "node supabase/tests/schema.test.mjs"
+            ],
+            "checkedAt": "2026-10-08T13:30:00Z"
+          }
+        },
+        {
+          "id": "task-42",
+          "title": "Rollen und Veranstaltungsstatistik",
+          "description": "Rolle Event-Redakteur im Dashboard sowie anonyme Statistik zu Aufrufen, Detailseiten, Anfrage-Klicks und Anfragen je Veranstaltung.",
+          "order": 8,
+          "weight": 3,
+          "status": "completed",
+          "dependsOn": [
+            "task-19",
+            "task-40"
+          ],
+          "definitionOfDone": [
+            "Event-Redakteur sieht im Dashboard nur Veranstaltungsmodule",
+            "Ansichten, Detailaufrufe, Anfrage-Klicks und Anfragen je Veranstaltung auswertbar",
+            "Kein personenbezogenes Tracking",
+            "Rechte später erweiterbar"
+          ],
+          "startedAt": "2026-10-08T13:45:00Z",
+          "completedAt": "2026-10-08T14:30:00Z",
+          "verification": {
+            "status": "passed",
+            "summary": "In Chrome gegen lokalen Supabase-Ersatz geprüft: Administrator sieht alle Module und die Statistik (Zeiträume 7/30/90/gesamt, Summen, Sortierung, ausgeblendete leere Veranstaltungen, Meistgefragt), Event-Redakteur landet nach der Anmeldung bei den Veranstaltungen, sieht nur Veranstaltungen, Statistik und Eingänge, alle übrigen Adressen leiten um, keine Überbreite bei 320, 375 und 768 px. Neue Unit-Tests (Rechte, Auswertung). Datenbankseitige Rechte des Redakteurs sind in Task-40 geprüft. Nicht gegen das echte Supabase-Projekt getestet.",
+            "commands": [
+              "node --test src/**/*.test.ts",
+              "tsc -b --noEmit",
+              "oxlint",
+              "prettier --check"
+            ],
+            "checkedAt": "2026-10-08T14:30:00Z"
           }
         },
         {
           "id": "task-34",
           "title": "Globale Sichtbarkeitsschalter",
-          "description": "Dashboard-Bereich, in dem Preise, Maße, Technik, Jahr, Verfügbarkeit und Beschreibung für die gesamte öffentliche Galerie ein- und ausgeschaltet werden. Weitere Schalter müssen ohne Umbau ergänzbar sein.",
+          "description": "Dashboard-Bereich, in dem Preise, Maße, Technik, Jahr, Verfügbarkeit und Beschreibung für die gesamte öffentliche Galerie ein- und ausgeschaltet werden. Weitere Schalter müssen ohne Umbau ergänzbar sein. Gilt auch für Veranstaltungen: Preise, freie Plätze, Teilnehmerzahl, Referent und Veranstaltungsort.",
           "order": 7,
           "weight": 3,
-          "status": "ready",
+          "status": "completed",
           "dependsOn": [
             "task-14",
             "task-16"
@@ -662,15 +786,22 @@
             "Ausschalten blendet die Angabe überall öffentlich aus, löscht aber keine Daten",
             "Wieder Einschalten zeigt die Angaben unverändert",
             "Neue Schalter lassen sich ohne Umbau der Architektur ergänzen",
-            "Bedienbar auf Smartphone"
+            "Bedienbar auf Smartphone",
+            "Schalter für Veranstaltungen (Preise, freie Plätze, Teilnehmerzahl, Referent, Ort)"
           ],
-          "startedAt": null,
-          "completedAt": null,
+          "startedAt": "2026-10-08T14:40:00Z",
+          "completedAt": "2026-10-08T11:57:06Z",
           "verification": {
-            "status": "not_run",
-            "summary": null,
-            "commands": [],
-            "checkedAt": null
+            "status": "passed",
+            "summary": "In Chrome gegen lokalen Supabase-Ersatz geprüft: Dashboard-Seite mit allen 11 Schaltern (Galerie 6, Veranstaltungen 5), Umschalten speichert sofort und ändert nur den jeweiligen Schalter, öffentliche Galerie folgt den gespeicherten Werten (Maße und Preis, Technik und Kaufhinweis verschwinden und erscheinen unverändert wieder), keine Überbreite bei 320 und 375 px, Schalter mindestens 44 px hoch. Unit-Tests für Schalterlogik und Parser. Serverseitiges Ausblenden in artworks_public und events_public ist in den Datenbanktests geprüft. Nicht gegen das echte Supabase-Projekt getestet.",
+            "commands": [
+              "node --test src/**/*.test.ts",
+              "tsc -b --noEmit",
+              "oxlint",
+              "prettier --check",
+              "vite build"
+            ],
+            "checkedAt": "2026-10-08T11:57:06Z"
           }
         },
         {
@@ -679,7 +810,7 @@
           "description": "Dashboard-Modul für das Pressearchiv mit Datei-zuerst-Anlage: JPEG, PNG oder PDF hochladen, speichern, veröffentlichen. Weitere Angaben jederzeit ergänzbar.",
           "order": 8,
           "weight": 4,
-          "status": "ready",
+          "status": "completed",
           "dependsOn": [
             "task-15",
             "task-16"
@@ -693,13 +824,19 @@
             "Hinweis im Dashboard, dass für Fremdartikel die Urheberrechte zu klären sind",
             "Bedienbar auf Smartphone und Tablet"
           ],
-          "startedAt": null,
-          "completedAt": null,
+          "startedAt": "2026-10-08T15:20:00Z",
+          "completedAt": "2026-10-08T12:05:02Z",
           "verification": {
-            "status": "not_run",
-            "summary": null,
-            "commands": [],
-            "checkedAt": null
+            "status": "passed",
+            "summary": "In Chrome gegen lokalen Supabase-Ersatz geprüft: Upload von PDF, PNG und einer ungültigen PDF gleichzeitig (gültige Dateien werden Einträge, PDF-Vorschau aus erster Seite, ungültige Datei ohne Reste abgelehnt), Eintrag nur mit Link (ungültiger Link abgelehnt), Sortieren per Knopf und per Ziehen und Ablegen mit korrekter Speicherung, Veröffentlichen und Hervorheben, Bearbeiten aller Angaben mit Prüfung (Jahr, Link, Datei oder Link nötig), Datei austauschen (alte Dateien entfernt) und Entfernen nur mit Link, Löschen mit Bestätigung räumt Dateien auf, Kategorien hinzufügen, umbenennen und löschen (Einträge behalten Daten), Urheberrechtshinweis, keine Überbreite bei 320, 375 und 768 px. 76 Unit-Tests, 46 Datenbankprüfungen. Migration 0005 (Kategorien) ist lokal geprüft, im echten Supabase-Projekt noch nicht eingespielt. Nicht gegen das echte Projekt getestet, Touch und Bildschirmleser nicht geprüft.",
+            "commands": [
+              "node --test src/**/*.test.ts",
+              "tsc -b --noEmit",
+              "oxlint",
+              "prettier --check",
+              "vite build"
+            ],
+            "checkedAt": "2026-10-08T12:05:02Z"
           }
         },
         {
@@ -708,7 +845,7 @@
           "description": "Dashboard-Modul für externe Artikel und Links, die der Künstler präsentieren möchte.",
           "order": 9,
           "weight": 3,
-          "status": "ready",
+          "status": "completed",
           "dependsOn": [
             "task-16"
           ],
@@ -718,22 +855,28 @@
             "Fehlende Angaben erzeugen keine leeren Bereiche auf der öffentlichen Seite",
             "Bedienbar auf Smartphone und Tablet"
           ],
-          "startedAt": null,
-          "completedAt": null,
+          "startedAt": "2026-10-08T16:30:00Z",
+          "completedAt": "2026-10-08T12:08:17Z",
           "verification": {
-            "status": "not_run",
-            "summary": null,
-            "commands": [],
-            "checkedAt": null
+            "status": "passed",
+            "summary": "In Chrome gegen lokalen Supabase-Ersatz geprüft: Link hinzufügen mit nur einer URL (leer und ungültig abgelehnt, Domain als Bezeichnung), Bearbeiten von Link, Titel, Quelle und Notiz mit Prüfung, Vorschaubild hochladen, ersetzen und entfernen (nur eine kleine Datei, alte Dateien entfernt), Veröffentlichen, Sortieren per Knopf und per Ziehen und Ablegen mit korrekter Speicherung, Löschen mit Bestätigung, keine Überbreite bei 320, 375 und 768 px. Öffentliche Seite zeigt laut Task-37 nur vorhandene Angaben. 81 Unit-Tests, 46 Datenbankprüfungen. Nicht gegen das echte Supabase-Projekt getestet, Touch und Bildschirmleser nicht geprüft.",
+            "commands": [
+              "node --test src/**/*.test.ts",
+              "tsc -b --noEmit",
+              "oxlint",
+              "prettier --check",
+              "vite build"
+            ],
+            "checkedAt": "2026-10-08T12:08:17Z"
           }
         },
         {
           "id": "task-20",
           "title": "Umstellung auf Supabase und Seed-Daten",
-          "description": "Alle Platzhalterdaten durch Supabase-Abfragen ersetzen und Seed-Daten einspielen.",
+          "description": "Alle Platzhalterdaten durch Supabase-Abfragen ersetzen und Seed-Daten einspielen. Veranstaltungen und Termine kommen aus dem gemeinsamen Veranstaltungsmodul.",
           "order": 10,
           "weight": 2,
-          "status": "planned",
+          "status": "completed",
           "dependsOn": [
             "task-17",
             "task-18",
@@ -750,12 +893,18 @@
             "Presse und interessante Artikel werden aus der Datenbank gelesen"
           ],
           "startedAt": null,
-          "completedAt": null,
+          "completedAt": "2026-10-08T12:18:20Z",
           "verification": {
-            "status": "not_run",
-            "summary": null,
-            "commands": [],
-            "checkedAt": null
+            "status": "passed",
+            "summary": "In Chrome gegen lokalen Supabase-Ersatz mit den erzeugten Beispieldaten geprüft: Startseite (Werke, nächste Veranstaltung, Beitrag), Galerie (10 Werke), Werkseite, Künstlerseite mit Vita, Journal und Beitrag (HTML bereinigt, Skript, Ereignis-Attribut, Rahmen und javascript-Adresse entfernt), Presse mit Kategorien aus der Datenbank (6 Einträge), Interessante Artikel (3), Netzwerk (kommende und Archiv), Kunstkurse, Weiterleitung von /netzwerk/:slug, Leerzustände ohne Daten. Sichtbarkeitsschalter wirken aus der Datenbank (Task-34). Placeholder-Daten entfernt (src/data nur noch Typen und Bildplatzhalter), Haupt-Bundle 408 kB, Datenbank-Client wird bei Bedarf nachgeladen. Seed (supabase/seed.sql) in lokaler Datenbank geprüft (Einspielen, mehrfach, Sicht für Besucher). 87 Unit-Tests, 46 und 7 Datenbankprüfungen. Nicht gegen das echte Supabase-Projekt getestet, Seed dort nicht eingespielt.",
+            "commands": [
+              "node --test src/**/*.test.ts",
+              "tsc -b --noEmit",
+              "oxlint",
+              "prettier --check",
+              "vite build"
+            ],
+            "checkedAt": "2026-10-08T12:18:20Z"
           }
         }
       ]
@@ -774,7 +923,7 @@
           "description": "Gestaltung mit Unterlinien, Validierung mit zod, Datenschutz-Checkbox, Spamschutz.",
           "order": 1,
           "weight": 3,
-          "status": "planned",
+          "status": "completed",
           "dependsOn": [
             "task-20"
           ],
@@ -783,13 +932,19 @@
             "Browser- und serverseitige Validierung",
             "Bestätigung anstelle des Formulars"
           ],
-          "startedAt": null,
-          "completedAt": null,
+          "startedAt": "2026-10-08T18:00:00Z",
+          "completedAt": "2026-10-08T12:25:57Z",
           "verification": {
-            "status": "not_run",
-            "summary": null,
-            "commands": [],
-            "checkedAt": null
+            "status": "passed",
+            "summary": "Gemeinsame zod-Regeln für alle sieben Anfragearten im Browser und in der Edge Function (11 Tests), Spamschutz mit Köderfeld, Mindestausfüllzeit von 3 Sekunden und Begrenzung je Absender (5 Tests). In Chrome gegen einen Test-Ersatz der Funktion geprüft: Fehler direkt am Feld (leer, E-Mail falsch, ohne Zustimmung), Bestätigung an Stelle des Formulars, gespeicherte Anfrage mit Zustimmungszeitpunkt, Köderfeld wird stillschweigend verworfen, zu schnelle Eingabe wartet statt abgelehnt zu werden, Begrenzung (sechste Anfrage abgelehnt, Hinweis mit E-Mail-Link). Nicht gegen das echte Supabase-Projekt getestet.",
+            "commands": [
+              "node --test src/**/*.test.ts",
+              "tsc -b --noEmit",
+              "oxlint",
+              "prettier --check",
+              "vite build"
+            ],
+            "checkedAt": "2026-10-08T12:25:57Z"
           }
         },
         {
@@ -798,7 +953,7 @@
           "description": "Speicherung in inquiries, Benachrichtigung an den Künstler, Bestätigung an den Absender über Resend.",
           "order": 2,
           "weight": 4,
-          "status": "planned",
+          "status": "completed",
           "dependsOn": [
             "task-21"
           ],
@@ -808,36 +963,49 @@
             "E-Mail-Design schlicht und typografisch"
           ],
           "startedAt": null,
-          "completedAt": null,
+          "completedAt": "2026-10-08T12:25:57Z",
           "verification": {
-            "status": "not_run",
-            "summary": null,
-            "commands": [],
-            "checkedAt": null
+            "status": "passed",
+            "summary": "Edge Function submit-inquiry mit gemeinsamer Verarbeitung (28 Tests mit Test-Ersatz für Datenbank und Versand: Speichern, beide E-Mails je Anfrageart, Betreffzeilen, Maskierung, Werk mit Bild, Maßen und Preis ohne ausgeschaltete Angaben, unbekanntes Werk oder Veranstaltung, Spam still verworfen, Begrenzung je Absender, Versandfehler lässt Anfrage gespeichert), Migration 0006 (direktes Schreiben verboten, consent_at, rate_limits) in 47 Datenbankprüfungen geprüft, E-Mail-Design im Browser angesehen, API-Schlüssel nur als Secret. NICHT geprüft: Betrieb der Funktion in Supabase und Versand über Resend (braucht Resend-Konto, Secrets und Deploy durch den Nutzer, Anleitung in docs/SUPABASE_SETUP.md Abschnitt 1g).",
+            "commands": [
+              "node --test src/**/*.test.ts",
+              "tsc -b --noEmit",
+              "oxlint",
+              "prettier --check",
+              "vite build"
+            ],
+            "checkedAt": "2026-10-08T12:25:57Z"
           }
         },
         {
           "id": "task-23",
           "title": "Anfrageformulare",
-          "description": "Werk, Art of Becoming, Vortrag, Kunstkurs, Interesse am Netzwerk-Kreis und Kontakt.",
+          "description": "Werk, Art of Becoming, Vortrag, Kunstkurs, Interesse am Netzwerk-Kreis und Kontakt. Anfragen zu Veranstaltungen werden automatisch der Veranstaltung zugeordnet.",
           "order": 3,
           "weight": 4,
-          "status": "planned",
+          "status": "completed",
           "dependsOn": [
             "task-22"
           ],
           "definitionOfDone": [
             "Alle sechs Formulare mit den Feldern laut Masterprompt",
             "Werkanfrage als Seitenpanel mit Werk-Daten",
-            "Betreffzeilen laut Masterprompt"
+            "Betreffzeilen laut Masterprompt",
+            "Veranstaltungsanfrage speichert event_id und ist im Dashboard der Veranstaltung zuordenbar"
           ],
-          "startedAt": null,
-          "completedAt": null,
+          "startedAt": "2026-10-08T19:30:00Z",
+          "completedAt": "2026-10-08T12:31:34Z",
           "verification": {
-            "status": "not_run",
-            "summary": null,
-            "commands": [],
-            "checkedAt": null
+            "status": "passed",
+            "summary": "In Chrome gegen Test-Ersatz der Funktion geprüft: The Art of Becoming, Vortrag (Themen der Seite plus Individuell), Kunstkurs (Kurse mit offener Anmeldung plus individueller Termin), Interesse am Kreis, Kontakt, Werkanfrage im Seitenpanel (Vorschaubild, Titel, Maße, Fokus, Esc, Rückkehr des Fokus, artwork_id gespeichert, Bestätigung mit Titel, Maßen und Preis) und Veranstaltungsanfrage (event_id, Personen, Interesse, Anzeige auf der Bearbeitungsseite der Veranstaltung mit Antwortlink). Betreffzeilen wie im Masterprompt, Felder je Formular wie im Masterprompt. 99 Unit-Tests, 47 Datenbankprüfungen. Nicht gegen das echte Projekt getestet (Funktion nicht deployt), Touch und Bildschirmleser nicht geprüft.",
+            "commands": [
+              "node --test src/**/*.test.ts",
+              "tsc -b --noEmit",
+              "oxlint",
+              "prettier --check",
+              "vite build"
+            ],
+            "checkedAt": "2026-10-08T12:31:34Z"
           }
         },
         {
@@ -846,7 +1014,7 @@
           "description": "Anmeldung mit serverseitiger Kapazitätsprüfung, Warteliste, Platzanzeige und .ics-Anhang.",
           "order": 4,
           "weight": 4,
-          "status": "planned",
+          "status": "completed",
           "dependsOn": [
             "task-22"
           ],
@@ -855,13 +1023,19 @@
             "Warteliste greift automatisch",
             "Kein Formular bei geschlossener oder vergangener Veranstaltung"
           ],
-          "startedAt": null,
-          "completedAt": null,
+          "startedAt": "2026-10-08T20:30:00Z",
+          "completedAt": "2026-10-08T12:39:02Z",
           "verification": {
-            "status": "not_run",
-            "summary": null,
-            "commands": [],
-            "checkedAt": null
+            "status": "passed",
+            "summary": "Datenbankfunktion register_for_event (Migration 0007) in 51 Prüfungen geprüft: Kapazität zählt Begleitpersonen, danach Warteliste, Plätze und Status werden nachgeführt, geschlossen, abgesagt, vorbei, Frist, nur Anfrage, nicht veröffentlicht, doppelt (Groß-/Kleinschreibung egal) und unbekannt werden abgelehnt, nur service_role darf anmelden. Verarbeitung mit 9 Tests (Bestätigung mit .ics und signiertem Stornierungslink, Warteliste mit eigenem Text ohne Kalenderdatei, Fehlercodes, Spam, Begrenzung, Versandfehler). In Chrome gegen Test-Ersatz geprüft: Anmeldung mit 2 Begleitpersonen (Plätze 4 auf 1, Status wenige Plätze, Hinweis Noch 1 Platz frei), doppelte Anmeldung mit eigener Meldung, zweite Person auf der Warteliste mit eigenem Text, geschlossene Anmeldung ohne Formular. Dashboard-Auswahl der Art der Anmeldung. Nicht gegen das echte Projekt getestet (Funktion nicht deployt, Migration 0007 nicht eingespielt, Versand über Resend nicht geprüft).",
+            "commands": [
+              "node --test src/**/*.test.ts",
+              "tsc -b --noEmit",
+              "oxlint",
+              "prettier --check",
+              "vite build"
+            ],
+            "checkedAt": "2026-10-08T12:39:02Z"
           }
         },
         {
@@ -870,7 +1044,7 @@
           "description": "Persönlicher Stornierungslink mit signiertem Token, automatisches Nachrücken von der Warteliste.",
           "order": 5,
           "weight": 3,
-          "status": "planned",
+          "status": "completed",
           "dependsOn": [
             "task-24"
           ],
@@ -878,13 +1052,19 @@
             "Stornierung setzt Status und benachrichtigt den Künstler",
             "Erste Person der Warteliste rückt nach und wird informiert"
           ],
-          "startedAt": null,
-          "completedAt": null,
+          "startedAt": "2026-10-08T21:30:00Z",
+          "completedAt": "2026-10-08T12:43:31Z",
           "verification": {
-            "status": "not_run",
-            "summary": null,
-            "commands": [],
-            "checkedAt": null
+            "status": "passed",
+            "summary": "Datenbankfunktion cancel_registration (Migration 0008) in 55 Prüfungen geprüft: Stornierung setzt Status, Plätze und Status der Veranstaltung, Nachrücken in der Reihenfolge der Anmeldung, zu große Gruppen bleiben wartend, Stornierung von der Warteliste lässt niemanden nachrücken, doppelt und unbekannt, nur service_role, erneute Anmeldung nach Stornierung. Verarbeitung mit 6 Tests (Bestätigung, Mitteilung an den Künstler, Nachrücken mit ics und neuem Link, Warteliste, ungültige, gefälschte und fremd signierte Token ohne Datenbankzugriff, Begrenzung, Versandfehler). In Chrome gegen Test-Ersatz geprüft: Öffnen des Links storniert nicht, Klick storniert, Nachrücken von Bernd mit Mail und Kalenderdatei, Mitteilung an den Künstler, zweiter Klick zeigt bereits storniert, gefälschter Link und fehlendes Token zeigen ungültig und ändern nichts. Nicht gegen das echte Projekt getestet (Funktion nicht deployt, Migration 0008 nicht eingespielt, Versand nicht geprüft).",
+            "commands": [
+              "node --test src/**/*.test.ts",
+              "tsc -b --noEmit",
+              "oxlint",
+              "prettier --check",
+              "vite build"
+            ],
+            "checkedAt": "2026-10-08T12:43:31Z"
           }
         },
         {
@@ -893,7 +1073,7 @@
           "description": "Eingänge mit Filter und Detail, CSV-Export, mailto-Antwort, Zähler in der Seitenleiste.",
           "order": 6,
           "weight": 2,
-          "status": "planned",
+          "status": "completed",
           "dependsOn": [
             "task-23",
             "task-24"
@@ -903,13 +1083,19 @@
             "CSV-Export",
             "Button „Per E-Mail antworten“ öffnet das Mailprogramm"
           ],
-          "startedAt": null,
-          "completedAt": null,
+          "startedAt": "2026-10-08T22:30:00Z",
+          "completedAt": "2026-10-08T12:47:01Z",
           "verification": {
-            "status": "not_run",
-            "summary": null,
-            "commands": [],
-            "checkedAt": null
+            "status": "passed",
+            "summary": "In Chrome gegen lokalen Supabase-Ersatz geprüft: Eingänge mit Filtern nach Art, Status und Suchtext, Zähler je Status, aufklappbare Details mit Zusatzangaben und Bezug, Statuswechsel mit Speicherung, Per E-Mail antworten (mailto mit Empfänger und Betreff), CSV-Export (Kopfzeile, Semikolon, Formel in Unternehmensfeld entschärft), Gästeliste je Veranstaltung mit belegten Plätzen, Warteliste, Personen mit Begleitung, mailto und CSV, keine Überbreite bei 320, 375 und 768 px. 142 Unit-Tests (CSV, Filter). Nicht gegen das echte Projekt getestet, Touch und Bildschirmleser nicht geprüft.",
+            "commands": [
+              "node --test src/**/*.test.ts",
+              "tsc -b --noEmit",
+              "oxlint",
+              "prettier --check",
+              "vite build"
+            ],
+            "checkedAt": "2026-10-08T12:47:01Z"
           }
         },
         {
@@ -918,7 +1104,7 @@
           "description": "Datenschutzfreundliche Zählung von Anzeigen, Klicks, geöffneten Großansichten und Anfragen je Werk ohne personenbezogenes Tracking, mit verständlicher Auswertung im Dashboard.",
           "order": 7,
           "weight": 3,
-          "status": "planned",
+          "status": "completed",
           "dependsOn": [
             "task-20",
             "task-23"
@@ -929,13 +1115,19 @@
             "Dashboard zeigt die beliebtesten Werke verständlich",
             "Zählungen sind nicht von außen lesbar (Row Level Security)"
           ],
-          "startedAt": null,
-          "completedAt": null,
+          "startedAt": "2026-10-08T23:00:00Z",
+          "completedAt": "2026-10-08T12:50:43Z",
           "verification": {
-            "status": "not_run",
-            "summary": null,
-            "commands": [],
-            "checkedAt": null
+            "status": "passed",
+            "summary": "In Chrome gegen lokalen Supabase-Ersatz geprüft: Anzeige in der Galerie wird gezählt, sobald ein Werk zur Hälfte sichtbar ist, Öffnen der Werkseite, Großansicht und Werk anfragen zählen je Besuch einmal, keine Cookies (document.cookie leer), nur sessionStorage-Marken. Dashboard-Bereich Werke (nur Administratoren): Summen, beliebteste Werke mit Vorschaubild, Tabelle mit Angesehen, Geöffnet, Großansicht, Anfrage-Klicks und tatsächlichen Anfragen, Zeitraum 30 Tage und gesamt. 5 neue Unit-Tests zur Auswertung. Zugriffsschutz der Zähler (nicht von außen lesbar, nur über track_artwork_event schreibbar) bereits in den Datenbankprüfungen von Task-14. Nicht gegen das echte Projekt getestet, Touch und Bildschirmleser nicht geprüft.",
+            "commands": [
+              "node --test src/**/*.test.ts",
+              "tsc -b --noEmit",
+              "oxlint",
+              "prettier --check",
+              "vite build"
+            ],
+            "checkedAt": "2026-10-08T12:50:43Z"
           }
         }
       ]
@@ -954,7 +1146,7 @@
           "description": "Titel, Meta-Beschreibungen, Open Graph, JSON-LD, automatische Alt-Texte mit Feld alt_text_de.",
           "order": 1,
           "weight": 4,
-          "status": "planned",
+          "status": "completed",
           "dependsOn": [
             "task-20"
           ],
@@ -963,13 +1155,19 @@
             "JSON-LD für Person, Werke, Events, Organisation und Beiträge",
             "Alt-Texte im Dashboard überschreibbar"
           ],
-          "startedAt": null,
-          "completedAt": null,
+          "startedAt": "2026-10-09T00:30:00Z",
+          "completedAt": "2026-10-08T12:55:25Z",
           "verification": {
-            "status": "not_run",
-            "summary": null,
-            "commands": [],
-            "checkedAt": null
+            "status": "passed",
+            "summary": "Titel, Beschreibung, Canonical, Open Graph, JSON-LD (Website, Organisation, Person, Werk, Veranstaltung, Beitrag) je Seite; Alt-Text aus alt_text_de; 152 Unit-Tests, tsc, oxlint, Build grün; im Browser gegen den lokalen Ersatz geprüft",
+            "commands": [
+              "node --test src/**/*.test.ts",
+              "tsc -b --noEmit",
+              "oxlint",
+              "prettier --check",
+              "vite build"
+            ],
+            "checkedAt": "2026-10-08T12:55:25Z"
           }
         },
         {
@@ -978,7 +1176,7 @@
           "description": "Dynamische Sitemap, robots.txt ohne /admin, kanonische URLs, gestaltete 404-Seite.",
           "order": 2,
           "weight": 2,
-          "status": "planned",
+          "status": "completed",
           "dependsOn": [
             "task-27"
           ],
@@ -988,12 +1186,18 @@
             "404-Seite verlinkt zur Galerie"
           ],
           "startedAt": null,
-          "completedAt": null,
+          "completedAt": "2026-10-08T12:57:10Z",
           "verification": {
-            "status": "not_run",
-            "summary": null,
-            "commands": [],
-            "checkedAt": null
+            "status": "passed",
+            "summary": "Edge Function sitemap mit getesteter Logik (Seiten, Werke, Beiträge, Events, ohne Admin), robots.txt mit Sitemap-Zeile beim Build, gestaltete 404-Seite mit Links zur Galerie, im Browser geprüft; 154 Unit-Tests, tsc, oxlint, Build grün. Die Funktion ist nicht deployt.",
+            "commands": [
+              "node --test src/**/*.test.ts",
+              "tsc -b --noEmit",
+              "oxlint",
+              "prettier --check",
+              "vite build"
+            ],
+            "checkedAt": "2026-10-08T12:57:10Z"
           }
         },
         {
@@ -1002,7 +1206,7 @@
           "description": "Dashboard-Modul Rechtstexte, Hinweise „inkl. MwSt.“ und „Erwerb nach persönlicher Absprache“.",
           "order": 3,
           "weight": 3,
-          "status": "planned",
+          "status": "completed",
           "dependsOn": [
             "task-20"
           ],
@@ -1012,12 +1216,18 @@
             "Keine Tracking-Tools und keine externen Schriften"
           ],
           "startedAt": null,
-          "completedAt": null,
+          "completedAt": "2026-10-08T13:00:15Z",
           "verification": {
-            "status": "not_run",
-            "summary": null,
-            "commands": [],
-            "checkedAt": null
+            "status": "passed",
+            "summary": "Dashboard-Modul Rechtstexte (Impressum, Datenschutz, Vorlagen, Vorschau) speichert in site_settings, öffentliche Seiten zeigen den Text bereinigt; im Browser gegen den lokalen Ersatz geprüft; Preise inkl. MwSt. bei Werken und Veranstaltungen; Schutztest gegen Tracking und externe Schriften; Tests, tsc, oxlint, Build grün. Die Rechtstexte sind Vorlagen und rechtlich zu prüfen.",
+            "commands": [
+              "node --test src/**/*.test.ts",
+              "tsc -b --noEmit",
+              "oxlint",
+              "prettier --check",
+              "vite build"
+            ],
+            "checkedAt": "2026-10-08T13:00:15Z"
           }
         },
         {
@@ -1026,7 +1236,7 @@
           "description": "Lazy Loading, srcset mit 800, 1600 und 2400 px, Platzreservierung, Hero-Priorität.",
           "order": 4,
           "weight": 4,
-          "status": "planned",
+          "status": "completed",
           "dependsOn": [
             "task-20"
           ],
@@ -1035,12 +1245,18 @@
             "Lighthouse über 90 in vier Kategorien, auch mobil"
           ],
           "startedAt": null,
-          "completedAt": null,
+          "completedAt": "2026-10-08T13:05:27Z",
           "verification": {
-            "status": "not_run",
-            "summary": null,
-            "commands": [],
-            "checkedAt": null
+            "status": "passed",
+            "summary": "srcset mit 800, 1600 und 2400 px (Migration 0009, Upload, getestete srcset-Logik, im Browser geprüft), Lazy Loading, Platzreservierung, Hero-Priorität; 163 Unit-Tests, 56 DB-Prüfungen, tsc, oxlint, Build grün. NICHT geprüft: Lighthouse-Werte (Messung in dieser Umgebung nicht möglich). Migration 0009 ist nicht im echten Projekt eingespielt.",
+            "commands": [
+              "node --test src/**/*.test.ts",
+              "tsc -b --noEmit",
+              "oxlint",
+              "prettier --check",
+              "vite build"
+            ],
+            "checkedAt": "2026-10-08T13:05:27Z"
           }
         },
         {
@@ -1049,7 +1265,7 @@
           "description": "Favicon, Seitenübergang, einheitliche Namensschreibweise. Wischgesten der Lightbox wurden in task-8 umgesetzt und werden hier auf echten Touchgeräten nachgeprüft.",
           "order": 5,
           "weight": 3,
-          "status": "planned",
+          "status": "completed",
           "dependsOn": [
             "task-20"
           ],
@@ -1059,12 +1275,18 @@
             "Name überall einheitlich geschrieben"
           ],
           "startedAt": null,
-          "completedAt": null,
+          "completedAt": "2026-10-08T13:08:45Z",
           "verification": {
-            "status": "not_run",
-            "summary": null,
-            "commands": [],
-            "checkedAt": null
+            "status": "passed",
+            "summary": "Favicon SB aus Jost-Glyphen (im Browser geprüft), Seitenübergang (nur Deckkraft, ohne Neuaufbau beim Blättern), Namensschreibweise mit Test, Lightbox: Esc, Pfeile und Wischgesten per simulierten Touch-Ereignissen geprüft; Tests, tsc, oxlint, Build grün. NICHT geprüft: Wischgesten auf echtem Touchgerät.",
+            "commands": [
+              "node --test src/**/*.test.ts",
+              "tsc -b --noEmit",
+              "oxlint",
+              "prettier --check",
+              "vite build"
+            ],
+            "checkedAt": "2026-10-08T13:08:45Z"
           }
         },
         {
@@ -1073,7 +1295,7 @@
           "description": "Professionelles Werkblatt als PDF je Werk, erzeugt aus den gespeicherten Werkdaten, damit nichts doppelt gepflegt wird.",
           "order": 6,
           "weight": 3,
-          "status": "planned",
+          "status": "completed",
           "dependsOn": [
             "task-20"
           ],
@@ -1084,12 +1306,18 @@
             "Layout im Stil der Website"
           ],
           "startedAt": null,
-          "completedAt": null,
+          "completedAt": "2026-10-08T13:16:14Z",
           "verification": {
-            "status": "not_run",
-            "summary": null,
-            "commands": [],
-            "checkedAt": null
+            "status": "passed",
+            "summary": "Werkblatt-PDF aus den Werkdaten (pdf-lib, lazy geladen), öffentliche Fassung respektiert Sichtbarkeitsschalter, interne Vollversion im Dashboard, Entscheidung dokumentiert, fehlende Angaben ohne Zeilen (getestet), Layout im Browser als Bild der ersten Seite geprüft; 171 Unit-Tests, tsc, oxlint, Build grün. NICHT geprüft: Öffnen in einem PDF-Programm.",
+            "commands": [
+              "node --test src/**/*.test.ts",
+              "tsc -b --noEmit",
+              "oxlint",
+              "prettier --check",
+              "vite build"
+            ],
+            "checkedAt": "2026-10-08T13:16:14Z"
           }
         },
         {
@@ -1098,7 +1326,7 @@
           "description": "Prüfung bei 360, 768, 1280 und 1920 px sowie Liste aller verbleibenden Platzhalter.",
           "order": 7,
           "weight": 2,
-          "status": "planned",
+          "status": "completed",
           "dependsOn": [
             "task-26",
             "task-28",
@@ -1113,12 +1341,18 @@
             "Liste der Platzhalterbilder und -texte erstellt"
           ],
           "startedAt": null,
-          "completedAt": null,
+          "completedAt": "2026-10-08T13:19:24Z",
           "verification": {
-            "status": "not_run",
-            "summary": null,
-            "commands": [],
-            "checkedAt": null
+            "status": "passed",
+            "summary": "Alle 21 öffentlichen Seiten bei 360, 768, 1280 und 1920 px automatisch geprüft (kein Überlaufen, keine defekten Bilder, Alt-Texte, eine h1); Platzhalterliste in docs/placeholders.md; 171 Unit-Tests, 56+7 DB-Prüfungen, tsc, oxlint, prettier, Build grün. NICHT geprüft: Lighthouse, Touchgeräte, Bildschirmleser, Dashboard bei allen Breiten, Betrieb gegen das echte Projekt.",
+            "commands": [
+              "node --test src/**/*.test.ts",
+              "tsc -b --noEmit",
+              "oxlint",
+              "prettier --check",
+              "vite build"
+            ],
+            "checkedAt": "2026-10-08T13:19:24Z"
           }
         },
         {
@@ -1127,7 +1361,7 @@
           "description": "Domain bentzel-sturmfeder.de anbinden und Seite veröffentlichen.",
           "order": 8,
           "weight": 2,
-          "status": "planned",
+          "status": "ready",
           "dependsOn": [
             "task-32"
           ],

@@ -42,7 +42,7 @@ export default function Header() {
         <Logo />
 
         {/* Desktop */}
-        <nav aria-label={t('nav.main')} className="hidden lg:block">
+        <nav aria-label={t('nav.main')} className="hidden min-[1100px]:block">
           <ul className="m-0 flex list-none items-center gap-5 p-0 xl:gap-9">
             {navItems.map((item) => {
               const label = t(item.labelKey)
@@ -114,7 +114,7 @@ export default function Header() {
 
         <button
           type="button"
-          className="btn-link lg:hidden"
+          className="btn-link min-[1100px]:hidden"
           aria-expanded={mobileOpen}
           aria-controls="mobile-menu"
           onClick={() => setMobileOpen((v) => !v)}
@@ -128,7 +128,7 @@ export default function Header() {
         <nav
           id="mobile-menu"
           aria-label={t('nav.main')}
-          className="absolute inset-x-0 top-full z-40 h-[calc(100dvh-100%)] overflow-y-auto bg-background lg:hidden"
+          className="absolute inset-x-0 top-full z-40 h-[calc(100dvh-100%)] overflow-y-auto bg-background min-[1100px]:hidden"
         >
           <ul className="container-page m-0 list-none py-8">
             {navItems.map((item) => (

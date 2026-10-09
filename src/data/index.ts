@@ -1,7 +1,4 @@
-export { artworks } from './artworks'
-export { courses, eventPhotos, events, registeredGuests } from './events'
-export { curatedLinks, pressItems } from './press'
-export { posts } from './posts'
-export { vitaEntries } from './vita'
+// Typen der öffentlichen Inhalte und der Bildplatzhalter für feste Seitenbilder.
+// Die Inhalte selbst kommen aus der Datenbank (src/lib/content.ts).
 export { placeholderImage } from './placeholder'
 export type * from './types'

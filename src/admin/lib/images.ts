@@ -9,6 +9,7 @@ import {
   THUMB_MAX_EDGE,
   type CropRect,
 } from './imageMath'
+import { variantEdgesFor } from '../../lib/imageVariants'
 import { UploadError } from './uploadError'
 
 export type EncodedImage = {
@@ -24,6 +25,8 @@ export type ProcessedImage = {
   full: EncodedImage
   /** Vorschaubild, höchstens 800 px, optional aus einem gewählten Bildausschnitt. */
   thumb: EncodedImage
+  /** Zusätzliche Fassungen des ganzen Bildes (800 und 1600 px, nur wenn kleiner als das Original) für srcset. */
+  variants: EncodedImage[]
 }
 
 type Source = ImageBitmap | HTMLCanvasElement
@@ -130,7 +133,7 @@ export function validateImageFile(file: File): void {
  */
 export async function processImage(
   file: File,
-  options: { crop?: CropRect } = {},
+  options: { crop?: CropRect; variants?: boolean } = {},
 ): Promise<ProcessedImage> {
   validateImageFile(file)
 
@@ -176,7 +179,24 @@ export async function processImage(
         size.height,
       )
     }
-    return { full, thumb }
+    const variants: EncodedImage[] = []
+    if (options.variants) {
+      for (const edge of variantEdgesFor(fullSize.width, fullSize.height)) {
+        const size = fitWithin(fullSize.width, fullSize.height, edge)
+        variants.push(
+          await encode(
+            bitmap,
+            0,
+            0,
+            bitmap.width,
+            bitmap.height,
+            size.width,
+            size.height,
+          ),
+        )
+      }
+    }
+    return { full, thumb, variants }
   } finally {
     bitmap.close()
   }

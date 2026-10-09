@@ -5,7 +5,10 @@ import ArtworkCard from '../components/ArtworkCard'
 import Reveal from '../components/Reveal'
 import SectionLabel from '../components/SectionLabel'
 import { useGalleryVisibility } from '../config/gallerySettings'
-import { artworks, type Artwork } from '../data'
+import ContentGate from '../components/ContentGate'
+import type { Artwork } from '../data'
+import { loadArtworks } from '../lib/content'
+import { useLoad } from '../lib/useLoad'
 
 type Panel = 'cycle' | 'year' | null
 
@@ -32,7 +35,7 @@ const unique = <T,>(values: (T | null)[]): T[] => [
   ...new Set(values.filter((v): v is T => v != null)),
 ]
 
-export default function Gallery() {
+function GalleryContent({ artworks }: { artworks: Artwork[] }) {
   const { t } = useTranslation()
   const visible = useGalleryVisibility()
   const [params, setParams] = useSearchParams()
@@ -210,7 +213,11 @@ export default function Gallery() {
           {toSegments(filtered).map((segment, index) =>
             segment.type === 'full' ? (
               <Reveal key={segment.artwork.id}>
-                <ArtworkCard artwork={segment.artwork} priority={index === 0} />
+                <ArtworkCard
+                  artwork={segment.artwork}
+                  priority={index === 0}
+                  sizes="100vw"
+                />
               </Reveal>
             ) : (
               <div
@@ -235,5 +242,14 @@ export default function Gallery() {
         {t('gallery.closing')}
       </p>
     </main>
+  )
+}
+
+export default function Gallery() {
+  const { state, reload } = useLoad(loadArtworks)
+  return (
+    <ContentGate state={state} reload={reload}>
+      {(data) => <GalleryContent artworks={data.artworks} />}
+    </ContentGate>
   )
 }

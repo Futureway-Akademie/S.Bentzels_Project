@@ -1,0 +1,5 @@
+# Die Sitemap-Zeile steht beim Bauen ergänzt, wenn VITE_SITE_URL gesetzt ist (siehe vite.config.ts).
+User-agent: *
+Disallow: /admin
+Disallow: /abmelden
+Disallow: /design-system

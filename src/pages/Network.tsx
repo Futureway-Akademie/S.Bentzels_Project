@@ -1,13 +1,21 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
-import EventRow from '../components/EventRow'
+import EventCard from '../components/events/EventCard'
+import EventListItem from '../components/events/EventListItem'
 import Reveal from '../components/Reveal'
 import SectionLabel from '../components/SectionLabel'
 import { routes } from '../config/routes'
-import { events } from '../data'
-import { isPast } from '../lib/events'
-import { formatLongDate } from '../lib/format'
+import {
+  isPastEvent,
+  nextOccurrenceOf,
+  type Occurrence,
+  type PublicEvent,
+} from '../lib/eventCalendar'
+import { loadEventData } from '../lib/publicEvents'
+import { useLoad } from '../lib/useLoad'
+
+type NetworkEvent = { event: PublicEvent; date: Occurrence | null }
 
 export default function Network() {
   const { t } = useTranslation()
@@ -16,13 +24,29 @@ export default function Network() {
     returnObjects: true,
   }) as string[]
 
-  const published = events.filter((e) => e.isPublished)
-  const upcoming = published
-    .filter((e) => !isPast(e, now))
-    .sort((a, b) => a.startsAt.localeCompare(b.startsAt))
-  const past = published
-    .filter((e) => isPast(e, now))
-    .sort((a, b) => b.startsAt.localeCompare(a.startsAt))
+  // Die Abende des Netzwerks sind Veranstaltungen der Art „Event“ im gemeinsamen Modul.
+  // Solange sie laden oder bei einer Störung bleiben die Listen leer, der Rest der Seite steht.
+  const { state } = useLoad(loadEventData)
+  const data = state.status === 'ready' ? state.data : null
+  const eventType = data?.types.find((type) => type.slug === 'event')
+  const items: NetworkEvent[] = (data?.events ?? [])
+    .filter((e) => eventType && e.typeId === eventType.id)
+    .map((event) => ({
+      event,
+      date: nextOccurrenceOf(event.id, data?.occurrences ?? [], now),
+    }))
+  const isPast = (item: NetworkEvent) =>
+    isPastEvent(item.event, data?.occurrences ?? [], now)
+  const upcoming = items
+    .filter((item) => !isPast(item) && item.date)
+    .sort((a, b) =>
+      (a.date?.startsAt ?? '').localeCompare(b.date?.startsAt ?? ''),
+    )
+  const past = items
+    .filter(isPast)
+    .sort((a, b) =>
+      (b.date?.startsAt ?? '').localeCompare(a.date?.startsAt ?? ''),
+    )
 
   return (
     <main className="container-page py-12 md:py-20">
@@ -79,11 +103,23 @@ export default function Network() {
           <p className="mt-10 text-muted">{t('network.noUpcoming')}</p>
         ) : (
           <ul className="m-0 list-none p-0">
-            {upcoming.map((event) => (
-              <EventRow key={event.id} event={event} />
-            ))}
+            {upcoming.map(({ event, date }) =>
+              date ? (
+                <EventListItem
+                  key={event.id}
+                  event={event}
+                  occurrence={date}
+                  typeName={null}
+                />
+              ) : null,
+            )}
           </ul>
         )}
+        <p className="mt-8">
+          <Link to={routes.events} className="btn-link">
+            {t('events.toCalendar')}
+          </Link>
+        </p>
       </section>
 
       {/* 03 Archiv */}
@@ -97,27 +133,9 @@ export default function Network() {
           <p className="mt-10 text-muted">{t('network.archiveEmpty')}</p>
         ) : (
           <ul className="m-0 mt-10 grid list-none gap-x-10 gap-y-14 p-0 sm:grid-cols-2 lg:grid-cols-3">
-            {past.map((event) => (
+            {past.map(({ event, date }) => (
               <Reveal as="li" key={event.id}>
-                <Link
-                  to={`/netzwerk/${event.slug}`}
-                  className="block no-underline"
-                >
-                  <img
-                    src={event.imageUrl}
-                    width={1600}
-                    height={1067}
-                    alt={t('event.coverAlt')}
-                    loading="lazy"
-                    className="artwork-img"
-                  />
-                  <span className="label mt-4 block">
-                    {formatLongDate(event.startsAt)}
-                  </span>
-                  <span className="mt-1 block text-[1.25rem] leading-snug">
-                    {event.titleDe}
-                  </span>
-                </Link>
+                <EventCard event={event} next={date} typeName={null} past />
               </Reveal>
             ))}
           </ul>

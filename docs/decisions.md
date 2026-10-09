@@ -62,3 +62,17 @@ Der Prompt „Presse/Artikel“ fordert ein digitales Pressearchiv und einen Ber
 ### Begründung
 
 Der Bereich ergänzt Galerie und Journal. Datenbank- und Dashboard-Arbeit gehört zu Phase 2.
+
+## 2026-10-08 – Veranstaltungs-Prompt und Roadmap Version 4
+
+Der Prompt „Seminare, Kurse, Vorlesungen und Events“ fordert ein gemeinsames Veranstaltungsmodul mit Kalender, einfacher Anlage (nur Titel und Datum), Duplizieren, wiederkehrenden Terminen, Interessenten-Anfragen, anonymer Statistik und der Rolle Event-Redakteur.
+
+Entscheidungen:
+
+- Ein Modul „Veranstaltungen“ mit erweiterbarer Tabelle der Veranstaltungsarten ersetzt die getrennten Tabellen `events` und `courses`. Die öffentlichen Seiten Seminare, Kurse, Vorträge und Netzwerk filtern nach Art.
+- Nur der Titel ist Pflicht. Fehlende Angaben erzeugen öffentlich keine leeren Felder.
+- „Eine Veranstaltung mit mehreren Terminen“ (`event_dates`) ist von „mehreren eigenständigen Veranstaltungen“ getrennt. Wiederkehrende Termine werden als einzelne, einzeln verschiebbare Termine erzeugt.
+- Anfragen erhalten `event_id`. Die Statistik zählt nur anonyme Tageszähler.
+- Die Rechte des Event-Redakteurs erzwingt die Datenbank (RLS), nicht nur die Oberfläche.
+- Neue Tasks: task-40 (Datenmodell, Migration 0004), task-41 (öffentlicher Kalender), task-42 (Rollen und Statistik). task-19 wird zum Dashboard Veranstaltungen. task-20, task-23 und task-34 angepasst.
+- Verbindliche Anmeldung, Warteliste, Zahlung und Rechnungen bleiben vorbereitet, aber ungebaut.

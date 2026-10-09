@@ -2,6 +2,7 @@ import { useCallback, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { routes } from '../../config/routes'
+import { downloadDatasheet } from '../../lib/datasheetFlow'
 import ConfirmDialog from '../components/ConfirmDialog'
 import CropEditor from '../components/CropEditor'
 import Dropzone from '../components/Dropzone'
@@ -347,7 +348,42 @@ function Editor({
         >
           {t('admin.artworks.delete')}
         </button>
+        <button
+          type="button"
+          className="btn-link"
+          disabled={busy}
+          aria-describedby="datasheet-hint"
+          onClick={() =>
+            // Interne Vollversion: alle gespeicherten Angaben, unabhängig von den Sichtbarkeitsschaltern
+            void downloadDatasheet({
+              input: {
+                title: record.title_de,
+                artist: record.artist,
+                cycle: record.cycle,
+                year: record.year,
+                technique: record.technique_de,
+                support: record.support_de,
+                heightCm: record.height_cm,
+                widthCm: record.width_cm,
+                depthCm: record.depth_cm,
+                framed: record.framed,
+                status: record.status,
+                priceEur: record.price_eur,
+                description: record.description_de,
+              },
+              slug: record.slug,
+              imageUrl: record.main_image_url,
+              internal: true,
+              t,
+            }).catch(() => notify(t('admin.artworks.datasheetFailed'), 'error'))
+          }
+        >
+          {t('admin.artworks.datasheet')}
+        </button>
       </div>
+      <p id="datasheet-hint" className="mt-2 max-w-prose text-sm text-muted">
+        {t('admin.artworks.datasheetHint')}
+      </p>
 
       <div className="mt-10 grid gap-12 xl:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
         <div className="space-y-12">

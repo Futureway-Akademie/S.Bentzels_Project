@@ -275,3 +275,213 @@ test('fromRow und toPayload ergeben denselben Stand', () => {
   assert.equal(payload.framed, true)
   assert.equal(payload.status, 'verkauft')
 })
+
+import {
+  extractImageUrls,
+  isEmptyHtml,
+  trimTrailingEmpty,
+} from './htmlImages.ts'
+import {
+  fromLocalInput,
+  postFormFromRow,
+  toLocalInput,
+  toPostPayload,
+  validatePostForm,
+} from './postForm.ts'
+import {
+  emptyVitaForm,
+  sortVita,
+  toVitaPayload,
+  validateVitaForm,
+  vitaFormFromRow,
+} from './vitaForm.ts'
+
+test('extractImageUrls findet alle Bilder ohne Duplikate', () => {
+  const html =
+    '<p>Text</p><img src="https://x.test/a.webp" alt="A" width="10"><p><img alt="B" src="https://x.test/b.webp"></p><img src="https://x.test/a.webp">'
+  assert.deepEqual(extractImageUrls(html), [
+    'https://x.test/a.webp',
+    'https://x.test/b.webp',
+  ])
+  assert.deepEqual(extractImageUrls('<p>kein Bild</p>'), [])
+})
+
+test('isEmptyHtml erkennt leere Texte, Bilder zählen als Inhalt', () => {
+  assert.equal(isEmptyHtml(''), true)
+  assert.equal(isEmptyHtml(null), true)
+  assert.equal(isEmptyHtml('<p></p>'), true)
+  assert.equal(isEmptyHtml('<p><br></p><p>&nbsp;</p>'), true)
+  assert.equal(isEmptyHtml('<p>Hallo</p>'), false)
+  assert.equal(isEmptyHtml('<p></p><img src="x">'), false)
+})
+
+test('Datumsfeld wandelt hin und zurück um', () => {
+  const iso = '2026-10-15T10:30:00.000Z'
+  assert.equal(fromLocalInput(toLocalInput(iso)), iso)
+  assert.equal(toLocalInput(null), '')
+  assert.equal(fromLocalInput(''), null)
+  assert.equal(fromLocalInput('kein Datum'), null)
+})
+
+test('Beitragsformular: Prüfung und Umwandlung', () => {
+  const values = postFormFromRow({})
+  assert.deepEqual(validatePostForm(values), {})
+  assert.deepEqual(
+    validatePostForm({
+      ...values,
+      title_de: 'x'.repeat(201),
+      excerpt_de: 'y'.repeat(501),
+      published_at: 'nope',
+    }),
+    {
+      title_de: 'tooLong',
+      excerpt_de: 'tooLong',
+      published_at: 'dateInvalid',
+    },
+  )
+  const now = new Date('2026-10-08T12:00:00.000Z')
+  assert.deepEqual(toPostPayload(values, now), {
+    title_de: null,
+    excerpt_de: null,
+    status: 'entwurf',
+    published_at: null,
+  })
+  assert.equal(
+    toPostPayload({ ...values, status: 'veroeffentlicht' }, now).published_at,
+    now.toISOString(),
+  )
+  const dated = toPostPayload(
+    {
+      ...values,
+      status: 'veroeffentlicht',
+      published_at: toLocalInput('2026-01-02T08:00:00.000Z'),
+    },
+    now,
+  )
+  assert.equal(dated.published_at, '2026-01-02T08:00:00.000Z')
+  assert.equal(
+    toPostPayload({ ...values, title_de: '  Titel ' }, now).title_de,
+    'Titel',
+  )
+})
+
+test('Vita: Prüfung und Umwandlung', () => {
+  const empty = emptyVitaForm('messe')
+  assert.deepEqual(validateVitaForm(empty), {
+    year: 'required',
+    title_de: 'required',
+  })
+  assert.deepEqual(validateVitaForm({ ...empty, year: '19', title_de: 'x' }), {
+    year: 'yearInvalid',
+  })
+  assert.deepEqual(
+    validateVitaForm({
+      ...empty,
+      year: '2015',
+      year_end: '2010',
+      title_de: 'x',
+    }),
+    { year_end: 'yearEndBeforeStart' },
+  )
+  assert.deepEqual(
+    validateVitaForm({
+      ...empty,
+      year: '2015',
+      year_end: 'abc',
+      title_de: 'x',
+    }),
+    { year_end: 'yearEndInvalid' },
+  )
+  assert.deepEqual(
+    validateVitaForm({
+      ...empty,
+      year: '2015',
+      title_de: 'x'.repeat(201),
+      place: 'p'.repeat(201),
+    }),
+    {
+      title_de: 'tooLong',
+      place: 'tooLong',
+    },
+  )
+  const ok = {
+    ...empty,
+    year: '2014',
+    year_end: '2016',
+    title_de: ' Parallel Vienna ',
+    place: 'Wien',
+  }
+  assert.deepEqual(validateVitaForm(ok), {})
+  assert.deepEqual(toVitaPayload(ok), {
+    year: 2014,
+    year_end: 2016,
+    category: 'messe',
+    title_de: 'Parallel Vienna',
+    place: 'Wien',
+    is_published: true,
+  })
+  const row = {
+    year: 2003,
+    year_end: null,
+    category: 'ausbildung' as const,
+    title_de: 'Studium',
+    place: null,
+    is_published: false,
+  }
+  assert.deepEqual(toVitaPayload(vitaFormFromRow(row)), row)
+})
+
+test('sortVita: neueste zuerst, gleiches Jahr nach Position', () => {
+  const sorted = sortVita([
+    { id: 'a', year: 2010, sort_order: 2 },
+    { id: 'b', year: 2019, sort_order: 5 },
+    { id: 'c', year: 2010, sort_order: 1 },
+  ])
+  assert.deepEqual(
+    sorted.map((e) => e.id),
+    ['b', 'c', 'a'],
+  )
+})
+
+import { normalizeLinkUrl } from './linkUrl.ts'
+
+test('normalizeLinkUrl ergänzt Schema und lehnt Unbrauchbares ab', () => {
+  assert.equal(
+    normalizeLinkUrl('https://example.com/a'),
+    'https://example.com/a',
+  )
+  assert.equal(normalizeLinkUrl('http://example.com'), 'http://example.com')
+  assert.equal(
+    normalizeLinkUrl('  example.com/seite '),
+    'https://example.com/seite',
+  )
+  assert.equal(normalizeLinkUrl('www.example.com'), 'https://www.example.com')
+  assert.equal(
+    normalizeLinkUrl('sb@jaegersburg.com'),
+    'mailto:sb@jaegersburg.com',
+  )
+  assert.equal(normalizeLinkUrl('mailto:a@b.de'), 'mailto:a@b.de')
+  assert.equal(normalizeLinkUrl('tel:+49123'), 'tel:+49123')
+  assert.equal(normalizeLinkUrl('javascript:alert(1)'), null)
+  assert.equal(normalizeLinkUrl('data:text/html,x'), null)
+  assert.equal(normalizeLinkUrl('kein link'), null)
+  assert.equal(normalizeLinkUrl(''), null)
+})
+
+test('trimTrailingEmpty entfernt leere Absätze am Ende, aber keine im Text', () => {
+  assert.equal(trimTrailingEmpty('<p>Text</p><p></p>'), '<p>Text</p>')
+  assert.equal(
+    trimTrailingEmpty('<p>Text</p><p><br></p><p></p>'),
+    '<p>Text</p>',
+  )
+  assert.equal(
+    trimTrailingEmpty('<p>A</p><p></p><p>B</p>'),
+    '<p>A</p><p></p><p>B</p>',
+  )
+  assert.equal(
+    trimTrailingEmpty('<p>Text</p><img src="x"><p></p>'),
+    '<p>Text</p><img src="x">',
+  )
+  assert.equal(trimTrailingEmpty('<p></p>'), '')
+  assert.equal(trimTrailingEmpty(''), '')
+})

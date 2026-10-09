@@ -1,6 +1,8 @@
 // Typen spiegeln das geplante Supabase-Datenmodell (camelCase der Spalten).
 // Texte mit späterer Übersetzung haben *De und *En (En darf leer sein).
 
+import type { ImageVariant } from '../lib/imageVariants'
+
 export type ArtworkStatus = 'verfuegbar' | 'reserviert' | 'verkauft'
 
 // Bis auf Bild und Kennung sind alle Angaben optional (null = nicht vorhanden).
@@ -10,6 +12,11 @@ export type Artwork = {
   mainImageUrl: string
   imageWidth: number
   imageHeight: number
+  /** Zusätzliche Fassungen des Hauptbilds für srcset (800 und 1600 px), leer bei älteren Werken */
+  imageVariants: ImageVariant[]
+  /** Vorschaubild (höchstens 800 px), für Raster und Listen */
+  thumbUrl: string | null
+  altTextDe: string | null
   titleDe: string | null
   titleEn: string | null
   artist: string | null
@@ -37,6 +44,10 @@ export type ArtworkImage = {
   id: string
   artworkId: string
   imageUrl: string
+  thumbUrl: string | null
+  imageWidth: number | null
+  imageHeight: number | null
+  imageVariants: ImageVariant[]
   sortOrder: number
 }
 
@@ -45,60 +56,19 @@ export type PostStatus = 'entwurf' | 'veroeffentlicht'
 export type Post = {
   id: string
   slug: string
-  titleDe: string
-  titleEn: string
-  excerptDe: string
-  excerptEn: string
-  contentDe: string
-  contentEn: string
-  coverImageUrl: string
-  coverImageWidth: number
-  coverImageHeight: number
-  publishedAt: string
+  titleDe: string | null
+  titleEn: string | null
+  excerptDe: string | null
+  excerptEn: string | null
+  /** HTML aus dem Editor, vor der Anzeige mit sanitizeHtml bereinigen */
+  contentDe: string | null
+  contentEn: string | null
+  coverImageUrl: string | null
+  coverThumbUrl: string | null
+  coverImageWidth: number | null
+  coverImageHeight: number | null
+  publishedAt: string | null
   status: PostStatus
-  sortOrder: number
-  isPublished: boolean
-}
-
-export type EventItem = {
-  id: string
-  slug: string
-  titleDe: string
-  titleEn: string
-  descriptionDe: string
-  descriptionEn: string
-  startsAt: string
-  endsAt: string
-  locationName: string
-  locationAddress: string
-  imageUrl: string
-  capacity: number
-  registrationOpen: boolean
-  recapTextDe: string | null
-  sortOrder: number
-  isPublished: boolean
-}
-
-export type EventPhoto = {
-  id: string
-  eventId: string
-  imageUrl: string
-  imageWidth: number
-  imageHeight: number
-  sortOrder: number
-}
-
-export type Course = {
-  id: string
-  titleDe: string
-  titleEn: string
-  descriptionDe: string
-  startsAt: string
-  endsAt: string
-  location: string
-  capacity: number
-  priceEur: number
-  registrationOpen: boolean
   sortOrder: number
   isPublished: boolean
 }
@@ -118,8 +88,8 @@ export type VitaEntry = {
   isPublished: boolean
 }
 
-export type PressCategory =
-  'pressebericht' | 'interview' | 'portraet' | 'ausstellung' | 'kunst'
+/** Adresse (slug) einer im Dashboard verwalteten Kategorie */
+export type PressCategory = string
 export type PressMediumType = 'zeitung' | 'magazin' | 'onlineportal'
 export type PressFileType = 'image' | 'pdf'
 
@@ -161,4 +131,10 @@ export type CuratedLink = {
   thumbnailHeight: number | null
   sortOrder: number
   isPublished: boolean
+}
+
+export type PressCategoryInfo = {
+  slug: string
+  nameDe: string
+  sortOrder: number
 }

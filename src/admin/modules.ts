@@ -1,4 +1,5 @@
 import { routes } from '../config/routes'
+import type { AdminRole } from './permissions'
 
 export type AdminModule = {
   id: string
@@ -8,6 +9,8 @@ export type AdminModule = {
   ready: boolean
   /** Zeigt in der Seitenleiste die Zahl neuer Eingänge */
   badge?: 'inquiries'
+  /** Rollen außer Administratoren, die das Modul nutzen dürfen (Administratoren dürfen alles) */
+  roles?: AdminRole[]
 }
 
 // Weitere Module (Rechtstexte, Sichtbarkeit, Statistik) werden hier ergänzt.
@@ -22,49 +25,64 @@ export const adminModules: AdminModule[] = [
     id: 'artworks',
     labelKey: 'admin.modules.artworks',
     to: routes.adminArtworks,
-    ready: false,
+    ready: true,
   },
   {
     id: 'journal',
     labelKey: 'admin.modules.journal',
     to: routes.adminJournal,
-    ready: false,
+    ready: true,
   },
   {
     id: 'events',
     labelKey: 'admin.modules.events',
     to: routes.adminEvents,
-    ready: false,
-  },
-  {
-    id: 'courses',
-    labelKey: 'admin.modules.courses',
-    to: routes.adminCourses,
-    ready: false,
+    ready: true,
+    roles: ['event_editor'],
   },
   {
     id: 'vita',
     labelKey: 'admin.modules.vita',
     to: routes.adminVita,
-    ready: false,
+    ready: true,
+  },
+  {
+    id: 'visibility',
+    labelKey: 'admin.modules.visibility',
+    to: routes.adminVisibility,
+    ready: true,
+  },
+  {
+    id: 'legal',
+    labelKey: 'admin.modules.legal',
+    to: routes.adminLegal,
+    ready: true,
   },
   {
     id: 'press',
     labelKey: 'admin.modules.press',
     to: routes.adminPress,
-    ready: false,
+    ready: true,
   },
   {
     id: 'curated',
     labelKey: 'admin.modules.curated',
     to: routes.adminCurated,
-    ready: false,
+    ready: true,
+  },
+  {
+    id: 'stats',
+    labelKey: 'admin.modules.stats',
+    to: routes.adminStats,
+    ready: true,
+    roles: ['event_editor'],
   },
   {
     id: 'inquiries',
     labelKey: 'admin.modules.inquiries',
     to: routes.adminInquiries,
-    ready: false,
+    ready: true,
     badge: 'inquiries',
+    roles: ['event_editor'],
   },
 ]

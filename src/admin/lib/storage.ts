@@ -6,6 +6,7 @@ import {
   MAX_PDF_BYTES,
   parsePublicUrl,
 } from './imageMath'
+import { parseVariants, type ImageVariant } from '../../lib/imageVariants'
 import { processImage, processThumb, type EncodedImage } from './images'
 import { UploadError } from './uploadError'
 
@@ -18,6 +19,8 @@ export type StoredImage = {
   height: number
   thumbWidth: number
   thumbHeight: number
+  /** Zusätzliche Fassungen für srcset (800 und 1600 px), leer bei kleinen Bildern. */
+  variants: ImageVariant[]
   /** Gespeicherte Pfade, z. B. zum Aufräumen bei einem Abbruch. */
   paths: string[]
 }
@@ -83,13 +86,22 @@ async function putPair(
   id: string,
   full: EncodedImage,
   thumb: EncodedImage,
+  variants: EncodedImage[] = [],
 ): Promise<StoredImage> {
   const fullPath = `${folder}/${id}.${full.ext}`
   const thumbPath = `${folder}/${id}-800.${thumb.ext}`
+  // Die Fassung für srcset heißt -w<Breite>, damit sie nicht mit der Vorschau (-800) kollidiert
+  const variantPaths = variants.map(
+    (variant) => `${folder}/${id}-w${variant.width}.${variant.ext}`,
+  )
+  const all = [fullPath, thumbPath, ...variantPaths]
   try {
-    const [url, thumbUrl] = await Promise.all([
+    const [url, thumbUrl, ...variantUrls] = await Promise.all([
       put(bucket, fullPath, full.blob, full.mime),
       put(bucket, thumbPath, thumb.blob, thumb.mime),
+      ...variants.map((variant, index) =>
+        put(bucket, variantPaths[index], variant.blob, variant.mime),
+      ),
     ])
     return {
       url,
@@ -98,11 +110,15 @@ async function putPair(
       height: full.height,
       thumbWidth: thumb.width,
       thumbHeight: thumb.height,
-      paths: [fullPath, thumbPath],
+      variants: variants.map((variant, index) => ({
+        url: variantUrls[index],
+        width: variant.width,
+      })),
+      paths: all,
     }
   } catch (error) {
     // Nichts Halbes zurücklassen
-    await removePaths(bucket, [fullPath, thumbPath]).catch(() => undefined)
+    await removePaths(bucket, all).catch(() => undefined)
     throw error
   }
 }
@@ -114,8 +130,12 @@ export async function uploadImage(
   file: File,
   options: Parameters<typeof processImage>[1] = {},
 ): Promise<StoredImage> {
-  const { full, thumb } = await processImage(file, options)
-  return putPair(bucket, folder, crypto.randomUUID(), full, thumb)
+  // Zusätzliche Größen für srcset gibt es nur bei Werkbildern
+  const { full, thumb, variants } = await processImage(file, {
+    ...options,
+    variants: bucket === 'artworks',
+  })
+  return putPair(bucket, folder, crypto.randomUUID(), full, thumb, variants)
 }
 
 /**
@@ -173,6 +193,22 @@ export async function uploadPressFile(
   }
 }
 
+/** Lädt ein PDF unverändert hoch (höchstens 25 MB). Die Datei wird auf die PDF-Kennung geprüft. */
+export async function uploadPdf(
+  bucket: Bucket,
+  folder: string,
+  file: File,
+): Promise<{ url: string; path: string }> {
+  if (file.size > MAX_PDF_BYTES)
+    throw new UploadError('size', 'PDF ist größer als 25 MB')
+  const head = new Uint8Array(await file.slice(0, 8).arrayBuffer())
+  if (!looksLikePdf(head))
+    throw new UploadError('type', 'Die Datei ist kein gültiges PDF')
+  const path = `${folder}/${crypto.randomUUID()}.pdf`
+  const url = await put(bucket, path, file, 'application/pdf')
+  return { url, path }
+}
+
 export type StoredThumb = {
   url: string
   width: number
@@ -223,6 +259,57 @@ export async function copyFileByUrl(
   return storage.getPublicUrl(target).data.publicUrl
 }
 
+/** Dateien direkt in einem Ordner eines Buckets (ohne Unterordner). */
+export async function listFolder(
+  bucket: Bucket,
+  folder: string,
+): Promise<string[]> {
+  const { data, error } = await client()
+    .storage.from(bucket)
+    .list(folder, { limit: 1000 })
+  if (error)
+    throw new UploadError('delete', `Ordner nicht lesbar: ${error.message}`, {
+      cause: error,
+    })
+  return (data ?? [])
+    .filter((item) => item.id)
+    .map((item) => `${folder}/${item.name}`)
+}
+
+/** Löscht alle Dateien eines Ordners. */
+export async function removeFolder(
+  bucket: Bucket,
+  folder: string,
+): Promise<RemovalResult> {
+  const paths = await listFolder(bucket, folder)
+  try {
+    await removePaths(bucket, paths)
+    return { removed: paths.length, failed: 0 }
+  } catch {
+    return { removed: 0, failed: paths.length }
+  }
+}
+
+/** Entfernt Dateien eines Ordners, auf die kein Text mehr verweist. */
+export async function removeUnusedInFolder(
+  bucket: Bucket,
+  folder: string,
+  usedUrls: (string | null | undefined)[],
+): Promise<RemovalResult> {
+  const used = new Set(
+    (groupByBucket(usedUrls)[bucket] ?? []).map((path) => path),
+  )
+  const unused = (await listFolder(bucket, folder)).filter(
+    (path) => !used.has(path),
+  )
+  try {
+    await removePaths(bucket, unused)
+    return { removed: unused.length, failed: 0 }
+  } catch {
+    return { removed: 0, failed: unused.length }
+  }
+}
+
 export type RemovalResult = { removed: number; failed: number }
 
 /** Entfernt alle Dateien, auf die die Adressen zeigen. Fremde Adressen werden ignoriert. */
@@ -254,7 +341,7 @@ export async function deleteArtworkWithFiles(
   const db = client()
   const { data: artwork, error: readError } = await db
     .from('artworks')
-    .select('main_image_url, thumb_url')
+    .select('main_image_url, thumb_url, image_variants')
     .eq('id', artworkId)
     .single()
   if (readError)
@@ -266,7 +353,7 @@ export async function deleteArtworkWithFiles(
 
   const { data: images, error: imagesError } = await db
     .from('artwork_images')
-    .select('image_url, thumb_url')
+    .select('image_url, thumb_url, image_variants')
     .eq('artwork_id', artworkId)
   if (imagesError)
     throw new UploadError(
@@ -278,7 +365,12 @@ export async function deleteArtworkWithFiles(
   const urls = [
     artwork.main_image_url,
     artwork.thumb_url,
-    ...(images ?? []).flatMap((image) => [image.image_url, image.thumb_url]),
+    ...parseVariants(artwork.image_variants).map((variant) => variant.url),
+    ...(images ?? []).flatMap((image) => [
+      image.image_url,
+      image.thumb_url,
+      ...parseVariants(image.image_variants).map((variant) => variant.url),
+    ]),
   ]
 
   const { error: deleteError } = await db

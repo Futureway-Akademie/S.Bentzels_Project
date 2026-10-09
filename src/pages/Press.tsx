@@ -5,18 +5,16 @@ import Lightbox from '../components/Lightbox'
 import PressCard from '../components/PressCard'
 import Reveal from '../components/Reveal'
 import SectionLabel from '../components/SectionLabel'
-import { pressItems, type PressCategory, type PressItem } from '../data'
+import ContentGate from '../components/ContentGate'
+import type { PressItem } from '../data'
+import { loadPress, type PressContent } from '../lib/content'
 import { pressYear } from '../lib/press'
+import { useLoad } from '../lib/useLoad'
 
-const categoryOrder: PressCategory[] = [
-  'pressebericht',
-  'interview',
-  'portraet',
-  'ausstellung',
-  'kunst',
-]
-
-export default function Press() {
+function PressContentPage({
+  items: pressItems,
+  categories: allCategories,
+}: PressContent) {
   const { t } = useTranslation()
   const [params, setParams] = useSearchParams()
   const [yearPanel, setYearPanel] = useState(false)
@@ -34,8 +32,8 @@ export default function Press() {
     )
 
   // Filteroptionen nur aus vorhandenen Angaben
-  const categories = categoryOrder.filter((c) =>
-    published.some((p) => p.category === c),
+  const categories = allCategories.filter((c) =>
+    published.some((p) => p.category === c.slug),
   )
   const years = [
     ...new Set(published.map(pressYear).filter((y): y is number => y != null)),
@@ -69,6 +67,9 @@ export default function Press() {
     setParams(next, { replace: true })
   }
 
+  const categoryName = (item: PressItem) =>
+    allCategories.find((c) => c.slug === item.category)?.nameDe ?? null
+
   const hasFilters = categories.length > 0 || years.length > 0
   const noFilter = !category && !year
   const showYears = yearPanel || !!year
@@ -94,13 +95,15 @@ export default function Press() {
             </button>
             {categories.map((c) => (
               <button
-                key={c}
+                key={c.slug}
                 type="button"
                 className="filter-link"
-                aria-pressed={category === c}
-                onClick={() => update({ kategorie: category === c ? null : c })}
+                aria-pressed={category === c.slug}
+                onClick={() =>
+                  update({ kategorie: category === c.slug ? null : c.slug })
+                }
               >
-                {t(`press.category.${c}`)}
+                {c.nameDe}
               </button>
             ))}
             {years.length > 0 && (
@@ -152,7 +155,12 @@ export default function Press() {
           <div className="mt-10 grid gap-x-12 gap-y-16 md:grid-cols-2">
             {featured.map((item) => (
               <Reveal key={item.id}>
-                <PressCard item={item} featured onOpenImage={setLightboxId} />
+                <PressCard
+                  item={item}
+                  featured
+                  categoryName={categoryName(item)}
+                  onOpenImage={setLightboxId}
+                />
               </Reveal>
             ))}
           </div>
@@ -171,7 +179,11 @@ export default function Press() {
           <div className="mt-10 columns-1 gap-x-10 sm:columns-2 lg:columns-3">
             {rest.map((item) => (
               <Reveal key={item.id} className="mb-14 break-inside-avoid">
-                <PressCard item={item} onOpenImage={setLightboxId} />
+                <PressCard
+                  item={item}
+                  categoryName={categoryName(item)}
+                  onOpenImage={setLightboxId}
+                />
               </Reveal>
             ))}
           </div>
@@ -187,5 +199,14 @@ export default function Press() {
         />
       )}
     </main>
+  )
+}
+
+export default function Press() {
+  const { state, reload } = useLoad(loadPress)
+  return (
+    <ContentGate state={state} reload={reload}>
+      {(data) => <PressContentPage {...data} />}
+    </ContentGate>
   )
 }

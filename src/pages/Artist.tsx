@@ -4,7 +4,9 @@ import Reveal from '../components/Reveal'
 import SectionLabel from '../components/SectionLabel'
 import Timeline from '../components/Timeline'
 import { routes } from '../config/routes'
-import { placeholderImage, vitaEntries, type VitaCategory } from '../data'
+import { placeholderImage, type VitaCategory } from '../data'
+import { loadVita } from '../lib/content'
+import { useLoad } from '../lib/useLoad'
 
 type Step = { title: string; text: string }
 
@@ -21,6 +23,9 @@ const processImage = { width: 1600, height: 1067 }
 export default function Artist() {
   const { t } = useTranslation()
   const steps = t('artist.steps', { returnObjects: true }) as Step[]
+  // Die Vita erscheint nach dem Laden, der Rest der Seite sofort
+  const { state: vitaState } = useLoad(loadVita)
+  const vitaEntries = vitaState.status === 'ready' ? vitaState.data : []
 
   return (
     <main>

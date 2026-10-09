@@ -10,20 +10,27 @@
     "preview": "vite preview",
     "typecheck": "tsc -b --noEmit",
     "format": "prettier --write src",
-    "test:db": "node supabase/tests/schema.test.mjs",
-    "test:unit": "node --test src/admin/lib/imageMath.test.ts src/admin/lib/adminLib.test.ts"
+    "test:db": "node supabase/tests/schema.test.mjs && node supabase/tests/seed.test.mjs",
+    "test:unit": "node --test src/admin/lib/imageMath.test.ts src/admin/lib/adminLib.test.ts src/admin/lib/eventForm.test.ts src/lib/eventCalendar.test.ts src/admin/permissions.test.ts src/admin/lib/eventStats.test.ts src/admin/lib/visibility.test.ts src/config/gallerySettings.test.ts src/admin/lib/pressForm.test.ts src/admin/lib/curatedForm.test.ts src/lib/contentMap.test.ts src/admin/lib/csv.test.ts src/admin/lib/inquiryList.test.ts src/admin/lib/artworkStats.test.ts src/lib/seoLd.test.ts src/lib/legalDoc.test.ts src/lib/nameGuard.test.ts src/lib/datasheet.test.ts src/layout/transitionKey.test.ts src/lib/imageVariants.test.ts src/lib/privacyGuard.test.ts supabase/functions/_shared/sitemap.test.ts supabase/functions/_shared/schemas.test.ts supabase/functions/_shared/spam.test.ts supabase/functions/_shared/inquiry.test.ts supabase/functions/_shared/registration.test.ts supabase/functions/_shared/cancellation.test.ts"
   },
   "dependencies": {
     "@fontsource/jost": "^5.3.0",
     "@supabase/supabase-js": "^2.117.3",
     "@tailwindcss/vite": "^4.3.3",
+    "@tiptap/extension-image": "^3.31.4",
+    "@tiptap/pm": "^3.31.4",
+    "@tiptap/react": "^3.31.4",
+    "@tiptap/starter-kit": "^3.31.4",
+    "dompurify": "^3.4.16",
     "i18next": "^26.4.2",
+    "pdf-lib": "^1.17.1",
     "pdfjs-dist": "^6.4.299",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-i18next": "^17.0.16",
     "react-router-dom": "^7.18.4",
-    "tailwindcss": "^4.3.3"
+    "tailwindcss": "^4.3.3",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@electric-sql/pglite": "^0.5.8",

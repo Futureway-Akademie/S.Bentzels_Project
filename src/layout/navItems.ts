@@ -20,6 +20,7 @@ export const navItems: NavItem[] = [
       { labelKey: 'nav.talks', to: routes.talks },
     ],
   },
+  { labelKey: 'nav.calendar', to: routes.events },
   {
     labelKey: 'nav.network',
     to: routes.network,

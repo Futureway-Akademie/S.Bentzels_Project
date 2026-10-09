@@ -5,6 +5,8 @@ import { pressDateLabel } from '../lib/press'
 type PressCardProps = {
   item: PressItem
   featured?: boolean
+  /** Name der Kategorie aus dem Dashboard */
+  categoryName?: string | null
   onOpenImage: (id: string) => void
 }
 
@@ -12,6 +14,7 @@ type PressCardProps = {
 export default function PressCard({
   item,
   featured = false,
+  categoryName = null,
   onOpenImage,
 }: PressCardProps) {
   const { t } = useTranslation()
@@ -32,7 +35,7 @@ export default function PressCard({
 
   const date = pressDateLabel(item)
   const metaLine = [
-    item.category ? t(`press.category.${item.category}`) : null,
+    categoryName,
     item.mediumType && !item.medium
       ? t(`press.medium.${item.mediumType}`)
       : null,

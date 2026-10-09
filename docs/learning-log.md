@@ -19,4 +19,3 @@ Wird vom Teilnehmer formuliert.
 ## Dabei brauche ich noch Hilfe
 
 Wird vom Teilnehmer formuliert.
-

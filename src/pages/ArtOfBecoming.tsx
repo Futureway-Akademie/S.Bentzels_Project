@@ -1,4 +1,7 @@
 import { useTranslation } from 'react-i18next'
+import InquiryDisclosure from '../components/forms/InquiryDisclosure'
+import InquiryForm from '../components/forms/LazyInquiryForm'
+import { becomingFields } from '../lib/forms/definitions'
 import Reveal from '../components/Reveal'
 import SectionLabel from '../components/SectionLabel'
 import { placeholderImage } from '../data'
@@ -213,9 +216,13 @@ export default function ArtOfBecoming() {
             {t('becoming.cta')}
           </p>
           <div className="mt-10">
-            <a href={mailto} className="btn">
-              {t('becoming.ctaButton')}
-            </a>
+            <InquiryDisclosure label={t('becoming.ctaButton')}>
+              <InquiryForm
+                type="seminar"
+                fields={becomingFields}
+                mailFallback={mailto}
+              />
+            </InquiryDisclosure>
           </div>
         </Reveal>
       </section>

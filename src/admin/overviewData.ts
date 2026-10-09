@@ -11,9 +11,9 @@ export type EventSummary = {
   id: string
   title_de: string
   starts_at: string
-  ends_at: string
+  ends_at: string | null
   location_name: string | null
-  capacity: number
+  capacity: number | null
   registration_open: boolean
   /** Angemeldete Personen inklusive Begleitung */
   registered: number
@@ -56,7 +56,9 @@ export async function loadOverview(): Promise<Overview> {
       .select(
         'id, title_de, starts_at, ends_at, location_name, capacity, registration_open',
       )
-      .gte('ends_at', nowIso)
+      .not('starts_at', 'is', null)
+      .not('status', 'in', '(abgesagt,beendet,archiviert)')
+      .or(`ends_at.gte.${nowIso},and(ends_at.is.null,starts_at.gte.${nowIso})`)
       .order('starts_at', { ascending: true })
       .limit(1),
     db

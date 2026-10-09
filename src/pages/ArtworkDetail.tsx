@@ -1,31 +1,102 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate, useParams } from 'react-router-dom'
+import InquiryForm from '../components/forms/LazyInquiryForm'
+import InquiryPanel from '../components/forms/InquiryPanel'
 import Lightbox from '../components/Lightbox'
 import { useGalleryVisibility } from '../config/gallerySettings'
 import { routes } from '../config/routes'
-import { artworks } from '../data'
+import ContentGate from '../components/ContentGate'
+import type { Artwork, ArtworkImage } from '../data'
+import { loadArtworks } from '../lib/content'
+import { useLoad } from '../lib/useLoad'
 import { artworkAlt, hasDimensions } from '../lib/artwork'
+import { werkFields } from '../lib/forms/definitions'
+import { downloadDatasheet } from '../lib/datasheetFlow'
+import { buildSrcSet } from '../lib/imageVariants'
+import { useSeo } from '../lib/seo'
+import { artworkLd, summarize } from '../lib/seoLd'
+import { site } from '../config/site'
+import { trackArtwork } from '../lib/track'
 import { formatPrice } from '../lib/format'
 import PagePlaceholder from './PagePlaceholder'
 
-export default function ArtworkDetail() {
+function ArtworkDetailContent({
+  artworks,
+  images,
+}: {
+  artworks: Artwork[]
+  images: ArtworkImage[]
+}) {
   const { t } = useTranslation()
   const { slug } = useParams()
   const navigate = useNavigate()
   const visible = useGalleryVisibility()
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [infoOpen, setInfoOpen] = useState(false)
+  const [inquiryOpen, setInquiryOpen] = useState(false)
+  const [sheetState, setSheetState] = useState<'idle' | 'busy' | 'error'>(
+    'idle',
+  )
+  const inquiryTrigger = useRef<HTMLButtonElement>(null)
 
   const list = artworks
     .filter((a) => a.isPublished)
     .sort((a, b) => a.sortOrder - b.sortOrder)
   const index = list.findIndex((a) => a.slug === slug)
   const artwork = list[index]
+  const artworkId = artwork?.id
+
+  // Das Öffnen der Werkseite zählt als Klick (anonym, einmal je Sitzung)
+  useEffect(() => {
+    if (artworkId) trackArtwork(artworkId, 'click')
+  }, [artworkId])
+
+  useSeo(
+    artwork
+      ? {
+          title: artwork.titleDe ?? t('artwork.untitled'),
+          description:
+            summarize(artwork.descriptionDe) ??
+            summarize(
+              [
+                artwork.titleDe ?? t('artwork.untitled'),
+                visible.technique ? artwork.techniqueDe : null,
+                visible.year ? artwork.year : null,
+              ]
+                .filter(Boolean)
+                .join(', ') +
+                '. ' +
+                t('seo.artworkFallback'),
+            ),
+          image: artwork.mainImageUrl,
+          jsonLd: artworkLd(
+            site,
+            {
+              ...artwork,
+              // Ausgeblendete Angaben gehören auch nicht in die strukturierten Daten
+              year: visible.year ? artwork.year : null,
+              techniqueDe: visible.technique ? artwork.techniqueDe : null,
+              supportDe: visible.technique ? artwork.supportDe : null,
+              heightCm: visible.dimensions ? artwork.heightCm : null,
+              widthCm: visible.dimensions ? artwork.widthCm : null,
+              depthCm: visible.dimensions ? artwork.depthCm : null,
+              descriptionDe: visible.description ? artwork.descriptionDe : null,
+              priceEur: visible.price ? artwork.priceEur : null,
+              status: visible.availability ? artwork.status : null,
+            },
+            t('artwork.untitled'),
+          ),
+        }
+      : { title: t('artworkDetail.notFound'), noindex: true },
+  )
 
   if (!artwork)
     return <PagePlaceholder titleKey="artworkDetail.notFound" notFound />
 
+  const extraImages = images
+    .filter((image) => image.artworkId === artwork.id)
+    .sort((a, b) => a.sortOrder - b.sortOrder)
   const previous = list[(index - 1 + list.length) % list.length]
   const next = list[(index + 1) % list.length]
   const alt = artworkAlt(artwork, t('artwork.untitled'), visible.year)
@@ -92,7 +163,10 @@ export default function ArtworkDetail() {
       <div className="mt-8 flex justify-center">
         <button
           type="button"
-          onClick={() => setLightboxOpen(true)}
+          onClick={() => {
+            setLightboxOpen(true)
+            trackArtwork(artwork.id, 'lightbox')
+          }}
           aria-label={t('artworkDetail.enlarge')}
           className="block max-w-full cursor-zoom-in border-0 bg-transparent p-0"
           style={{
@@ -101,6 +175,12 @@ export default function ArtworkDetail() {
         >
           <img
             src={artwork.mainImageUrl}
+            srcSet={buildSrcSet(
+              artwork.mainImageUrl,
+              artwork.imageWidth,
+              artwork.imageVariants,
+            )}
+            sizes="100vw"
             width={artwork.imageWidth}
             height={artwork.imageHeight}
             alt={alt}
@@ -109,6 +189,30 @@ export default function ArtworkDetail() {
           />
         </button>
       </div>
+
+      {extraImages.length > 0 && (
+        <div className="mt-10 space-y-10">
+          {extraImages.map((image) => (
+            <div key={image.id} className="flex justify-center">
+              <img
+                src={image.imageUrl}
+                srcSet={buildSrcSet(
+                  image.imageUrl,
+                  image.imageWidth,
+                  image.imageVariants,
+                )}
+                sizes="(min-width: 960px) 960px, 100vw"
+                width={image.imageWidth ?? 1600}
+                height={image.imageHeight ?? 1067}
+                alt={alt}
+                loading="lazy"
+                className="artwork-img"
+                style={{ maxWidth: 'min(100%, 60rem)' }}
+              />
+            </div>
+          ))}
+        </div>
+      )}
 
       <div className="mx-auto mt-6 max-w-3xl">
         {artwork.titleDe ? (
@@ -131,10 +235,61 @@ export default function ArtworkDetail() {
               {infoOpen ? t('artworkDetail.hideInfo') : t('artworkDetail.info')}
             </button>
           )}
-          <a href={mailto} className="btn-link">
+          <button
+            ref={inquiryTrigger}
+            type="button"
+            className="btn-link"
+            aria-haspopup="dialog"
+            onClick={() => {
+              setInquiryOpen(true)
+              trackArtwork(artwork.id, 'inquiry')
+            }}
+          >
             {t('artworkDetail.inquire')}
-          </a>
+          </button>
+          <button
+            type="button"
+            className="btn-link"
+            disabled={sheetState === 'busy'}
+            onClick={() => {
+              setSheetState('busy')
+              // Öffentliche Fassung: nur Angaben, die laut Sichtbarkeit freigegeben sind
+              // (die Datenbank liefert ausgeblendete Angaben gar nicht erst aus)
+              downloadDatasheet({
+                input: {
+                  title: artwork.titleDe,
+                  artist: artwork.artist,
+                  cycle: artwork.cycle,
+                  year: artwork.year,
+                  technique: artwork.techniqueDe,
+                  support: artwork.supportDe,
+                  heightCm: artwork.heightCm,
+                  widthCm: artwork.widthCm,
+                  depthCm: artwork.depthCm,
+                  framed: artwork.framed,
+                  status: artwork.status,
+                  priceEur: artwork.priceEur,
+                  description: artwork.descriptionDe,
+                },
+                slug: artwork.slug,
+                imageUrl: artwork.mainImageUrl,
+                internal: false,
+                t,
+              })
+                .then(() => setSheetState('idle'))
+                .catch(() => setSheetState('error'))
+            }}
+          >
+            {sheetState === 'busy'
+              ? t('artworkDetail.datasheetBusy')
+              : t('artworkDetail.datasheet')}
+          </button>
         </div>
+        {sheetState === 'error' && (
+          <p role="alert" className="mt-4 text-muted">
+            {t('artworkDetail.datasheetError')}
+          </p>
+        )}
 
         {infoOpen && hasInfo && (
           <div id="artwork-info" className="mt-8">
@@ -173,6 +328,42 @@ export default function ArtworkDetail() {
         </Link>
       </nav>
 
+      {inquiryOpen && (
+        <InquiryPanel
+          title={t('forms.workTitle')}
+          returnFocus={inquiryTrigger}
+          onClose={() => setInquiryOpen(false)}
+        >
+          <figure className="m-0 mb-8">
+            <img
+              src={artwork.thumbUrl ?? artwork.mainImageUrl}
+              width={artwork.imageWidth}
+              height={artwork.imageHeight}
+              alt={alt}
+              className="artwork-img max-h-56"
+            />
+            <figcaption className="mt-3">
+              {title}
+              {hasDimensions(artwork) && (
+                <span className="text-muted">
+                  {' · '}
+                  {t('artwork.dimensions', {
+                    height: artwork.heightCm,
+                    width: artwork.widthCm,
+                  })}
+                </span>
+              )}
+            </figcaption>
+          </figure>
+          <InquiryForm
+            type="werk"
+            fields={werkFields}
+            fixed={{ artworkId: artwork.id }}
+            mailFallback={mailto}
+          />
+        </InquiryPanel>
+      )}
+
       {lightboxOpen && (
         <Lightbox
           images={lightboxImages}
@@ -184,5 +375,16 @@ export default function ArtworkDetail() {
         />
       )}
     </main>
+  )
+}
+
+export default function ArtworkDetail() {
+  const { state, reload } = useLoad(loadArtworks)
+  return (
+    <ContentGate state={state} reload={reload}>
+      {(data) => (
+        <ArtworkDetailContent artworks={data.artworks} images={data.images} />
+      )}
+    </ContentGate>
   )
 }

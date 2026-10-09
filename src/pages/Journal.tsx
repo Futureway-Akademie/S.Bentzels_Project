@@ -1,14 +1,14 @@
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import Reveal from '../components/Reveal'
-import { posts } from '../data'
+import ContentGate from '../components/ContentGate'
+import type { Post } from '../data'
+import { loadPosts } from '../lib/content'
 import { formatLongDate } from '../lib/format'
+import { useLoad } from '../lib/useLoad'
 
-export default function Journal() {
+function JournalContent({ list }: { list: Post[] }) {
   const { t } = useTranslation()
-  const list = posts
-    .filter((p) => p.isPublished && p.status === 'veroeffentlicht')
-    .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))
 
   return (
     <main className="container-page py-12 md:py-20">
@@ -28,25 +28,38 @@ export default function Journal() {
               <Link
                 to={`/journal/${post.slug}`}
                 className="col-span-4 block md:col-span-5"
-                aria-label={post.titleDe}
+                aria-label={post.titleDe ?? t('journal.untitled')}
               >
-                <img
-                  src={post.coverImageUrl}
-                  width={post.coverImageWidth}
-                  height={post.coverImageHeight}
-                  alt=""
-                  loading="lazy"
-                  className="artwork-img"
-                />
+                {post.coverImageUrl &&
+                post.coverImageWidth &&
+                post.coverImageHeight ? (
+                  <img
+                    src={post.coverThumbUrl ?? post.coverImageUrl}
+                    width={post.coverImageWidth}
+                    height={post.coverImageHeight}
+                    alt=""
+                    loading="lazy"
+                    className="artwork-img"
+                  />
+                ) : (
+                  <span
+                    aria-hidden="true"
+                    className="block aspect-[3/2] border border-line"
+                  />
+                )}
               </Link>
               <div className="col-span-4 md:col-span-6 md:col-start-7">
-                <p className="label">{formatLongDate(post.publishedAt)}</p>
+                {post.publishedAt && (
+                  <p className="label">{formatLongDate(post.publishedAt)}</p>
+                )}
                 <h2 className="mt-4 text-[clamp(1.75rem,1.2rem+2vw,3rem)]">
                   <Link to={`/journal/${post.slug}`} className="no-underline">
-                    {post.titleDe}
+                    {post.titleDe ?? t('journal.untitled')}
                   </Link>
                 </h2>
-                <p className="prose-measure mt-4">{post.excerptDe}</p>
+                {post.excerptDe && (
+                  <p className="prose-measure mt-4">{post.excerptDe}</p>
+                )}
                 <p className="mt-6">
                   <Link to={`/journal/${post.slug}`} className="btn-link">
                     {t('journal.readMore')}
@@ -58,5 +71,14 @@ export default function Journal() {
         </ul>
       )}
     </main>
+  )
+}
+
+export default function Journal() {
+  const { state, reload } = useLoad(loadPosts)
+  return (
+    <ContentGate state={state} reload={reload}>
+      {(list) => <JournalContent list={list} />}
+    </ContentGate>
   )
 }

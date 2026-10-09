@@ -1,13 +1,13 @@
 import { useTranslation } from 'react-i18next'
 import Reveal from '../components/Reveal'
-import { curatedLinks } from '../data'
+import ContentGate from '../components/ContentGate'
+import type { CuratedLink } from '../data'
+import { loadCurated } from '../lib/content'
 import { hostOf } from '../lib/press'
+import { useLoad } from '../lib/useLoad'
 
-export default function CuratedArticles() {
+function CuratedContent({ list }: { list: CuratedLink[] }) {
   const { t } = useTranslation()
-  const list = curatedLinks
-    .filter((l) => l.isPublished)
-    .sort((a, b) => a.sortOrder - b.sortOrder)
 
   return (
     <main className="container-page py-12 md:py-20">
@@ -91,5 +91,14 @@ export default function CuratedArticles() {
         </ul>
       )}
     </main>
+  )
+}
+
+export default function CuratedArticles() {
+  const { state, reload } = useLoad(loadCurated)
+  return (
+    <ContentGate state={state} reload={reload}>
+      {(list) => <CuratedContent list={list} />}
+    </ContentGate>
   )
 }

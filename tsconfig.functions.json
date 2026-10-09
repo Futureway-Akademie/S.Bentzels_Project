@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.functions.tsbuildinfo",
+    "types": []
+  },
+  "include": ["supabase/functions/_shared"],
+  "exclude": ["supabase/functions/_shared/**/*.test.ts"]
+}

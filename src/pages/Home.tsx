@@ -6,7 +6,11 @@ import Button from '../components/Button'
 import Reveal from '../components/Reveal'
 import SectionLabel from '../components/SectionLabel'
 import { routes } from '../config/routes'
-import { artworks, events, placeholderImage, posts } from '../data'
+import { placeholderImage, type Artwork, type Post } from '../data'
+import { loadArtworks, loadPosts } from '../lib/content'
+import { nextEvents, nextOccurrenceOf } from '../lib/eventCalendar'
+import { loadEventData, type EventData } from '../lib/publicEvents'
+import { useLoad } from '../lib/useLoad'
 import {
   formatDay,
   formatLongDate,
@@ -16,7 +20,18 @@ import {
 
 const heroImage = { width: 2400, height: 1100 }
 
-export default function Home() {
+type HomeData = { artworks: Artwork[]; posts: Post[]; events: EventData }
+
+const loadHome = async (): Promise<HomeData> => {
+  const [artworks, posts, events] = await Promise.all([
+    loadArtworks(),
+    loadPosts(),
+    loadEventData(),
+  ])
+  return { artworks: artworks.artworks, posts, events }
+}
+
+function HomeContent({ artworks, posts, events: eventData }: HomeData) {
   const { t } = useTranslation()
   const [now] = useState(() => Date.now())
 
@@ -26,13 +41,18 @@ export default function Home() {
   const multipart = highlights.filter((a) => a.isMultipart)
   const singles = highlights.filter((a) => !a.isMultipart)
 
-  const nextEvent = events
-    .filter((e) => e.isPublished && new Date(e.startsAt).getTime() >= now)
-    .sort((a, b) => a.startsAt.localeCompare(b.startsAt))[0]
+  const nextEvent = nextEvents(
+    eventData.events,
+    eventData.occurrences,
+    now,
+    1,
+  )[0]
+  const nextDate = nextEvent
+    ? nextOccurrenceOf(nextEvent.id, eventData.occurrences, now)
+    : null
 
-  const latestPost = posts
-    .filter((p) => p.isPublished && p.status === 'veroeffentlicht')
-    .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))[0]
+  // Die Beiträge kommen bereits veröffentlicht und nach Datum sortiert
+  const latestPost = posts[0]
 
   return (
     <main>
@@ -115,7 +135,7 @@ export default function Home() {
       </section>
 
       {/* 03 Nächste Begegnung */}
-      {nextEvent && (
+      {nextEvent && nextDate && (
         <section
           className="container-page mt-24 md:mt-40"
           aria-labelledby="home-event"
@@ -128,27 +148,30 @@ export default function Home() {
             </h2>
             <div className="grid-12 mt-10 gap-y-6">
               <p className="col-span-4 text-[clamp(4rem,2rem+10vw,9rem)] leading-none md:col-span-4">
-                {formatDay(nextEvent.startsAt)}
+                {formatDay(nextDate.startsAt)}
                 <span className="label mt-3 block">
-                  {formatMonthYear(nextEvent.startsAt)}
+                  {formatMonthYear(nextDate.startsAt)}
                 </span>
               </p>
               <div className="col-span-4 md:col-span-8">
                 <h3>
                   <Link
-                    to={`/netzwerk/${nextEvent.slug}`}
+                    to={`/veranstaltungen/${nextEvent.slug}`}
                     className="no-underline"
                   >
                     {nextEvent.titleDe}
                   </Link>
                 </h3>
                 <p className="mt-4 text-muted">
-                  {formatLongDate(nextEvent.startsAt)} ·{' '}
-                  {t('home.clock', { time: formatTime(nextEvent.startsAt) })}
+                  {formatLongDate(nextDate.startsAt)}
+                  {nextDate.showTime &&
+                    ` · ${t('home.clock', { time: formatTime(nextDate.startsAt) })}`}
                 </p>
-                <p className="text-muted">{nextEvent.locationName}</p>
+                {nextEvent.locationName && (
+                  <p className="text-muted">{nextEvent.locationName}</p>
+                )}
                 <div className="mt-8">
-                  <Button to={routes.network}>{t('home.allEvents')}</Button>
+                  <Button to={routes.events}>{t('home.allEvents')}</Button>
                 </div>
               </div>
             </div>
@@ -174,23 +197,38 @@ export default function Home() {
               <Link
                 to={`/journal/${latestPost.slug}`}
                 className="col-span-4 block md:col-span-6"
-                aria-label={latestPost.titleDe}
+                aria-label={latestPost.titleDe ?? t('journal.untitled')}
               >
-                <img
-                  src={latestPost.coverImageUrl}
-                  width={latestPost.coverImageWidth}
-                  height={latestPost.coverImageHeight}
-                  alt=""
-                  loading="lazy"
-                  className="artwork-img"
-                />
+                {latestPost.coverImageUrl &&
+                latestPost.coverImageWidth &&
+                latestPost.coverImageHeight ? (
+                  <img
+                    src={latestPost.coverImageUrl}
+                    width={latestPost.coverImageWidth}
+                    height={latestPost.coverImageHeight}
+                    alt=""
+                    loading="lazy"
+                    className="artwork-img"
+                  />
+                ) : (
+                  <span
+                    aria-hidden="true"
+                    className="block aspect-[3/2] border border-line"
+                  />
+                )}
               </Link>
               <div className="col-span-4 md:col-span-5 md:col-start-8">
-                <p className="label">
-                  {formatLongDate(latestPost.publishedAt)}
-                </p>
-                <h3 className="mt-4">{latestPost.titleDe}</h3>
-                <p className="prose-measure mt-4">{latestPost.excerptDe}</p>
+                {latestPost.publishedAt && (
+                  <p className="label">
+                    {formatLongDate(latestPost.publishedAt)}
+                  </p>
+                )}
+                <h3 className="mt-4">
+                  {latestPost.titleDe ?? t('journal.untitled')}
+                </h3>
+                {latestPost.excerptDe && (
+                  <p className="prose-measure mt-4">{latestPost.excerptDe}</p>
+                )}
                 <div className="mt-8">
                   <Button to={`/journal/${latestPost.slug}`} variant="link">
                     {t('home.readPost')}
@@ -203,4 +241,17 @@ export default function Home() {
       )}
     </main>
   )
+}
+
+const noData: HomeData = {
+  artworks: [],
+  posts: [],
+  events: { events: [], occurrences: [], types: [] },
+}
+
+export default function Home() {
+  // Die festen Teile der Seite erscheinen sofort, Werke, Veranstaltung und Beitrag nach dem Laden.
+  // Bei einer Störung bleiben sie einfach weg.
+  const { state } = useLoad(loadHome)
+  return <HomeContent {...(state.status === 'ready' ? state.data : noData)} />
 }

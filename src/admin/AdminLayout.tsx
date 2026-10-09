@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { routes } from '../config/routes'
 import { adminModules } from './modules'
+import { modulesFor } from './permissions'
 import { loadNewInquiryCount } from './overviewData'
 import { useAuth } from './useAuth'
 import { useLoad } from './useLoad'
@@ -15,10 +16,11 @@ function Navigation({
   newCount: number
 }) {
   const { t } = useTranslation()
+  const { role } = useAuth()
   return (
     <nav aria-label={t('admin.navLabel')}>
       <ul className="m-0 list-none p-0">
-        {adminModules.map((module) => (
+        {modulesFor(adminModules, role).map((module) => (
           <li key={module.id}>
             <NavLink
               to={module.to}

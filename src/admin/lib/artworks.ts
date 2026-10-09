@@ -1,3 +1,4 @@
+import { parseVariants } from '../../lib/imageVariants'
 import { supabase } from '../../lib/supabase'
 import type { ArtworkPayload } from './artworkForm'
 import { parseCrop, type Crop } from './cropMath'
@@ -10,6 +11,7 @@ import {
   uploadImage,
   uploadThumbFromUrl,
   type RemovalResult,
+  type StoredImage,
 } from './storage'
 import { UploadError } from './uploadError'
 
@@ -34,6 +36,8 @@ export type ArtworkRecord = ArtworkListItem &
     created_at: string
     updated_at: string
     thumb_crop: unknown
+    /** Zusätzliche Bildgrößen für srcset (Liste aus url und width), fehlt bei älteren Werken */
+    image_variants?: unknown
   }
 
 export type ArtworkImageRecord = {
@@ -44,10 +48,20 @@ export type ArtworkImageRecord = {
   thumb_url: string | null
   image_width: number | null
   image_height: number | null
+  image_variants?: unknown
 }
 
 const LIST_COLUMNS =
   'id, slug, sort_order, is_published, archived_at, main_image_url, image_width, image_height, thumb_url, title_de, year, status, is_highlight'
+
+/** Alle gespeicherten Dateien eines hochgeladenen Bildes (zum Aufräumen). */
+function storedUrls(stored: StoredImage): string[] {
+  return [
+    stored.url,
+    stored.thumbUrl,
+    ...stored.variants.map((variant) => variant.url),
+  ]
+}
 
 function client() {
   if (!supabase)
@@ -122,13 +136,14 @@ export async function createArtworkFromFile(
       image_width: stored.width,
       image_height: stored.height,
       thumb_url: stored.thumbUrl,
+      image_variants: stored.variants,
       is_published: options.publish,
       sort_order: sortOrder,
     })
     .select(LIST_COLUMNS)
     .single()
   if (error) {
-    await removeFilesByUrl([stored.url, stored.thumbUrl])
+    await removeFilesByUrl(storedUrls(stored))
     fail(error.message, error)
   }
   return data as ArtworkListItem
@@ -208,12 +223,17 @@ export async function replaceMainImage(
       image_height: stored.height,
       thumb_url: stored.thumbUrl,
       thumb_crop: null,
+      image_variants: stored.variants,
     })
   } catch (error) {
-    await removeFilesByUrl([stored.url, stored.thumbUrl])
+    await removeFilesByUrl(storedUrls(stored))
     throw error
   }
-  await removeFilesByUrl([record.main_image_url, record.thumb_url])
+  await removeFilesByUrl([
+    record.main_image_url,
+    record.thumb_url,
+    ...parseVariants(record.image_variants).map((variant) => variant.url),
+  ])
   return {
     ...record,
     main_image_url: stored.url,
@@ -221,6 +241,7 @@ export async function replaceMainImage(
     image_height: stored.height,
     thumb_url: stored.thumbUrl,
     thumb_crop: null,
+    image_variants: stored.variants,
   }
 }
 
@@ -263,12 +284,13 @@ export async function addArtworkImage(
       thumb_url: stored.thumbUrl,
       image_width: stored.width,
       image_height: stored.height,
+      image_variants: stored.variants,
       sort_order: nextSortOrder(existing),
     })
     .select('*')
     .single()
   if (error) {
-    await removeFilesByUrl([stored.url, stored.thumbUrl])
+    await removeFilesByUrl(storedUrls(stored))
     fail(error.message, error)
   }
   return data as ArtworkImageRecord
@@ -282,7 +304,11 @@ export async function removeArtworkImage(
     .delete()
     .eq('id', image.id)
   if (error) fail(error.message, error)
-  return removeFilesByUrl([image.image_url, image.thumb_url])
+  return removeFilesByUrl([
+    image.image_url,
+    image.thumb_url,
+    ...parseVariants(image.image_variants).map((variant) => variant.url),
+  ])
 }
 
 export async function saveImageOrder(

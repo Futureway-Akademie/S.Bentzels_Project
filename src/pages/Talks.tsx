@@ -1,6 +1,9 @@
 import { useTranslation } from 'react-i18next'
+import InquiryDisclosure from '../components/forms/InquiryDisclosure'
+import InquiryForm from '../components/forms/LazyInquiryForm'
 import Reveal from '../components/Reveal'
 import SectionLabel from '../components/SectionLabel'
+import { vortragFields } from '../lib/forms/definitions'
 
 type Topic = { title: string; text: string }
 
@@ -45,9 +48,25 @@ export default function Talks() {
       <Reveal className="mt-16">
         <p className="prose-measure">{t('talks.audience')}</p>
         <div className="mt-10">
-          <a href={mailto} className="btn">
-            {t('talks.inquire')}
-          </a>
+          <InquiryDisclosure label={t('talks.inquire')}>
+            <InquiryForm
+              type="vortrag"
+              fields={vortragFields}
+              options={{
+                topic: [
+                  ...items.map((item) => ({
+                    value: item.title,
+                    label: item.title,
+                  })),
+                  {
+                    value: t('forms.individual'),
+                    label: t('forms.individual'),
+                  },
+                ],
+              }}
+              mailFallback={mailto}
+            />
+          </InquiryDisclosure>
         </div>
       </Reveal>
     </main>

@@ -5,7 +5,10 @@ import Button from '../components/Button'
 import Lightbox from '../components/Lightbox'
 import SectionLabel from '../components/SectionLabel'
 import Timeline from '../components/Timeline'
-import { artworks, vitaEntries } from '../data'
+import {
+  sampleArtworks as artworks,
+  sampleVita as vitaEntries,
+} from './designSystemSamples'
 import Reveal from '../components/Reveal'
 
 const colors = [
@@ -20,7 +23,7 @@ export default function DesignSystem() {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
   const lightboxImages = artworks.map((a) => ({
     src: a.mainImageUrl,
-    alt: `${a.titleDe}, ${a.year}`,
+    alt: [a.titleDe, a.year].filter(Boolean).join(', ') || 'Beispielwerk',
     width: a.imageWidth,
     height: a.imageHeight,
   }))
@@ -112,25 +115,25 @@ export default function DesignSystem() {
         <h3 className="label mt-12">{t('designSystem.cardsTitle')}</h3>
         <div className="grid-12 mt-6 gap-y-10">
           <ArtworkCard
-            artwork={artworks[2]}
+            artwork={artworks[0]}
             className="col-span-2 md:col-span-4"
           />
           <ArtworkCard
-            artwork={artworks[3]}
+            artwork={artworks[1]}
             className="col-span-2 md:col-span-3"
           />
           <ArtworkCard
-            artwork={artworks[7]}
+            artwork={artworks[3]}
             className="col-span-4 md:col-span-3"
           />
           <ArtworkCard
-            artwork={artworks[0]}
+            artwork={artworks[2]}
             className="col-span-4 md:col-span-12"
           />
         </div>
         <h3 className="label mt-16">{t('designSystem.timelineTitle')}</h3>
         <div className="mt-6">
-          <Timeline entries={vitaEntries.slice(0, 6)} />
+          <Timeline entries={vitaEntries} />
         </div>
         <h3 className="label mt-16">{t('designSystem.lightboxTitle')}</h3>
         <div className="mt-6">

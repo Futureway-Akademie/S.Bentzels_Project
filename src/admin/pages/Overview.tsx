@@ -96,7 +96,7 @@ export default function Overview() {
                   </p>
                 )}
                 <p className="mt-6 text-[1.125rem]">
-                  {state.data.nextEvent.capacity > 0
+                  {state.data.nextEvent.capacity
                     ? t('admin.registered', {
                         count: state.data.nextEvent.registered,
                         capacity: state.data.nextEvent.capacity,

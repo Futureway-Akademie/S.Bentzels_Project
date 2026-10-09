@@ -3,11 +3,11 @@ import { Navigate, Outlet } from 'react-router-dom'
 import { routes } from '../config/routes'
 import { useAuth } from './useAuth'
 
-// Zugriff nur für angemeldete Admins. Die eigentliche Sicherheit liegt in den Datenbankregeln,
+// Zugriff nur für angemeldete Nutzer mit einer Rolle in der Tabelle admins. Die eigentliche Sicherheit liegt in den Datenbankregeln,
 // dies ist die Benutzerführung davor.
 export default function RequireAdmin() {
   const { t } = useTranslation()
-  const { status, email, isAdmin, signOut, retry } = useAuth()
+  const { status, email, role, signOut, retry } = useAuth()
 
   if (status === 'loading') {
     return (
@@ -46,7 +46,7 @@ export default function RequireAdmin() {
     )
   }
 
-  if (!isAdmin) {
+  if (role === null) {
     return (
       <main className="container-page py-20 md:py-32">
         <p className="label">{t('admin.area')}</p>

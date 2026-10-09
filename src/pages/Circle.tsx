@@ -1,7 +1,10 @@
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
+import InquiryDisclosure from '../components/forms/InquiryDisclosure'
+import InquiryForm from '../components/forms/LazyInquiryForm'
 import Reveal from '../components/Reveal'
 import { routes } from '../config/routes'
+import { clubFields } from '../lib/forms/definitions'
 
 // Exklusiver Kreis innerhalb des Netzwerks. Der Name ist ein Arbeitstitel und steht
 // ausschließlich in de.json unter circle.* und circlePage.*; hier gibt es keinen Eigennamen im Code.
@@ -21,9 +24,13 @@ export default function Circle() {
         </p>
       </Reveal>
       <Reveal slow delay={300} className="mt-24 md:mt-40">
-        <a href={mailto} className="btn">
-          {t('circle.interest')}
-        </a>
+        <InquiryDisclosure label={t('circle.interest')}>
+          <InquiryForm
+            type="bentzel_club"
+            fields={clubFields}
+            mailFallback={mailto}
+          />
+        </InquiryDisclosure>
       </Reveal>
       <p className="mt-24 md:mt-40">
         <Link to={routes.network} className="btn-link">

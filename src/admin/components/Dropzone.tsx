@@ -5,6 +5,8 @@ type DropzoneProps = {
   hint?: string
   chooseLabel: string
   multiple?: boolean
+  /** Erlaubte Dateitypen, Standard: Bilder */
+  accept?: string
   disabled?: boolean
   onFiles: (files: File[]) => void
   className?: string
@@ -17,6 +19,7 @@ export default function Dropzone({
   hint,
   chooseLabel,
   multiple = false,
+  accept = 'image/jpeg,image/png,image/webp',
   disabled = false,
   onFiles,
   className = '',
@@ -59,7 +62,7 @@ export default function Dropzone({
       <input
         ref={inputRef}
         type="file"
-        accept="image/jpeg,image/png,image/webp"
+        accept={accept}
         multiple={multiple}
         className="sr-only"
         tabIndex={-1}

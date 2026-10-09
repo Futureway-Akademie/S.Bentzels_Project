@@ -9,15 +9,17 @@ import {
 } from 'react'
 import { supabase } from '../lib/supabase'
 import { AuthContext, type AuthStatus, type AuthValue } from './authContext'
+import { isAdminRole, type AdminRole } from './permissions'
 
 const CHECK_TIMEOUT_MS = 8000
 
-// Prüft über die Datenbank, ob der eingeloggte Nutzer in der Tabelle admins steht.
-async function checkAdmin(session: Session): Promise<boolean> {
-  if (!supabase) return false
+// Liest über die Datenbank die Rolle des eingeloggten Nutzers aus der Tabelle admins.
+// Ohne Eintrag oder mit unbekannter Rolle gibt es keinen Zugang.
+async function checkRole(session: Session): Promise<AdminRole | null> {
+  if (!supabase) return null
   const request = supabase
     .from('admins')
-    .select('user_id')
+    .select('role')
     .eq('user_id', session.user.id)
     .maybeSingle()
   // Eine Störung der Verbindung darf nicht wie „kein Admin“ aussehen.
@@ -26,7 +28,7 @@ async function checkAdmin(session: Session): Promise<boolean> {
   )
   const { data, error } = await Promise.race([request, timeout])
   if (error) throw new Error(error.message)
-  return Boolean(data)
+  return isAdminRole(data?.role) ? data.role : null
 }
 
 export function AuthProvider({ children }: { children: ReactNode }) {
@@ -34,35 +36,35 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     supabase ? 'loading' : 'signedOut',
   )
   const [session, setSession] = useState<Session | null>(null)
-  const [isAdmin, setIsAdmin] = useState(false)
+  const [role, setRole] = useState<AdminRole | null>(null)
   const [attempt, setAttempt] = useState(0)
   // Ergebnis der Admin-Prüfung je Nutzer, damit mehrere Auth-Ereignisse nicht mehrfach abfragen.
-  const checked = useRef<{ id: string; admin: boolean } | null>(null)
+  const checked = useRef<{ id: string; role: AdminRole | null } | null>(null)
 
   useEffect(() => {
     if (!supabase) return
     let active = true
 
     const apply = async (next: Session | null) => {
-      let admin = false
+      let nextRole: AdminRole | null = null
       if (next) {
         if (checked.current?.id === next.user.id) {
-          admin = checked.current.admin
+          nextRole = checked.current.role
         } else {
           try {
-            admin = await checkAdmin(next)
+            nextRole = await checkRole(next)
           } catch {
             if (active) setStatus('error')
             return
           }
-          checked.current = { id: next.user.id, admin }
+          checked.current = { id: next.user.id, role: nextRole }
         }
       } else {
         checked.current = null
       }
       if (!active) return
       setSession(next)
-      setIsAdmin(admin)
+      setRole(nextRole)
       setStatus(next ? 'signedIn' : 'signedOut')
     }
 
@@ -102,12 +104,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     () => ({
       status,
       email: session?.user.email ?? null,
-      isAdmin,
+      role,
+      isAdmin: role === 'admin',
       signIn,
       signOut,
       retry,
     }),
-    [status, session, isAdmin, signIn, signOut, retry],
+    [status, session, role, signIn, signOut, retry],
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
