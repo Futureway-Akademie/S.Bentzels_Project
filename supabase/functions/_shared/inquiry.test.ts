@@ -42,7 +42,7 @@ function setup(overrides: Partial<Deps> = {}) {
     },
     mail: { send: async (mail) => void mails.push(mail) },
     config: {
-      notifyTo: 'sb@jaegersburg.com',
+      notifyTo: 'stephan.bentzel@viqua.de',
       siteName: 'Stephan Graf Bentzel-Sturmfeder',
       circleName: 'Bentzel Club',
     },
@@ -72,7 +72,7 @@ test('Kontakt: wird gespeichert, Künstler und Absender erhalten je eine E-Mail'
   assert.equal(rows[0].message, 'Hallo <b>Welt</b>')
   assert.equal(rows[0].consent_at, new Date(NOW).toISOString())
   assert.equal(mails.length, 2)
-  assert.equal(mails[0].to, 'sb@jaegersburg.com')
+  assert.equal(mails[0].to, 'stephan.bentzel@viqua.de')
   assert.equal(mails[0].subject, 'Kontakt: Frage')
   assert.equal(mails[0].replyTo, 'erika@example.com')
   assert.equal(mails[1].to, 'erika@example.com')

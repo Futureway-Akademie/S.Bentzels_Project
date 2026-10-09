@@ -12,7 +12,7 @@ export const site: Site = {
   url: siteUrl,
   name: 'Stephan Graf Bentzel-Sturmfeder',
   organization: 'Sturmfeder Projects',
-  email: 'sb@jaegersburg.com',
+  email: 'stephan.bentzel@viqua.de',
   telephone: '+49 177 4346401',
   street: 'Schloss Jägersburg, Fürstenweg 1',
   postalCode: '91330',

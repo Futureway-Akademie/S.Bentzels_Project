@@ -6,7 +6,7 @@ import type { LegalKind } from '../../lib/legalDoc'
 const IMPRINT = `<h2>Angaben gemäß § 5 DDG</h2>
 <p>Stephan Graf Bentzel-Sturmfeder<br>Schloss Jägersburg, Fürstenweg 1<br>91330 Bammersdorf</p>
 <h2>Kontakt</h2>
-<p>Telefon: +49 177 4346401<br>E-Mail: sb@jaegersburg.com</p>
+<p>Telefon: +49 177 4346401<br>E-Mail: stephan.bentzel@viqua.de</p>
 <h2>Umsatzsteuer</h2>
 <p>Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG: [bitte ergänzen, falls vorhanden]</p>
 <h2>Verantwortlich für den Inhalt</h2>
@@ -15,7 +15,7 @@ const IMPRINT = `<h2>Angaben gemäß § 5 DDG</h2>
 <p>Alle Werke, Bilder und Texte dieser Website sind urheberrechtlich geschützt. Eine Verwendung ohne schriftliche Zustimmung ist nicht gestattet.</p>`
 
 const PRIVACY = `<h2>1. Verantwortlicher</h2>
-<p>Stephan Graf Bentzel-Sturmfeder, Schloss Jägersburg, Fürstenweg 1, 91330 Bammersdorf, E-Mail: sb@jaegersburg.com.</p>
+<p>Stephan Graf Bentzel-Sturmfeder, Schloss Jägersburg, Fürstenweg 1, 91330 Bammersdorf, E-Mail: stephan.bentzel@viqua.de.</p>
 <h2>2. Grundsatz</h2>
 <p>Diese Website verwendet keine Cookies, keine Analyse- oder Werbewerkzeuge und keine externen Schriften. Die Schriften werden von der Website selbst ausgeliefert.</p>
 <h2>3. Hosting und Datenbank</h2>

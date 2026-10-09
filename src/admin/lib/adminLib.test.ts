@@ -457,8 +457,8 @@ test('normalizeLinkUrl ergänzt Schema und lehnt Unbrauchbares ab', () => {
   )
   assert.equal(normalizeLinkUrl('www.example.com'), 'https://www.example.com')
   assert.equal(
-    normalizeLinkUrl('sb@jaegersburg.com'),
-    'mailto:sb@jaegersburg.com',
+    normalizeLinkUrl('stephan.bentzel@viqua.de'),
+    'mailto:stephan.bentzel@viqua.de',
   )
   assert.equal(normalizeLinkUrl('mailto:a@b.de'), 'mailto:a@b.de')
   assert.equal(normalizeLinkUrl('tel:+49123'), 'tel:+49123')

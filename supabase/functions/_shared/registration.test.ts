@@ -51,7 +51,7 @@ function setup(
     },
     mail: { send: async (mail) => void mails.push(mail) },
     config: {
-      notifyTo: 'sb@jaegersburg.com',
+      notifyTo: 'stephan.bentzel@viqua.de',
       siteName: 'Stephan Graf Bentzel-Sturmfeder',
       siteUrl: 'https://bentzel-sturmfeder.de/',
       tokenSecret: 'geheim',
@@ -101,7 +101,7 @@ test('Anmeldung: Datenbankfunktion mit Begleitung, Bestätigung mit .ics und Sto
     guest.attachments?.[0].content.includes('SUMMARY:Atelierabend'),
     true,
   )
-  assert.equal(mails[1].to, 'sb@jaegersburg.com')
+  assert.equal(mails[1].to, 'stephan.bentzel@viqua.de')
   assert.equal(mails[1].subject, 'Neue Anmeldung: Atelierabend')
   assert.equal(mails[1].text.includes('Noch frei: 7'), true)
 })

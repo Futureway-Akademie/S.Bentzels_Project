@@ -1,6 +1,6 @@
 // Edge Function „submit-inquiry“: nimmt alle Anfrageformulare entgegen.
 // Geheimnisse (nur als Secret, nie im Code oder Chat): RESEND_API_KEY, IP_SALT.
-// Optional: NOTIFY_TO (Standard sb@jaegersburg.com), MAIL_FROM, SITE_NAME, CIRCLE_NAME, ALLOWED_ORIGIN.
+// Optional: NOTIFY_TO (Standard stephan.bentzel@viqua.de), MAIL_FROM, SITE_NAME, CIRCLE_NAME, ALLOWED_ORIGIN.
 // SUPABASE_URL und SUPABASE_SERVICE_ROLE_KEY stellt Supabase bereit.
 // Einrichtung und Test: docs/SUPABASE_SETUP.md, Abschnitt „Anfragen und E-Mails“.
 import { handleInquiry, type Deps } from '../_shared/inquiry.ts'
@@ -74,7 +74,7 @@ Deno.serve(async (request) => {
     },
     mail: { send: sendMail },
     config: {
-      notifyTo: env('NOTIFY_TO', 'sb@jaegersburg.com'),
+      notifyTo: env('NOTIFY_TO', 'stephan.bentzel@viqua.de'),
       siteName: env('SITE_NAME', 'Stephan Graf Bentzel-Sturmfeder'),
       circleName: env('CIRCLE_NAME', 'Bentzel Club'),
     },

@@ -40,7 +40,7 @@ function setup(
     },
     mail: { send: async (mail) => void mails.push(mail) },
     config: {
-      notifyTo: 'sb@jaegersburg.com',
+      notifyTo: 'stephan.bentzel@viqua.de',
       siteName: 'Stephan Graf Bentzel-Sturmfeder',
       siteUrl: 'https://bentzel-sturmfeder.de',
       tokenSecret: 'geheim',
@@ -74,7 +74,7 @@ test('Stornierung: Status, Mail an die Person und Mitteilung an den Künstler', 
   assert.equal(mails.length, 2)
   assert.equal(mails[0].to, 'anna@example.com')
   assert.equal(mails[0].subject, 'Abmeldung bestätigt: Atelierabend')
-  assert.equal(mails[1].to, 'sb@jaegersburg.com')
+  assert.equal(mails[1].to, 'stephan.bentzel@viqua.de')
   assert.equal(mails[1].subject, 'Stornierung: Atelierabend')
 })
 

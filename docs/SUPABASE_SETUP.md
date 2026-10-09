@@ -43,11 +43,11 @@ Alle Formulare der Website senden an die Edge Function `submit-inquiry`. Sie pr�
 
 ```bash
 supabase secrets set RESEND_API_KEY=… IP_SALT=<lange zufällige Zeichenfolge>
-supabase secrets set NOTIFY_TO=sb@jaegersburg.com ALLOWED_ORIGIN=https://bentzel-sturmfeder.de
+supabase secrets set NOTIFY_TO=stephan.bentzel@viqua.de ALLOWED_ORIGIN=https://bentzel-sturmfeder.de
 supabase functions deploy submit-inquiry --import-map supabase/functions/import_map.json --no-verify-jwt
 ```
 
-`NOTIFY_TO` (Standard `sb@jaegersburg.com`), `MAIL_FROM` (Standard `Stephan Graf Bentzel-Sturmfeder <info@bentzel-sturmfeder.de>`), `SITE_NAME` und `CIRCLE_NAME` (Standard „Bentzel Club“, bis der Name des Kreises feststeht) sind optional. `--no-verify-jwt` ist nötig, damit Besucher ohne Anmeldung senden können. Der Spamschutz übernimmt die Funktion selbst.
+`NOTIFY_TO` (Standard `stephan.bentzel@viqua.de`), `MAIL_FROM` (Standard `Stephan Graf Bentzel-Sturmfeder <info@bentzel-sturmfeder.de>`), `SITE_NAME` und `CIRCLE_NAME` (Standard „Bentzel Club“, bis der Name des Kreises feststeht) sind optional. `--no-verify-jwt` ist nötig, damit Besucher ohne Anmeldung senden können. Der Spamschutz übernimmt die Funktion selbst.
 
 **Schritt 4: Testen.** Auf der Website `/kontakt` eine Nachricht senden. Es erscheint die Bestätigung, in `inquiries` steht ein Eintrag und beide E-Mails kommen an. Bei einer Störung sieht der Besucher einen Hinweis mit E-Mail-Link, die Anfrage geht nicht verloren, sobald sie gespeichert ist.
 

@@ -79,7 +79,7 @@ Deno.serve(async (request) => {
     },
     mail: { send: sendMail },
     config: {
-      notifyTo: env('NOTIFY_TO', 'sb@jaegersburg.com'),
+      notifyTo: env('NOTIFY_TO', 'stephan.bentzel@viqua.de'),
       siteName: env('SITE_NAME', 'Stephan Graf Bentzel-Sturmfeder'),
       siteUrl: env('SITE_URL', 'https://bentzel-sturmfeder.de'),
       tokenSecret: env('TOKEN_SECRET', 'ohne-geheimnis'),
