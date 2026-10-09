@@ -7,13 +7,12 @@ DirectoryIndex index.html
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
-  # Erst nach aktiviertem SSL-Zertifikat die beiden folgenden Blöcke einschalten (Kommentarzeichen entfernen):
   # Alles auf https erzwingen.
-  # RewriteCond %{HTTPS} !=on
-  # RewriteRule ^ https://www.sturmfederprojects.de%{REQUEST_URI} [L,R=301]
+  RewriteCond %{HTTPS} !=on
+  RewriteRule ^ https://www.sturmfederprojects.de%{REQUEST_URI} [L,R=301]
   # Hauptdomain ohne www auf www umleiten.
-  # RewriteCond %{HTTP_HOST} ^sturmfederprojects\.de$ [NC]
-  # RewriteRule ^ https://www.sturmfederprojects.de%{REQUEST_URI} [L,R=301]
+  RewriteCond %{HTTP_HOST} ^sturmfederprojects\.de$ [NC]
+  RewriteRule ^ https://www.sturmfederprojects.de%{REQUEST_URI} [L,R=301]
 
   # Die Sitemap erzeugt die Supabase-Funktion "sitemap".
   RewriteRule ^sitemap\.xml$ https://dpsxfbkuvbrlqxsjfezl.supabase.co/functions/v1/sitemap [L,R=302]
