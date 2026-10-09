@@ -22,7 +22,7 @@ Kunstinteressierte und Sammler, Geschäftsführung und HR (Seminar „The Art of
 
 ## Zielplattform
 
-Responsive Website, Mobile zuerst, Domain bentzel-sturmfeder.de. Zunächst nur Deutsch, Englisch vorbereitet über i18n.
+Responsive Website, Mobile zuerst, Domain www.sturmfederprojects.de (sturmfederprojects.eu leitet weiter). Zunächst nur Deutsch, Englisch vorbereitet über i18n.
 
 ## Kernfunktionen
 

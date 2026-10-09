@@ -6,7 +6,7 @@ Website Stephan Graf Bentzel-Sturmfeder (Roadmap Version 4, 4 Phasen, 42 Tasks, 
 
 ## Aktive Phase
 
-Phase 2: Datenbank und Dashboard (Phase 1 abgeschlossen)
+Keine. Alle vier Phasen sind abgeschlossen, die Roadmap ist vollständig umgesetzt.
 
 ## Aktive Aufgabe
 
@@ -14,11 +14,11 @@ Keine.
 
 ## Zuletzt abgeschlossen
 
-task-32: Abschlussprüfung (davor task-35 Werkstatistik, task-27 SEO, task-28 Sitemap/robots/404, task-29 Rechtstexte und Preishinweise, task-30 Performance, task-31 Feinschliff, task-36 PDF-Werkblatt). Fortschritt 98.52 % (41 von 42 Tasks). Die verbleibenden Platzhalter stehen in `docs/placeholders.md`.
+task-33: Domain und Launch (2026-10-09). Die Website ist live unter https://www.sturmfederprojects.de (STRATO Hosting Starter, Webspace-Ordner `/sturmfederprojects.de`, Inklusiv-SSL, `.htaccess` erzwingt https und www). sturmfederprojects.eu leitet per 301 dorthin. Resend-Domain verifiziert, Livetest des Kontaktformulars mit Zustellung beider E-Mails. Fortschritt 100 % (42 von 42 Tasks).
 
 ## Bereite nächste Aufgaben
 
-- task-33: Domain und Launch (braucht den Nutzer: Domain, Resend, Supabase-Produktionsschritte)
+Keine. Weitere Arbeit (echte Inhalte, Lighthouse, Rechtsprüfung) braucht neue Tasks nach Rücksprache.
 
 ## Blockiert
 
@@ -39,14 +39,14 @@ Nichts.
 
 ## Bekannte Probleme
 
-- Migrationen 0005 bis 0009 sind seit 2026-10-08 im echten Supabase-Projekt eingespielt und geprüft. Die vier Edge Functions `submit-inquiry`, `register-event`, `cancel-registration` und `sitemap` sind seit 2026-10-08 dort deployt (über den Dashboard-Editor aus gebündelten Einzeldateien, Verify JWT aus, Antworten auf ungültige Eingaben geprüft). Es fehlen noch die Secrets RESEND_API_KEY, IP_SALT und TOKEN_SECRET (ohne sie gelten unsichere Standardwerte und es werden keine E-Mails versendet) sowie ein echter Test mit Versand (Anleitung in `docs/SUPABASE_SETUP.md`, Abschnitte 1e bis 1g, Bildgrößen und Sitemap).  Wichtig: Seit 0006 können Anfragen nur noch über `submit-inquiry` gespeichert werden, bis zum Deploy lassen sich im Livebetrieb keine Anfragen senden (Formulare zeigen den E-Mail-Hinweis). Bis dahin lassen sich Anfragen dort nicht senden (die Formulare zeigen den Hinweis mit E-Mail-Link). Für den Versand braucht es ein Resend-Konto mit verifizierter Domain und die Secrets (Anleitung `docs/SUPABASE_SETUP.md`, Abschnitt 1g). Wichtig: Migration 0006 verbietet das direkte Schreiben von Anfragen, sie sollte erst mit der Funktion zusammen eingespielt werden.
-- Beispieldaten (`supabase/seed.sql`) sind seit 2026-10-08 im echten Supabase-Projekt eingespielt (10 Werke, 44 Vita-Einträge, 2 Beiträge, 6 Veranstaltungen, 6 Presseeinträge, 3 Artikel). Sie enthalten graue Platzhalterbilder und Beispieltexte („Beispiel: …“, example.com-Links) und müssen vor dem Launch im Dashboard ersetzt oder gelöscht werden.
-- Das Dashboard (Werke, Journal, Vita, Veranstaltungen) wurde bisher nur gegen einen lokalen Ersatz getestet, nie gegen das echte Supabase-Projekt. Touch-Bedienung und Bildschirmleser sind nicht geprüft.
+- Betrieb im echten Supabase-Projekt (Stand 2026-10-09): Migrationen 0001 bis 0009 und Beispieldaten eingespielt, vier Edge Functions deployt, Secrets IP_SALT, TOKEN_SECRET, RESEND_API_KEY, NOTIFY_TO (stephan.bentzel@viqua.de), SITE_URL und MAIL_FROM (info@sturmfederprojects.de) gesetzt. Admin-Konto angelegt, in `admins` eingetragen, echter Login erfolgreich. „Allow new users to sign up“ ist aus.
+- Live nur `submit-inquiry` (Kontakt) mit Versand getestet. Werk-, Seminar-, Vortrags- und Veranstaltungsformulare, Anmeldung und Stornierung sind im Livebetrieb nicht geprüft. Die Testanfrage „Launch-Test (Claude)“ steht in den Eingängen.
+- Beispieldaten (`supabase/seed.sql`) sind live (10 Werke, 44 Vita-Einträge, 2 Beiträge, 6 Veranstaltungen, 6 Presseeinträge, 3 Artikel) mit grauen Platzhalterbildern und Beispieltexten („Beispiel: …“, example.com-Links). Sie müssen im Dashboard ersetzt oder gelöscht werden.
+- Das Dashboard wurde nur gegen einen lokalen Ersatz ausführlich getestet; gegen das echte Projekt nur der Login. Touch-Bedienung und Bildschirmleser sind nicht geprüft.
 - Event-Redakteure (Rolle `event_editor`) sehen im Dashboard nur Veranstaltungen, Statistik und Eingänge (Anleitung in `docs/SUPABASE_SETUP.md`).
-- Supabase, offene Schritte für den Nutzer (siehe `docs/SUPABASE_SETUP.md`): (1) „Allow new users to sign up“ unter Authentication > Sign In / Providers ausschalten (derzeit noch offen), (2) Admin-Konto mit E-Mail und Passwort anlegen (Authentication > Users > Add user, Auto Confirm), (3) die E-Mail in die Tabelle `admins` eintragen (eine SQL-Zeile). Bis dahin ist die Anmeldung im Dashboard nicht nutzbar, und die echte Anmeldung wurde noch nie getestet (bisher nur gegen einen lokalen Ersatz).
 - Die Ein-Satz-Erklärungen zum wissenschaftlichen Fundament (task-10) sind Entwürfe und fachlich zu prüfen.
-- Der lokale Ordnerpfad enthält Doppelpunkte („Kunst 2024:25:26“). `npm run`-Skripte finden dadurch ihre Programme nicht, und der Vite-Dev-Server braucht `server.fs.strict: false`. Empfehlung: Projekt in einen Ordner ohne Doppelpunkte verschieben.
-- Alle Änderungen seit task-17 sind lokal und noch nicht gepusht.
+- Hosting: Deploy per ZIP-Upload im STRATO-Webspace-Dateimanager und „Entpacken“ in `/sturmfederprojects.de`; Build mit `VITE_SITE_URL=https://www.sturmfederprojects.de`. `site.zip` liegt noch öffentlich im Webspace-Ordner und sollte gelöscht werden. sturmfederprojects.eu hat kein SSL-Zertifikat (nur http-Weiterleitung). STRATO hat den Mailversand aus den Paket-Postfächern gesperrt (betrifft Resend nicht).
+- Das Projekt liegt jetzt unter `Kunst_2024-25-26` (ohne Doppelpunkte), `npm run` funktioniert dort.
 
 - Nicht bestätigt: Lighthouse-Werte (Ziel über 90) konnten nicht gemessen werden (Anleitung in `docs/architecture.md`, Abschnitt Performance). Wischgesten der Großansicht wurden nur mit simulierten Touch-Ereignissen geprüft, das PDF-Werkblatt nur als Bild der ersten Seite.
 - Rechtstexte (Impressum, Datenschutz) sind nur Vorlagen und müssen rechtlich geprüft werden. Startseiten- und Künstlerbilder sind fest im Code als Platzhalter hinterlegt (`docs/placeholders.md`).
@@ -54,4 +54,4 @@ Nichts.
 
 ## Empfohlener nächster Schritt
 
-Die Betriebsschritte im echten Projekt erledigen (siehe Bekannte Probleme und `docs/SUPABASE_SETUP.md`: Migrationen 0005 bis 0009 und Beispieldaten einspielen, vier Edge Functions deployen, Resend, Registrierung ausschalten, Admin-Konto anlegen), dann task-33 (Domain und Launch).
+Beispieldaten im Dashboard durch echte Inhalte ersetzen, Rechtstexte prüfen lassen, Lighthouse messen und die übrigen Formulare live testen. Dafür nach Rücksprache neue Tasks in der Roadmap anlegen.

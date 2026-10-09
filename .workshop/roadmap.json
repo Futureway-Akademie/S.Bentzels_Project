@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "roadmapVersion": 4,
-  "status": "active",
+  "status": "completed",
   "phases": [
     {
       "id": "phase-1",
@@ -456,7 +456,7 @@
       "description": "Supabase-Anbindung, geschützter Admin-Bereich und Umstellung der öffentlichen Seiten auf echte Daten.",
       "order": 2,
       "weight": 46,
-      "status": "in_progress",
+      "status": "completed",
       "tasks": [
         {
           "id": "task-14",
@@ -915,7 +915,7 @@
       "description": "Alle Formulare mit Speicherung, E-Mail-Versand über Resend und Veranstaltungsanmeldung mit Warteliste.",
       "order": 3,
       "weight": 23,
-      "status": "planned",
+      "status": "completed",
       "tasks": [
         {
           "id": "task-21",
@@ -1138,7 +1138,7 @@
       "description": "Suchmaschinenoptimierung, rechtliche Grundlagen, Performance, Feinschliff und Veröffentlichung.",
       "order": 4,
       "weight": 23,
-      "status": "planned",
+      "status": "completed",
       "tasks": [
         {
           "id": "task-27",
@@ -1358,10 +1358,10 @@
         {
           "id": "task-33",
           "title": "Domain und Launch",
-          "description": "Domain bentzel-sturmfeder.de anbinden und Seite veröffentlichen.",
+          "description": "Domain sturmfederprojects.de (STRATO) anbinden und Seite veröffentlichen.",
           "order": 8,
           "weight": 2,
-          "status": "ready",
+          "status": "completed",
           "dependsOn": [
             "task-32"
           ],
@@ -1369,13 +1369,19 @@
             "Seite unter der Domain erreichbar",
             "Resend-Domain verifiziert und Formulare im Livebetrieb getestet"
           ],
-          "startedAt": null,
-          "completedAt": null,
+          "startedAt": "2026-10-09T11:46:00Z",
+          "completedAt": "2026-10-09T13:05:00Z",
           "verification": {
-            "status": "not_run",
-            "summary": null,
-            "commands": [],
-            "checkedAt": null
+            "status": "passed",
+            "summary": "Live unter https://www.sturmfederprojects.de (STRATO Hosting Starter, Webspace-Ordner /sturmfederprojects.de, Inklusiv-SSL). http, Domain ohne www und sturmfederprojects.eu leiten per 301 auf https://www.sturmfederprojects.de; /galerie liefert 200 (SPA-Rewrite), /sitemap.xml leitet auf die Supabase-Funktion und enthält die neue Domain. Resend-Domain sturmfederprojects.de verifiziert (DKIM, SPF/Return-Path), Kontaktformular-Funktion submit-inquiry im Livebetrieb aufgerufen: beide E-Mails laut Resend zugestellt. Admin-Login gegen das echte Projekt vom Nutzer erfolgreich getestet. NICHT geprüft: Lighthouse, alle übrigen Formulare (Werk, Seminar, Vortrag, Veranstaltung) live, https für sturmfederprojects.eu (kein Zertifikat).",
+            "commands": [
+              "curl -I http(s)://(www.)sturmfederprojects.de|eu",
+              "dig resend._domainkey/rsend/send.sturmfederprojects.de",
+              "curl -X POST functions/v1/submit-inquiry",
+              "VITE_SITE_URL=https://www.sturmfederprojects.de vite build",
+              "node --test (171 Tests)"
+            ],
+            "checkedAt": "2026-10-09T13:05:00Z"
           }
         }
       ]

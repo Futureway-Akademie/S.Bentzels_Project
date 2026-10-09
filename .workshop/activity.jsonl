@@ -148,3 +148,7 @@
 {"timestamp":"2026-10-08T13:16:14Z","type":"task_completed","summary":"PDF-Werkblatt abgeschlossen.","taskId":"task-36"}
 {"timestamp":"2026-10-08T13:19:24Z","type":"verification_passed","summary":"Abschlussprüfung geprüft.","taskId":"task-32"}
 {"timestamp":"2026-10-08T13:19:24Z","type":"task_completed","summary":"Abschlussprüfung abgeschlossen.","taskId":"task-32"}
+{"timestamp":"2026-10-09T11:46:00Z","type":"task_started","summary":"Domain und Launch begonnen.","taskId":"task-33"}
+{"timestamp":"2026-10-09T13:05:00Z","type":"verification_passed","summary":"Domain und Launch geprüft.","taskId":"task-33"}
+{"timestamp":"2026-10-09T13:05:00Z","type":"task_completed","summary":"Domain und Launch abgeschlossen.","taskId":"task-33"}
+{"timestamp":"2026-10-09T13:05:00Z","type":"roadmap_updated","summary":"Phasenstatus aus den Tasks abgeleitet (Phase 2–4 abgeschlossen); task-33 auf Domain sturmfederprojects.de angepasst."}
