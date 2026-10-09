@@ -37,17 +37,17 @@ Alle Formulare der Website senden an die Edge Function `submit-inquiry`. Sie pr�
 
 **Schritt 1: Datenbank.** Im **SQL Editor** den Inhalt von `supabase/migrations/0006_inquiry_protection.sql` einspielen. Danach können Besucher Anfragen nicht mehr direkt in die Tabelle schreiben, sondern nur noch über die Funktion.
 
-**Schritt 2: Resend.** Ein Konto bei Resend anlegen und die Domain `bentzel-sturmfeder.de` verifizieren. Den API-Schlüssel tragen Sie nur als Secret ein (siehe Schritt 3), nie im Chat, im Code oder in einer Datei im Projekt.
+**Schritt 2: Resend.** Ein Konto bei Resend anlegen und die Domain `sturmfederprojects.de` verifizieren. Den API-Schlüssel tragen Sie nur als Secret ein (siehe Schritt 3), nie im Chat, im Code oder in einer Datei im Projekt.
 
 **Schritt 3: Secrets und Funktion** (im Projektordner, einmalig `supabase login` und `supabase link --project-ref <Projektkennung>`):
 
 ```bash
 supabase secrets set RESEND_API_KEY=… IP_SALT=<lange zufällige Zeichenfolge>
-supabase secrets set NOTIFY_TO=stephan.bentzel@viqua.de ALLOWED_ORIGIN=https://bentzel-sturmfeder.de
+supabase secrets set NOTIFY_TO=stephan.bentzel@viqua.de ALLOWED_ORIGIN=https://www.sturmfederprojects.de
 supabase functions deploy submit-inquiry --import-map supabase/functions/import_map.json --no-verify-jwt
 ```
 
-`NOTIFY_TO` (Standard `stephan.bentzel@viqua.de`), `MAIL_FROM` (Standard `Stephan Graf Bentzel-Sturmfeder <info@bentzel-sturmfeder.de>`), `SITE_NAME` und `CIRCLE_NAME` (Standard „Bentzel Club“, bis der Name des Kreises feststeht) sind optional. `--no-verify-jwt` ist nötig, damit Besucher ohne Anmeldung senden können. Der Spamschutz übernimmt die Funktion selbst.
+`NOTIFY_TO` (Standard `stephan.bentzel@viqua.de`), `MAIL_FROM` (Standard `Stephan Graf Bentzel-Sturmfeder <info@sturmfederprojects.de>`), `SITE_NAME` und `CIRCLE_NAME` (Standard „Bentzel Club“, bis der Name des Kreises feststeht) sind optional. `--no-verify-jwt` ist nötig, damit Besucher ohne Anmeldung senden können. Der Spamschutz übernimmt die Funktion selbst.
 
 **Schritt 4: Testen.** Auf der Website `/kontakt` eine Nachricht senden. Es erscheint die Bestätigung, in `inquiries` steht ein Eintrag und beide E-Mails kommen an. Bei einer Störung sieht der Besucher einen Hinweis mit E-Mail-Link, die Anfrage geht nicht verloren, sobald sie gespeichert ist.
 
@@ -59,7 +59,7 @@ Für Veranstaltungen mit der Art „Verbindliche Anmeldung“ (im Dashboard bei 
 2. Ein weiteres Secret setzen und die Funktion deployen:
 
 ```bash
-supabase secrets set TOKEN_SECRET=<lange zufällige Zeichenfolge> SITE_URL=https://bentzel-sturmfeder.de
+supabase secrets set TOKEN_SECRET=<lange zufällige Zeichenfolge> SITE_URL=https://www.sturmfederprojects.de
 supabase functions deploy register-event --import-map supabase/functions/import_map.json --no-verify-jwt
 ```
 

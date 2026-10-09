@@ -53,7 +53,7 @@ function setup(
     config: {
       notifyTo: 'stephan.bentzel@viqua.de',
       siteName: 'Stephan Graf Bentzel-Sturmfeder',
-      siteUrl: 'https://bentzel-sturmfeder.de/',
+      siteUrl: 'https://www.sturmfederprojects.de/',
       tokenSecret: 'geheim',
     },
     ...overrides,
@@ -93,7 +93,7 @@ test('Anmeldung: Datenbankfunktion mit Begleitung, Bestätigung mit .ics und Sto
   assert.equal(guest.subject, 'Ihre Anmeldung: Atelierabend')
   assert.equal(guest.text.includes('3 Personen (mit Begleitung)'), true)
   assert.equal(
-    guest.text.includes('https://bentzel-sturmfeder.de/abmelden?token='),
+    guest.text.includes('https://www.sturmfederprojects.de/abmelden?token='),
     true,
   )
   assert.equal(guest.attachments?.[0].filename, 'termin.ics')

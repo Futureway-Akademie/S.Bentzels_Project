@@ -86,7 +86,7 @@ export async function sendMail(mail: Mail): Promise<void> {
     body: JSON.stringify({
       from: env(
         'MAIL_FROM',
-        'Stephan Graf Bentzel-Sturmfeder <info@bentzel-sturmfeder.de>',
+        'Stephan Graf Bentzel-Sturmfeder <info@sturmfederprojects.de>',
       ),
       to: [mail.to],
       subject: mail.subject,

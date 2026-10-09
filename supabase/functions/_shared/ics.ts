@@ -49,7 +49,7 @@ export function buildIcs(input: IcsInput): string | null {
     'CALSCALE:GREGORIAN',
     'METHOD:PUBLISH',
     'BEGIN:VEVENT',
-    `UID:${input.uid}@bentzel-sturmfeder.de`,
+    `UID:${input.uid}@sturmfederprojects.de`,
     `DTSTAMP:${utc(input.now ?? new Date())}`,
     `DTSTART:${utc(start)}`,
     `DTEND:${utc(end)}`,

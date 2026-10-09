@@ -21,12 +21,15 @@ Deno.serve(async (request) => {
     console.error('Sitemap fehlgeschlagen', failed.message)
     return new Response('server', { status: 500 })
   }
-  const xml = buildSitemap(env('SITE_URL', 'https://bentzel-sturmfeder.de'), [
-    ...STATIC_PATHS.map((path) => ({ path })),
-    ...detailEntries('/galerie', artworks.data ?? []),
-    ...detailEntries('/journal', posts.data ?? []),
-    ...detailEntries('/veranstaltungen', events.data ?? []),
-  ])
+  const xml = buildSitemap(
+    env('SITE_URL', 'https://www.sturmfederprojects.de'),
+    [
+      ...STATIC_PATHS.map((path) => ({ path })),
+      ...detailEntries('/galerie', artworks.data ?? []),
+      ...detailEntries('/journal', posts.data ?? []),
+      ...detailEntries('/veranstaltungen', events.data ?? []),
+    ],
+  )
   return new Response(request.method === 'HEAD' ? null : xml, {
     headers: {
       'Content-Type': 'application/xml; charset=utf-8',

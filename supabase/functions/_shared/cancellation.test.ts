@@ -42,7 +42,7 @@ function setup(
     config: {
       notifyTo: 'stephan.bentzel@viqua.de',
       siteName: 'Stephan Graf Bentzel-Sturmfeder',
-      siteUrl: 'https://bentzel-sturmfeder.de',
+      siteUrl: 'https://www.sturmfederprojects.de',
       tokenSecret: 'geheim',
     },
     ...overrides,
@@ -111,7 +111,7 @@ test('Nachrücken: Wer nachrückt, erhält Bestätigung mit .ics und neuem Storn
   assert.equal(promotions[0].text.includes('2 Personen (mit Begleitung)'), true)
   assert.equal(
     promotions[0].text.includes(
-      'https://bentzel-sturmfeder.de/abmelden?token=',
+      'https://www.sturmfederprojects.de/abmelden?token=',
     ),
     true,
   )

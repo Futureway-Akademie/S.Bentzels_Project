@@ -14,7 +14,7 @@ import {
 } from './seoLd.ts'
 
 const site: Site = {
-  url: 'https://bentzel-sturmfeder.de',
+  url: 'https://www.sturmfederprojects.de',
   name: 'Stephan Graf Bentzel-Sturmfeder',
   organization: 'Sturmfeder Projects',
   email: 'stephan.bentzel@viqua.de',
@@ -50,15 +50,15 @@ test('Leere Werte entfallen', () => {
 test('Organisation, Person und Website verweisen aufeinander', () => {
   const org = organizationLd(site)
   assert.equal(org['@type'], 'Organization')
-  assert.equal(org['@id'], 'https://bentzel-sturmfeder.de/#organization')
+  assert.equal(org['@id'], 'https://www.sturmfederprojects.de/#organization')
   assert.deepEqual(org.founder, {
-    '@id': 'https://bentzel-sturmfeder.de/#person',
+    '@id': 'https://www.sturmfederprojects.de/#person',
   })
   const person = personLd(site, 'Künstler')
   assert.equal(person['@type'], 'Person')
   assert.equal(person.jobTitle, 'Künstler')
   assert.deepEqual(person.worksFor, {
-    '@id': 'https://bentzel-sturmfeder.de/#organization',
+    '@id': 'https://www.sturmfederprojects.de/#organization',
   })
   assert.equal(websiteLd(site)['@type'], 'WebSite')
 })
@@ -76,7 +76,7 @@ test('Werk: Maße, Technik, Jahr, Preis und Verfügbarkeit nur wenn vorhanden', 
   })
   assert.equal(
     full.image,
-    'https://bentzel-sturmfeder.de/platzhalter/4800x2000.svg',
+    'https://www.sturmfederprojects.de/platzhalter/4800x2000.svg',
   )
   const offers = full.offers as Record<string, unknown>
   assert.equal(offers.price, 6230)

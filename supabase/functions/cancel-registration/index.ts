@@ -94,7 +94,7 @@ Deno.serve(async (request) => {
     config: {
       notifyTo: env('NOTIFY_TO', 'stephan.bentzel@viqua.de'),
       siteName: env('SITE_NAME', 'Stephan Graf Bentzel-Sturmfeder'),
-      siteUrl: env('SITE_URL', 'https://bentzel-sturmfeder.de'),
+      siteUrl: env('SITE_URL', 'https://www.sturmfederprojects.de'),
       tokenSecret: env('TOKEN_SECRET', 'ohne-geheimnis'),
     },
     log: (message, detail) => console.error(message, detail),

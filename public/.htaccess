@@ -1,0 +1,48 @@
+# Apache-Konfiguration für den Webspace (STRATO). Wird beim Bauen nach dist/ kopiert.
+# Die Website ist eine Single-Page-App: alle Adressen, die keine echte Datei sind, laden index.html.
+
+Options -Indexes
+DirectoryIndex index.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Erst nach aktiviertem SSL-Zertifikat die beiden folgenden Blöcke einschalten (Kommentarzeichen entfernen):
+  # Alles auf https erzwingen.
+  # RewriteCond %{HTTPS} !=on
+  # RewriteRule ^ https://www.sturmfederprojects.de%{REQUEST_URI} [L,R=301]
+  # Hauptdomain ohne www auf www umleiten.
+  # RewriteCond %{HTTP_HOST} ^sturmfederprojects\.de$ [NC]
+  # RewriteRule ^ https://www.sturmfederprojects.de%{REQUEST_URI} [L,R=301]
+
+  # Die Sitemap erzeugt die Supabase-Funktion "sitemap".
+  RewriteRule ^sitemap\.xml$ https://dpsxfbkuvbrlqxsjfezl.supabase.co/functions/v1/sitemap [L,R=302]
+
+  # Echte Dateien und Ordner direkt ausliefern, alles andere an die App.
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ /index.html [L]
+</IfModule>
+
+# Versteckte Dateien nie ausliefern.
+<FilesMatch "^\.(?!well-known)">
+  Require all denied
+</FilesMatch>
+
+# Zwischenspeicher: Dateien mit Hash im Namen dürfen lange gespeichert werden, index.html nie.
+<IfModule mod_headers.c>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+  <If "%{REQUEST_URI} =~ m#^/assets/#">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </If>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml
+</IfModule>
+
+ErrorDocument 404 /index.html
