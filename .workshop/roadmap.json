@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "roadmapVersion": 4,
-  "status": "completed",
+  "roadmapVersion": 5,
+  "status": "active",
   "phases": [
     {
       "id": "phase-1",
@@ -1382,6 +1382,173 @@
               "node --test (171 Tests)"
             ],
             "checkedAt": "2026-10-09T13:05:00Z"
+          }
+        }
+      ]
+    },
+    {
+      "id": "phase-5",
+      "title": "Inhalte, Prüfung und Betrieb",
+      "description": "Nach dem Launch: echte Inhalte, Live-Tests, Qualitätsmessung, rechtliche Prüfung und Aufräumen des Betriebs.",
+      "order": 5,
+      "weight": 17,
+      "status": "ready",
+      "tasks": [
+        {
+          "id": "task-43",
+          "title": "Echte Inhalte statt Beispieldaten",
+          "description": "Beispieldaten aus seed.sql (Werke, Vita, Journal, Veranstaltungen, Presse, interessante Artikel) im Dashboard durch echte Inhalte des Künstlers ersetzen oder löschen.",
+          "order": 1,
+          "weight": 5,
+          "status": "ready",
+          "dependsOn": [],
+          "definitionOfDone": [
+            "Keine Einträge mit „Beispiel:“, Platzhalterbildern oder example.com-Links mehr in der Live-Datenbank",
+            "Alle Galeriewerke mit echtem Bild",
+            "Inhalte auf https://www.sturmfederprojects.de sichtbar und geprüft"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
+          }
+        },
+        {
+          "id": "task-44",
+          "title": "Feste Bilder und Texte im Code ersetzen",
+          "description": "Die im Code hinterlegten Platzhalter (Startseite, Künstlerseite, The Art of Becoming, siehe docs/placeholders.md) durch echte Bilder und Texte ersetzen und neu veröffentlichen.",
+          "order": 2,
+          "weight": 3,
+          "status": "ready",
+          "dependsOn": [],
+          "definitionOfDone": [
+            "docs/placeholders.md enthält keine offenen Code-Platzhalter mehr",
+            "Build, Tests und Lint grün",
+            "Neue Version im STRATO-Webspace veröffentlicht"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
+          }
+        },
+        {
+          "id": "task-45",
+          "title": "Name des Netzwerk-Kreises",
+          "description": "Endgültigen Namen des exklusiven Kreises (Arbeitstitel „Bentzel Club“) festlegen und in de.json, Route und Secret CIRCLE_NAME umsetzen.",
+          "order": 3,
+          "weight": 1,
+          "status": "ready",
+          "dependsOn": [],
+          "definitionOfDone": [
+            "Name vom Nutzer festgelegt",
+            "Anzeigetexte, URL-Pfad und E-Mails verwenden den neuen Namen",
+            "Alte Adresse leitet weiter oder ist bewusst entfernt"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
+          }
+        },
+        {
+          "id": "task-46",
+          "title": "Live-Test aller Formulare und des Dashboards",
+          "description": "Werk-, Seminar-, Vortrags- und Veranstaltungsanfrage, Anmeldung mit Kapazität, Stornierung und Nachrücken sowie die Dashboard-Module gegen das echte Supabase-Projekt testen; Testdaten danach entfernen.",
+          "order": 4,
+          "weight": 3,
+          "status": "ready",
+          "dependsOn": [],
+          "definitionOfDone": [
+            "Jedes Formular live abgeschickt, beide E-Mails laut Resend zugestellt",
+            "Anmeldung, Warteliste, Stornierung und Nachrücken live geprüft",
+            "Dashboard-Module (Werke, Journal, Vita, Veranstaltungen, Presse, Eingänge) gegen das echte Projekt geprüft",
+            "Testanfragen und Testdaten entfernt oder archiviert"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
+          }
+        },
+        {
+          "id": "task-47",
+          "title": "Lighthouse-Messung und Optimierung",
+          "description": "Lighthouse für Startseite, Galerie, Werkdetail und Veranstaltungen auf der Live-Seite messen und Schwachstellen beheben.",
+          "order": 5,
+          "weight": 2,
+          "status": "planned",
+          "dependsOn": [
+            "task-43",
+            "task-44"
+          ],
+          "definitionOfDone": [
+            "Lighthouse-Werte für Performance, Barrierefreiheit, Best Practices und SEO je Seite dokumentiert",
+            "Zielwert über 90 erreicht oder Abweichung begründet"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
+          }
+        },
+        {
+          "id": "task-48",
+          "title": "Rechtliche und fachliche Prüfung",
+          "description": "Impressum und Datenschutzerklärung rechtlich prüfen lassen, Rechte an gescannten Fremdartikeln klären, Ein-Satz-Erklärungen zum wissenschaftlichen Fundament (The Art of Becoming) fachlich prüfen.",
+          "order": 6,
+          "weight": 2,
+          "status": "ready",
+          "dependsOn": [],
+          "definitionOfDone": [
+            "Geprüfte Rechtstexte im Dashboard hinterlegt",
+            "Fremdartikel nur mit geklärten Rechten veröffentlicht",
+            "Fachliche Texte freigegeben"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
+          }
+        },
+        {
+          "id": "task-49",
+          "title": "Hosting und Betrieb aufräumen",
+          "description": "site.zip aus dem STRATO-Webspace entfernen, über SSL für sturmfederprojects.eu entscheiden, STRATO-Mailsperre klären und den Deploy-Ablauf als Skript dokumentieren.",
+          "order": 7,
+          "weight": 1,
+          "status": "ready",
+          "dependsOn": [],
+          "definitionOfDone": [
+            "Keine öffentlich abrufbare site.zip mehr",
+            "Entscheidung zu SSL für .eu umgesetzt oder dokumentiert",
+            "Deploy-Ablauf in docs beschrieben und einmal durchgeführt"
+          ],
+          "startedAt": null,
+          "completedAt": null,
+          "verification": {
+            "status": "not_run",
+            "summary": null,
+            "commands": [],
+            "checkedAt": null
           }
         }
       ]

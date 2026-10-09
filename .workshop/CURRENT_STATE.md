@@ -2,11 +2,11 @@
 
 ## Projekt
 
-Website Stephan Graf Bentzel-Sturmfeder (Roadmap Version 4, 4 Phasen, 42 Tasks, Gesamtgewicht 135).
+Website Stephan Graf Bentzel-Sturmfeder (Roadmap Version 5, 5 Phasen, 49 Tasks, Gesamtgewicht 152).
 
 ## Aktive Phase
 
-Keine. Alle vier Phasen sind abgeschlossen, die Roadmap ist vollständig umgesetzt.
+Phase 5: Inhalte, Prüfung und Betrieb (Phasen 1 bis 4 abgeschlossen, Website live).
 
 ## Aktive Aufgabe
 
@@ -14,11 +14,17 @@ Keine.
 
 ## Zuletzt abgeschlossen
 
-task-33: Domain und Launch (2026-10-09). Die Website ist live unter https://www.sturmfederprojects.de (STRATO Hosting Starter, Webspace-Ordner `/sturmfederprojects.de`, Inklusiv-SSL, `.htaccess` erzwingt https und www). sturmfederprojects.eu leitet per 301 dorthin. Resend-Domain verifiziert, Livetest des Kontaktformulars mit Zustellung beider E-Mails. Fortschritt 100 % (42 von 42 Tasks).
+task-33: Domain und Launch (2026-10-09). Die Website ist live unter https://www.sturmfederprojects.de (STRATO Hosting Starter, Webspace-Ordner `/sturmfederprojects.de`, Inklusiv-SSL, `.htaccess` erzwingt https und www). sturmfederprojects.eu leitet per 301 dorthin. Resend-Domain verifiziert, Livetest des Kontaktformulars mit Zustellung beider E-Mails. Fortschritt nach Erweiterung der Roadmap 88.82 % (42 von 49 Tasks).
 
 ## Bereite nächste Aufgaben
 
-Keine. Weitere Arbeit (echte Inhalte, Lighthouse, Rechtsprüfung) braucht neue Tasks nach Rücksprache.
+- task-43: Echte Inhalte statt Beispieldaten
+- task-44: Feste Bilder und Texte im Code ersetzen
+- task-45: Name des Netzwerk-Kreises
+- task-46: Live-Test aller Formulare und des Dashboards
+- task-48: Rechtliche und fachliche Prüfung
+- task-49: Hosting und Betrieb aufräumen
+- Geplant: task-47 Lighthouse-Messung und Optimierung (nach task-43 und task-44)
 
 ## Blockiert
 
@@ -54,4 +60,4 @@ Nichts.
 
 ## Empfohlener nächster Schritt
 
-Beispieldaten im Dashboard durch echte Inhalte ersetzen, Rechtstexte prüfen lassen, Lighthouse messen und die übrigen Formulare live testen. Dafür nach Rücksprache neue Tasks in der Roadmap anlegen.
+task-46 (Live-Test aller Formulare) ist ohne Zuarbeit des Nutzers möglich. task-43, task-44, task-45 und task-48 brauchen Inhalte oder Entscheidungen des Nutzers.

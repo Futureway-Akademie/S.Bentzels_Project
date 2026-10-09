@@ -153,3 +153,4 @@
 {"timestamp":"2026-10-09T13:05:00Z","type":"task_completed","summary":"Domain und Launch abgeschlossen.","taskId":"task-33"}
 {"timestamp":"2026-10-09T13:05:00Z","type":"roadmap_updated","summary":"Phasenstatus aus den Tasks abgeleitet (Phase 2–4 abgeschlossen); task-33 auf Domain sturmfederprojects.de angepasst."}
 {"timestamp":"2026-10-09T13:30:00Z","type":"roadmap_updated","summary":"Formatkorrektur für das Dashboard: 17 zu lange Prüfberichte gekürzt (Volltext in docs/verification-details.md), fehlendes startedAt bei 8 abgeschlossenen Tasks aus dem Aktivitätsprotokoll ergänzt. Keine Statusänderung."}
+{"timestamp":"2026-10-09T13:45:00Z","type":"roadmap_updated","summary":"Roadmap Version 5: neue Phase 5 „Inhalte, Prüfung und Betrieb“ mit task-43 bis task-49 (echte Inhalte, Code-Platzhalter, Name des Kreises, Live-Tests, Lighthouse, rechtliche Prüfung, Hosting aufräumen)."}
